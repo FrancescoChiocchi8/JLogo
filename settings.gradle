@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'JLogo'
-include('app', 'list', 'utilities')
+include('api', 'cli')
