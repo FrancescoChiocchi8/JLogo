@@ -4,8 +4,20 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.app;
 
 
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
+
+import java.util.Scanner;
+
 public class App {
     public static void main(String[] args) {
+        System.out.println("Inserisci il nome del file: ");
+        Scanner input = new Scanner(System.in);
+        /*TODO operazioni che mi consentono di leggere il file con le relative istruzioni e
+         * poi genera un file diLogo di output.
+         */
+        //String fileNameInput = input.nextLine();
+        Panel p = new SimplePanel(500,600);
 
     }
 }
