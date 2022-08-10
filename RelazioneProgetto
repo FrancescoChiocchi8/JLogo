@@ -1,6 +1,6 @@
 Responsabilità:
 
-1. SimplePanel: tenere traccia delle dimensioni del Pannello.
+1. SimplePanel: tenere traccia delle linee/aree contenute nel piano.
 
 2. SimpleCursor: tenere traccia della posizione attuale del Cursore.
 

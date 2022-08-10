@@ -1,24 +1,35 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
+import java.util.Objects;
+
 /**
- * This class is an implementation of the interface {@link Panel} and represent
- * a simple panel.
+ * This class is an implementation of the interface {@link Panel} and represent a simple panel.
+ * The responsibility of this class is to hold all information contained in the panel, such as
+ * the width, height, current position of the cursor, color of the screen and list of linee/aree.
+ *
  * @author Francesco Chiocchi
  */
-public class SimplePanel implements Panel{
+public class SimplePanel implements Panel {
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
+    private Color screenColor;
+    private Position home;
+    private Cursor cursor;
 
     /**
-     * Create a SimplePanel with the specific dimensions.
-     * @param width the base of the panel
+     * Create a SimplePanel with the specific dimensions, initialize the color of
+     * the screen to white (255, 255, 255) and put the cursor in the home.
+     *
+     * @param width  the base of the panel
      * @param height the height of the panel
      */
     public SimplePanel(int width, int height){
         checkCorrectPanelDimension(width, height);
         this.width = width;
         this.height = height;
+        home = setHome(width / 2, height / 2);
+        this.screenColor = new RGBColor(255,255,255);
     }
 
     @Override
@@ -31,14 +42,38 @@ public class SimplePanel implements Panel{
         return height;
     }
 
-    @Override
-    public void setWidth(int width) {
-        this.width = width;
+    public Cursor getCursor() {
+        return cursor;
     }
 
     @Override
-    public void setHeight(int height) {
-        this.height = height;
+    public Color getScreenColor() {
+        return screenColor;
     }
+
+    @Override
+    public void setScreenColor(Color screenColor) {
+        this.screenColor = screenColor;
+    }
+
+    /**
+     * This private method is used to set the home for this panel and to initialize
+     * the position for the cursor.
+     *
+     * @param width calculated for the x-coordinate of the home
+     * @param height calculated for the y-coordinate of the home
+     * @return the home
+     */
+    private Position setHome(int width, int height) {
+        home = new Point(width, height);
+        cursor.setPosition(home);
+        return home;
+    }
+
+    @Override
+    public Position getHome() {
+        return home;
+    }
+
 
 }

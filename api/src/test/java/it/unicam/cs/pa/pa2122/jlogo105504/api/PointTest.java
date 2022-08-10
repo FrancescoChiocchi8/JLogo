@@ -1,9 +1,6 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api;
 
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Point;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Position;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,6 +14,13 @@ public class PointTest {
 
     Panel panel = new SimplePanel(400, 600);
     Panel panel2 = new SimplePanel(300, 500);
+
+    @Test
+    void checkIfPointAreEquals(){
+        Position p = new Point(300.5, 300.8, panel);
+        assertTrue(p.equals(new Point(300.5,300.8,panel)));
+        assertFalse(p.equals(new Point(300.5,300.8,panel2)));
+    }
 
     @Test
     void checkAllPossiblePositionPointInThePanel(){
@@ -34,5 +38,11 @@ public class PointTest {
         Position p4 = new Point(500, 800, panel);
         assertTrue(p4.getX() == 400);
         assertTrue (p4.getY() == 600);
+    }
+
+    @Test
+    void check(){
+        Panel panel = new SimplePanel(300, 400);
+        assertTrue(panel.getScreenColor().equals(new RGBColor(255,255,255)));
     }
 }
