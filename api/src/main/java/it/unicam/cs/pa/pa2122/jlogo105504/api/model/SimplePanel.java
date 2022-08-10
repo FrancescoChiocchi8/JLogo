@@ -1,6 +1,7 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is an implementation of the interface {@link Panel} and represent a simple panel.
@@ -15,11 +16,13 @@ public class SimplePanel implements Panel {
     private final int height;
     private Color screenColor;
     private Position home;
-    private Cursor cursor;
+    private final Cursor cursor;
+    private List<Line> lines;
 
     /**
      * Create a SimplePanel with the specific dimensions, initialize the color of
-     * the screen to white (255, 255, 255) and put the cursor in the home.
+     * the screen to white (255, 255, 255), initialize the list of the lines in the panel
+     * and put the cursor in the home.
      *
      * @param width  the base of the panel
      * @param height the height of the panel
@@ -28,8 +31,10 @@ public class SimplePanel implements Panel {
         checkCorrectPanelDimension(width, height);
         this.width = width;
         this.height = height;
+        cursor = new SimpleCursor();
         home = setHome(width / 2, height / 2);
         this.screenColor = new RGBColor(255,255,255);
+        lines = new ArrayList<>();
     }
 
     @Override
@@ -42,6 +47,7 @@ public class SimplePanel implements Panel {
         return height;
     }
 
+    @Override
     public Cursor getCursor() {
         return cursor;
     }
@@ -75,5 +81,9 @@ public class SimplePanel implements Panel {
         return home;
     }
 
+    @Override
+    public List<Line> getLines() {
+        return lines;
+    }
 
 }

@@ -1,5 +1,7 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
+import java.util.List;
+
 /**
  * This interface is used to represent a generic panel.
  *
@@ -24,6 +26,13 @@ public interface Panel<C> {
     int getHeight();
 
     /**
+     * Get the cursor in the panel.
+     *
+     * @return the cursor in the panel
+     */
+    Cursor getCursor();
+
+    /**
      * This method is used to get the current color of the screen.
      *
      * @return the current color of the screen
@@ -43,6 +52,13 @@ public interface Panel<C> {
      * @return the position home for this panel
      */
     Position getHome();
+
+    /**
+     * Get of the lines for this panel.
+     *
+     * @return all elements in the list that represent the list of lines which are contains in the panel.
+     */
+    List<Line> getLines();
 
     /**
      * This default method is used to check if the dimension of panel are valid.

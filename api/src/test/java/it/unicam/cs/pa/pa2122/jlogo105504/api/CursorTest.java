@@ -1,20 +1,31 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api;
 
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Point;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimpleCursor;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
+ * This class is used to test the implementation of the class {@link SimpleCursor}.
+ *
  * @author Francesco Chiocchi
  */
 public class CursorTest {
 
+    Panel panel = new SimplePanel(700, 250);
+
     @Test
-    void c(){
-        Panel panel = new SimplePanel(400, 400);
-        assertTrue(panel.equals(panel));
+    void checkIfCursorIsInTheHome(){
+        assertTrue(panel.getCursor().getPosition().equals(new Point(350,125)));
+    }
+
+    @Test
+    void checkDirectionOfTheCursor(){
+        assertThrows(IllegalArgumentException.class, () -> panel.getCursor().setDirection(-5));
+        assertDoesNotThrow(() -> panel.getCursor().setDirection(70));
     }
 
 }
