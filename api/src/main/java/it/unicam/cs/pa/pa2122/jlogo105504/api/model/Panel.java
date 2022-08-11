@@ -58,7 +58,7 @@ public interface Panel<C> {
      *
      * @return all elements in the list that represent the list of lines which are contains in the panel.
      */
-    List<Line> getLines();
+    List<Shape> getLines();
 
     /**
      * This default method is used to check if the dimension of panel are valid.

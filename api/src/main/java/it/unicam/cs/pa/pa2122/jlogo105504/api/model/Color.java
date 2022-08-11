@@ -36,7 +36,7 @@ public interface Color {
      * @param blue to be checked
      * @return true if the all param of the color are a byte, Exception be thrown otherwise
      */
-    default boolean checkIfIsAByte(int red, int green, int blue) {
+    default boolean checkIfIsAColor(int red, int green, int blue) {
         if(red >= 0 && red <= 255 && green >= 0 && green <= 255 && blue >= 0 && blue <= 255)
             return true;
         else

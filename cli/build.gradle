@@ -12,5 +12,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'it.unicam.cs.pa.pa2122.jlogo105504.app.App'
+    mainClass = 'it.unicam.cs.pa.pa2122.jlogo105504.app.Logo'
 }

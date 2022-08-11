@@ -12,7 +12,7 @@ public class RGBColor implements Color{
     private int blue;
 
     public RGBColor(int red, int green, int blue) {
-        checkIfIsAByte(red, green, blue);
+        checkIfIsAColor(red, green, blue);
         this.red = red;
         this.green = green;
         this.blue = blue;
@@ -34,7 +34,7 @@ public class RGBColor implements Color{
     }
 
     /**
-     * A color is equals to other if and only if it has all param identical.
+     * A color is equals to other if and only if it has all identical param.
      *
      * @param o the other object to be compared
      * @return true if the color is equals to other, false otherwise

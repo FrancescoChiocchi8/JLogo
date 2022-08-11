@@ -1,51 +1,61 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
 /**
- * This interface represents a generic line.
+ * This class is an implementation of the interface {@link Shape}.
  *
  * @author Francesco Chiocchi
  */
-public interface Line {
+public class Line implements Shape {
+
+    private final Position start;
+    private final Position end;
+    private final Color color;
+    private final int size;
+
+    /**
+     * Create a line with the position specified and initialize the color of the line to black(0, 0, 0).
+     *
+     * @param start of the line
+     * @param end of the line
+     */
+    public Line(Position start, Position end, Color color, int size) {
+        this.start = start;
+        this.end = end;
+        this.color = color;
+        checkSizeShape(size);
+        this.size = size;
+    }
 
     /**
      * Get the line's start position.
      *
      * @return the line's start position.
      */
-    Position getStart();
+    public Position getStart() {
+        return start;
+    }
 
     /**
-     * Get the line's end position.
+     * Get the shape's end position.
      *
-     * @return the line's end position.
+     * @return the shape's end position.
      */
-    Position getEnd();
-
-    /**
-     * Get the color of the line.
-     *
-     * @return the color of the line
-     */
-    Color getLineColor();
+    public Position getEnd() {
+        return end;
+    }
 
     /**
      * Get the size of the line.
      *
      * @return the size of the line
      */
-    int getSize();
-
-    /**
-     * This default method is used to check the size of a line when a new line will
-     * be updated.
-     *
-     * @param size of the line to be checked
-     * @return true if the line is greater than 0, false otherwise.
-     */
-    default boolean checkSizeLine(int size) {
-        if(size >= 0)
-            return true;
-        else
-            throw new IllegalArgumentException("Incorrect dimensions for the size of the line!");
+    public int getSize() {
+        return size;
     }
+
+    @Override
+    public Color getColor() {
+        return color;
+    }
+
 }

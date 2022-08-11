@@ -17,7 +17,7 @@ public class SimplePanel implements Panel {
     private Color screenColor;
     private Position home;
     private final Cursor cursor;
-    private List<Line> lines;
+    private List<Shape> lines;
 
     /**
      * Create a SimplePanel with the specific dimensions, initialize the color of
@@ -82,7 +82,7 @@ public class SimplePanel implements Panel {
     }
 
     @Override
-    public List<Line> getLines() {
+    public List<Shape> getLines() {
         return lines;
     }
 
