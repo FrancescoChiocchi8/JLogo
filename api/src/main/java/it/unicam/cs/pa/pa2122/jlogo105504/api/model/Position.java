@@ -21,25 +21,4 @@ public interface Position {
      */
     double getY();
 
-    /**
-     * Set the x-coordinate.
-     *
-     * @param x the x-coordinate
-     */
-    void setX(double x);
-
-    /**
-     * Set the y-coordinate.
-     *
-     * @param y the y-coordinate
-     */
-    void setY(double y);
-
-    /**
-     * Get the panel where a point exists.
-     *
-     * @return the panel where point exists
-     */
-    Panel getPanel();
-
 }

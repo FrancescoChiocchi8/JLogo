@@ -7,33 +7,50 @@ import java.util.List;
  *
  * @author Francesco Chiocchi
  */
-public interface Shape {
+public abstract class Shape {
+
+    /**
+     * Default constructor.
+     */
+    public Shape(){ }
 
     /**
      * Get the color of the shape.
      *
      * @return the color of the shape
      */
-    Color getColor();
+    public abstract Color getColor();
 
     /**
-     * This default method is used to check the size of a shape when a new shape will
-     * be updated.
+     * Get the list of the shape that make the closed area.
      *
-     * @param size of the shape to be checked
-     * @return true if the size of the shape is greater than 0, false otherwise.
+     * @return the list of the shape that make the closed area
+     * @throws UnsupportedOperationException if it is not a complex shape.
      */
-    default boolean checkSizeShape(int size) {
-        if(size >= 0)
-            return true;
-        else
-            throw new IllegalArgumentException("Incorrect dimensions for the size of the line!");
-    }
+    public abstract List<Shape> getListOfShape();
 
-    default boolean checkElementsInTheList(List<Shape> shapes) {
-        if(!shapes.isEmpty())
-            return true;
-        else
-            throw new IllegalArgumentException("Error! The list is empty.");
-    }
+    /**
+     * Get shape's start position if it is a basic shape such as Line, Edge, Curves...
+     *
+     * @return the shape's start position
+     * @throws UnsupportedOperationException if it is a complex shape
+     */
+    public abstract Position getStart();
+
+    /**
+     * Get shape's end position if it is a basic shape such as Line, Edge, Curves...
+     *
+     * @return the shape's end position
+     * @throws UnsupportedOperationException if it is a complex shape
+     */
+    public abstract Position getEnd();
+
+    /**
+     * Get shape's size if it is a basic shape such as Line, Edge, Curves...
+     *
+     * @return the shape's size
+     * @throws UnsupportedOperationException if it is a complex shape
+     */
+    public abstract int getSize();
+
 }

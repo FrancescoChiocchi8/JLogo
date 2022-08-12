@@ -26,6 +26,8 @@ public class CursorTest {
     void checkDirectionOfTheCursor(){
         assertThrows(IllegalArgumentException.class, () -> panel.getCursor().setDirection(-5));
         assertDoesNotThrow(() -> panel.getCursor().setDirection(70));
+        assertDoesNotThrow(() -> panel.getCursor().setDirection(0));
+        assertDoesNotThrow(() -> panel.getCursor().setDirection(360));
     }
 
 }

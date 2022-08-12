@@ -14,23 +14,27 @@ public class Logo {
     public static void main(String[] args) {
         File input = null;
         File output = null;
+        new Logo().getAll();
+    }
 
-        new Logo().askForInputFile(new Scanner(System.in));
-        //new Logo().askForOutputFile(new Scanner(System.in));
+    private void getAll(){
+        new Logo().getInputFile(new Scanner(System.in));
+        new Logo().getOutputFile(new Scanner(System.in));
+        new Logo().getWidthPanel(new Scanner(System.in));
     }
 
     /**
-     * This private method is used to ask the input file to user.
+     * This private method is used to get the input file from the user.
      *
      * @param scanner the scanner
      * @return the file take in input from the user
      */
-    private File askForInputFile(Scanner scanner){
+    private File getInputFile(Scanner scanner){
         File file = null;
         while (file == null) {
-            System.out.println("Insert input file:");
+            System.out.println("Insert Input File:");
             File inputFile = new File(scanner.nextLine());
-            if (!inputFile.isFile() || !inputFile.exists()) {
+            if (!inputFile.isFile() || !inputFile.exists() || !inputFile.canRead()) {
                 System.out.println("Error!! File not found, try again.");
                 continue;
             }
@@ -39,7 +43,26 @@ public class Logo {
         return file;
     }
 
-    private File askForOutputFile(Scanner scanner) {
-        return null;
+    /**
+     * This private method is used to get the output file from the user.
+     *
+     * @param scanner the scanner
+     * @return the file
+     */
+    private File getOutputFile(Scanner scanner) {
+        File file = null;
+        while (file == null) {
+            System.out.println("Insert Output File:");
+            String outputFile = scanner.nextLine();
+            File output = new File(outputFile);
+            if (!output.exists())
+                file = output;
+            else System.out.println("Error!! File already exists, try again.");
+        }
+        return file;
+    }
+
+
+    private void getWidthPanel(Scanner scanner) {
     }
 }

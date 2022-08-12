@@ -1,11 +1,14 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
+import java.util.List;
+import java.util.Objects;
+
 /**
  * This class is an implementation of the interface {@link Shape}.
  *
  * @author Francesco Chiocchi
  */
-public class Line implements Shape {
+public class Line extends Shape {
 
     private final Position start;
     private final Position end;
@@ -26,20 +29,12 @@ public class Line implements Shape {
         this.size = size;
     }
 
-    /**
-     * Get the line's start position.
-     *
-     * @return the line's start position.
-     */
+    @Override
     public Position getStart() {
         return start;
     }
 
-    /**
-     * Get the shape's end position.
-     *
-     * @return the shape's end position.
-     */
+    @Override
     public Position getEnd() {
         return end;
     }
@@ -58,4 +53,44 @@ public class Line implements Shape {
         return color;
     }
 
+    @Override
+    public List<Shape> getListOfShape() {
+        throw new UnsupportedOperationException("This method is used only for a Polygon!");
+    }
+
+    /**
+     * This private method is used to check the size of a shape when a new shape will
+     * be updated.
+     *
+     * @param size of the shape to be checked
+     * @return true if the size of the shape is greater than 0, false otherwise.
+     */
+    private boolean checkSizeShape(int size) {
+        if(size >= 0)
+            return true;
+        else
+            throw new IllegalArgumentException("Incorrect dimensions for the size of the line!");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Line line = (Line) o;
+
+        if (size != line.size) return false;
+        if (!Objects.equals(start, line.start)) return false;
+        if (!Objects.equals(end, line.end)) return false;
+        return Objects.equals(color, line.color);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = start != null ? start.hashCode() : 0;
+        result = 31 * result + (end != null ? end.hashCode() : 0);
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        result = 31 * result + size;
+        return result;
+    }
 }
