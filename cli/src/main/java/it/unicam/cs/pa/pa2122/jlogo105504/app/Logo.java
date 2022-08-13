@@ -3,6 +3,9 @@
  */
 package it.unicam.cs.pa.pa2122.jlogo105504.app;
 
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
+
 import java.io.File;
 import java.util.Scanner;
 
@@ -12,15 +15,36 @@ import java.util.Scanner;
 public class Logo {
 
     public static void main(String[] args) {
-        File input = null;
-        File output = null;
         new Logo().getAll();
     }
 
+    /**
+     * This provate method is used to get all information from the user.
+     */
     private void getAll(){
-        new Logo().getInputFile(new Scanner(System.in));
-        new Logo().getOutputFile(new Scanner(System.in));
-        new Logo().getWidthPanel(new Scanner(System.in));
+        File input = new Logo().getInputFile(new Scanner(System.in));
+        File output = new Logo().getOutputFile(new Scanner(System.in));
+        Integer width = new Logo().getWidthPanel(new Scanner(System.in));
+        Integer height = new Logo().getHeightPanel(new Scanner(System.in));
+        new Logo().run(input, output, width, height);
+    }
+
+    /**
+     * This private method is the core of application; after take in input all parameters,
+     * must read the
+     *
+     * @param input the file to read
+     * @param output the file to write
+     * @param width for the panel
+     * @param height for the panel
+     */
+    private void run(File input, File output, Integer width, Integer height) {
+        //costruisco un nuovo panel con le dimensioni specificate dall'utente
+        Panel panel = new SimplePanel(width, height);
+        //leggo tutto il file di input e faccio il parse
+        //input.read();
+        //chiamo metodo per scrivere sul file di output
+        //output.write();
     }
 
     /**
@@ -63,6 +87,27 @@ public class Logo {
     }
 
 
-    private void getWidthPanel(Scanner scanner) {
+    private Integer getWidthPanel(Scanner scanner) {
+        Integer width = null;
+        while (width == null) {
+            System.out.println("Insert Panel Width");
+            Integer panelWidth = scanner.nextInt();
+            if(panelWidth > 0)
+                width = panelWidth;
+            else System.out.println("Error!! The panel's width must be grater than 0, try again.");
+        }
+        return width;
+    }
+
+    private Integer getHeightPanel(Scanner scanner) {
+        Integer height = null;
+        while (height == null) {
+            System.out.println("Insert Panel Height");
+            Integer panelHeight = scanner.nextInt();
+            if(panelHeight > 0)
+                height = panelHeight;
+            else System.out.println("Error!! The panel's height must be grater than 0, try again.");
+        }
+        return height;
     }
 }
