@@ -4,4 +4,13 @@
 
 plugins {
     id 'java-library'
+    id 'antlr'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.antlr:antlr4:4.10.1'
 }
