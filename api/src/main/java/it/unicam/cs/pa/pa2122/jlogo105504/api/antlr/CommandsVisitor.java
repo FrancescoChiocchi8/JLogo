@@ -1,6 +1,6 @@
 // Generated from C:/Users/fchio/JLogo/api/src/main/antlr4\Commands.g4 by ANTLR 4.10.1
 
-package it.unicam.cs.pa.pa2122.jlogo105504.api.gen;
+package it.unicam.cs.pa.pa2122.jlogo105504.api.antlr;
 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 

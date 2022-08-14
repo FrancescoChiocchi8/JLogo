@@ -3,12 +3,18 @@
  */
 package it.unicam.cs.pa.pa2122.jlogo105504.app;
 
-import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramWriter;
+import antlr.ParseTree;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsBaseListener;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsLexer;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsParser;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramReader;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.LogoParser;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.Parser;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.LogoBaseListener;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -46,11 +52,24 @@ public class Logo {
     private void run(File input, File output, Integer width, Integer height) throws IOException {
         //costruisco un nuovo panel con le dimensioni specificate dall'utente
         Panel panel = new SimplePanel(width, height);
-        String instructions = readFile(input);
-        // faccio lo scan di instructions per riconoscere i comandi e eventuali spostamenti
+        //String instructions = readFile(input);
+        parse(input);
+        // faccio lo scan delle istruzioni per riconoscere i comandi ed eventuali spostamenti
         //Parser parser = new LogoParser(instructions);
+        //parse(instructions);
         //chiamo metodo per scrivere sul file di output
         //output.write();
+    }
+
+    private void parse(File file) throws IOException {
+        CommandsLexer lexer = new CommandsLexer(CharStreams.fromFileName(file.getName()));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        CommandsParser parser = new CommandsParser(tokens);
+        ParseTree tree = null;//= parser.compileParseTreePattern();
+        ParseTreeWalker walker = new ParseTreeWalker();
+        //System.out.println(tree.toStringTree(parser));
+        LogoBaseListener gedcomBaseListener2 = new LogoBaseListener();
+        walker.walk(gedcomBaseListener2, (org.antlr.v4.runtime.tree.ParseTree) tree);
     }
 
     /**

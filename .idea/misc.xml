@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/api/src/main/antlr4/Commands.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\fchio\JLogo\api\src\main\antlr4\gen\it\unicam\cs\pa\pa2122\jlogo105504\api\gen" />
+          <option name="outputDir" value="C:\Users\fchio\JLogo\api\src\main\java\it\unicam\cs\pa\pa2122\jlogo105504\api\prova" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />

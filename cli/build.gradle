@@ -4,10 +4,12 @@
 
 plugins {
     id 'application'
+    id 'antlr'
 }
 
 dependencies {
     implementation(project(path: ':api'))
+    implementation 'org.antlr:antlr4:4.10.1'
 }
 
 application {
