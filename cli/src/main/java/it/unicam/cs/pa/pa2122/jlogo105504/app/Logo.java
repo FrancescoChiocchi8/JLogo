@@ -3,10 +3,15 @@
  */
 package it.unicam.cs.pa.pa2122.jlogo105504.app;
 
+import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramWriter;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramReader;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.LogoParser;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.Parser;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -14,14 +19,14 @@ import java.util.Scanner;
  */
 public class Logo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Logo().getAll();
     }
 
     /**
      * This provate method is used to get all information from the user.
      */
-    private void getAll(){
+    private void getAll() throws IOException {
         File input = new Logo().getInputFile(new Scanner(System.in));
         File output = new Logo().getOutputFile(new Scanner(System.in));
         Integer width = new Logo().getWidthPanel(new Scanner(System.in));
@@ -38,11 +43,12 @@ public class Logo {
      * @param width for the panel
      * @param height for the panel
      */
-    private void run(File input, File output, Integer width, Integer height) {
+    private void run(File input, File output, Integer width, Integer height) throws IOException {
         //costruisco un nuovo panel con le dimensioni specificate dall'utente
         Panel panel = new SimplePanel(width, height);
-        //leggo tutto il file di input e faccio il parse
-        //input.read();
+        String instructions = readFile(input);
+        // faccio lo scan di instructions per riconoscere i comandi e eventuali spostamenti
+        //Parser parser = new LogoParser(instructions);
         //chiamo metodo per scrivere sul file di output
         //output.write();
     }
@@ -70,7 +76,7 @@ public class Logo {
     /**
      * This private method is used to get the output file from the user.
      *
-     * @param scanner the scanner
+     * @param scanner used to take in input the file
      * @return the file
      */
     private File getOutputFile(Scanner scanner) {
@@ -86,7 +92,13 @@ public class Logo {
         return file;
     }
 
-
+    /**
+     * This private method is used to take in input the width of the panel specified from
+     * the users.
+     *
+     * @param scanner used to take in input the width of the panel
+     * @return the panel's width
+     */
     private Integer getWidthPanel(Scanner scanner) {
         Integer width = null;
         while (width == null) {
@@ -99,6 +111,13 @@ public class Logo {
         return width;
     }
 
+    /**
+     * This private method is used to take in input the height of the panel specified from
+     * the users.
+     *
+     * @param scanner used to take in input the height of the panel
+     * @return the panel's height
+     */
     private Integer getHeightPanel(Scanner scanner) {
         Integer height = null;
         while (height == null) {
@@ -109,5 +128,18 @@ public class Logo {
             else System.out.println("Error!! The panel's height must be grater than 0, try again.");
         }
         return height;
+    }
+
+    /**
+     * This private method is used to read the file and put all instructions contained in it
+     * into a String object.
+     *
+     * @param input the file to read
+     * @return a string that represents all instructions in the file
+     * @throws IOException if an error occurred
+     */
+    private String readFile(File input) throws IOException {
+        FileProgramReader fileProgramReader = new FileProgramReader(input);
+        return fileProgramReader.read();
     }
 }

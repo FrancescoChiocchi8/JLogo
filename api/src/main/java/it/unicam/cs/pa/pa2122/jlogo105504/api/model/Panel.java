@@ -54,11 +54,11 @@ public interface Panel<C> {
     Position getHome();
 
     /**
-     * Get of the lines for this panel.
+     * Get of the shapes for this panel.
      *
-     * @return all elements in the list that represent the list of lines which are contains in the panel.
+     * @return all elements in the list that represent the list of shapes which are contains in the panel.
      */
-    List<Shape> getLines();
+    List<Shape> getShapes();
 
     /**
      * This default method is used to check if the dimension of panel are valid.

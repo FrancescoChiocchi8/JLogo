@@ -9,6 +9,6 @@ public class ClearScreenInstruction {
     Panel panel;
 
     public ClearScreenInstruction(){
-        panel.getLines().clear();
+        panel.getShapes().clear();
     }
 }

@@ -34,8 +34,8 @@ public class LineTest {
                 new Point(60,5), new RGBColor(8,9,65), -4));
         assertDoesNotThrow(()-> new Line(new Point(5,5.6), new Point(60,5),
                 new RGBColor(8,9,65), 8));
-        panel.getLines().add(line);
-        assertTrue(panel.getLines().contains(line));
+        panel.getShapes().add(line);
+        assertTrue(panel.getShapes().contains(line));
     }
 
     @Test

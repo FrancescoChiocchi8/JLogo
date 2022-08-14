@@ -1,7 +1,7 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.io;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -20,7 +20,18 @@ public class FileProgramReader implements IFileProgramReader {
 
     @Override
     public String read() throws IOException {
-        FileReader fileReader = new FileReader(fileInput);
-        return null;
+        StringBuilder program = new StringBuilder();
+        String line;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileInput));
+            while ((line = reader.readLine()) != null){
+                program.append(line);
+                program.append("\n");
+            }
+        }
+        catch (IOException e){
+            System.out.println("Error while reading the file!!");
+        }
+        return program.toString();
     }
 }
