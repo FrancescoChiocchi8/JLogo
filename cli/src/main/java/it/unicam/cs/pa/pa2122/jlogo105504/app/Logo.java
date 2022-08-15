@@ -3,8 +3,6 @@
  */
 package it.unicam.cs.pa.pa2122.jlogo105504.app;
 
-import antlr.ParseTree;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsBaseListener;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsLexer;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsParser;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramReader;
@@ -13,6 +11,7 @@ import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.LogoBaseListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 
@@ -38,6 +37,7 @@ public class Logo {
         Integer width = new Logo().getWidthPanel(new Scanner(System.in));
         Integer height = new Logo().getHeightPanel(new Scanner(System.in));
         new Logo().run(input, output, width, height);
+        System.out.println("Ciao");
     }
 
     /**
@@ -53,7 +53,7 @@ public class Logo {
         //costruisco un nuovo panel con le dimensioni specificate dall'utente
         Panel panel = new SimplePanel(width, height);
         //String instructions = readFile(input);
-        parse(input);
+        parse(input, panel);
         // faccio lo scan delle istruzioni per riconoscere i comandi ed eventuali spostamenti
         //Parser parser = new LogoParser(instructions);
         //parse(instructions);
@@ -61,15 +61,14 @@ public class Logo {
         //output.write();
     }
 
-    private void parse(File file) throws IOException {
-        CommandsLexer lexer = new CommandsLexer(CharStreams.fromFileName(file.getName()));
+    private void parse(File file, Panel panel) throws IOException {
+        CommandsLexer lexer = new CommandsLexer(CharStreams.fromPath(file.toPath()));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CommandsParser parser = new CommandsParser(tokens);
-        ParseTree tree = null;//= parser.compileParseTreePattern();
+        ParseTree tree = parser.sequenceInstruction();
         ParseTreeWalker walker = new ParseTreeWalker();
-        //System.out.println(tree.toStringTree(parser));
-        LogoBaseListener gedcomBaseListener2 = new LogoBaseListener();
-        walker.walk(gedcomBaseListener2, (org.antlr.v4.runtime.tree.ParseTree) tree);
+        LogoBaseListener gedcomBaseListener2 = new LogoBaseListener(panel);
+        walker.walk(gedcomBaseListener2, tree);
     }
 
     /**

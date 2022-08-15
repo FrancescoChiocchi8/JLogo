@@ -4,7 +4,7 @@ grammar Commands;
 package it.unicam.cs.pa.pa2122.jlogo105504.api.gen;
 }
 
-sequenceInstruction: instruction* ;
+sequenceInstruction: instruction+;
 
 instruction: forward
     | backward
