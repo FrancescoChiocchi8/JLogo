@@ -72,7 +72,7 @@ public class SimplePanel implements Panel {
      */
     private Position setHome(int width, int height) {
         home = new Point(width, height);
-        cursor.setPosition(home);
+        cursor.setCurrentPosition(home);
         return home;
     }
 
@@ -84,6 +84,18 @@ public class SimplePanel implements Panel {
     @Override
     public List<Shape> getShapes() {
         return shapes;
+    }
+
+    @Override
+    public String toString() {
+        return "SimplePanel{" +
+                "width=" + width +
+                ", height=" + height +
+                ", screenColor=" + screenColor.toString() +
+                ", home=" + home.toString() +
+                ", cursor=" + cursor.toString() +
+                ", shapes=" + shapes +
+                '}';
     }
 
 }

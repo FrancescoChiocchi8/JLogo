@@ -19,7 +19,7 @@ public class CursorTest {
 
     @Test
     void checkIfCursorIsInTheHome(){
-        assertTrue(panel.getCursor().getPosition().equals(new Point(350,125)));
+        assertTrue(panel.getCursor().getCurrentPosition().equals(new Point(350,125)));
     }
 
     @Test

@@ -52,10 +52,8 @@ public class Logo {
     private void run(File input, File output, Integer width, Integer height) throws IOException {
         //costruisco un nuovo panel con le dimensioni specificate dall'utente
         Panel panel = new SimplePanel(width, height);
-        //String instructions = readFile(input);
-        System.out.println("ciao");
         parse(input, panel);
-        System.out.println("ciao2");
+        System.out.println(panel.toString());
         // faccio lo scan delle istruzioni per riconoscere i comandi ed eventuali spostamenti
         //Parser parser = new LogoParser(instructions);
         //parse(instructions);

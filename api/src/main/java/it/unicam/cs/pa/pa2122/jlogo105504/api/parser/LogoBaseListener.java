@@ -2,8 +2,7 @@ package it.unicam.cs.pa.pa2122.jlogo105504.api.parser;
 
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsBaseListener;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsParser;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
 
 import java.util.List;
 
@@ -50,6 +49,7 @@ public class LogoBaseListener extends CommandsBaseListener {
             else if (i.getText().matches("(SETSCREENCOLOR|SSC|setscreencolor|ssc).*")) isASetScreenColorInstruction(i);
             else if (i.getText().matches("(SETPENSIZE|SPS|setpensize|sps).*")) isASetPenSizeInstruction(i);
             else if (i.getText().matches("(REPEAT|RP|repeat|rp).*")) isARepeatInstruction(i);
+
         }
     }
 
@@ -60,8 +60,18 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     private void isAForwardInstruction(CommandsParser.InstructionContext i) {
         Double distance = valueOf(i.forward().NUMBER().getText());
+        Position beforeMoving = panel.getCursor().getCurrentPosition();
+        double updateX = panel.getCursor().getCurrentPosition().getX() + (Math.cos(Math.toRadians(panel.getCursor().getDirection())) * distance);
+        double updateY = panel.getCursor().getCurrentPosition().getY() + (Math.sin(Math.toRadians(panel.getCursor().getDirection())) * distance);
+        System.out.println(updateX);
+        System.out.println(updateY);
+        panel.getCursor().setCurrentPosition(new Point(updateX, updateY));
+        Position afterMoving = panel.getCursor().getCurrentPosition();
+        Color color = panel.getCursor().getCurrentLineColor();
+        int sizeLine = panel.getCursor().getSizeLine();
+        //if(panel.getCursor().getPlot())
+            Shape line = new Line(beforeMoving, afterMoving, color, sizeLine);
         System.out.println("is a moving instruction");
-        //panel.getCursor().move(distance);
     }
 
     /**
@@ -79,7 +89,9 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isALeftInstruction(CommandsParser.InstructionContext i) {
-        System.out.println("is a left instruction");
+        double direction = valueOf(i.left().NUMBER().getText());
+        panel.getCursor().setDirection((int) direction);
+        System.out.println("The change direction of the cursor is updated to: " + panel.getCursor().getDirection());
     }
 
     /**

@@ -3,15 +3,16 @@ package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 /**
  * This class in an implementation of the interface {@link Cursor}, and represent a specific
  * cursor in the panel.
+ *
  * @author Francesco Chiocchi
  */
-public class SimpleCursor implements Cursor{
+public class SimpleCursor implements Cursor {
 
-    Position currentPosition;
-    int direction;
-    boolean plot;
-    int sizeLine;
-    Color currentLineColor;
+    private Position currentPosition;
+    private int direction;
+    private boolean plot;
+    private int sizeLine;
+    private Color currentLineColor;
 
     /**
      * Create a simple cursor and initialize the position, set of plot to default
@@ -21,16 +22,16 @@ public class SimpleCursor implements Cursor{
         direction = 0;
         plot = true;
         sizeLine = 1;
-        currentLineColor = new RGBColor(0,0,0);
+        currentLineColor = new RGBColor(0, 0, 0);
     }
 
     @Override
-    public Position getPosition() {
+    public Position getCurrentPosition() {
         return currentPosition;
     }
 
     @Override
-    public void setPosition(Position position) {
+    public void setCurrentPosition(Position position) {
         this.currentPosition = position;
     }
 
@@ -56,6 +57,16 @@ public class SimpleCursor implements Cursor{
     }
 
     @Override
+    public int getSizeLine() {
+        return sizeLine;
+    }
+
+    @Override
+    public void setSizeLine(int sizeLine) {
+        this.sizeLine = sizeLine;
+    }
+
+    @Override
     public Color getCurrentLineColor() {
         return currentLineColor;
     }
@@ -63,5 +74,16 @@ public class SimpleCursor implements Cursor{
     @Override
     public void setCurrentLineColor(Color color) {
         this.currentLineColor = color;
+    }
+
+    @Override
+    public String toString() {
+        return "SimpleCursor{" +
+                "currentPosition=" + currentPosition +
+                ", direction=" + direction +
+                ", plot=" + plot +
+                ", sizeLine=" + sizeLine +
+                ", currentLineColor=" + currentLineColor +
+                '}';
     }
 }
