@@ -53,7 +53,9 @@ public class Logo {
         //costruisco un nuovo panel con le dimensioni specificate dall'utente
         Panel panel = new SimplePanel(width, height);
         //String instructions = readFile(input);
+        System.out.println("ciao");
         parse(input, panel);
+        System.out.println("ciao2");
         // faccio lo scan delle istruzioni per riconoscere i comandi ed eventuali spostamenti
         //Parser parser = new LogoParser(instructions);
         //parse(instructions);

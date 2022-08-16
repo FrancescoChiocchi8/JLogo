@@ -13,6 +13,26 @@
           <option name="language" value="" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/api/Commands.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\fchio\JLogo\api\src\main\java\it\unicam\cs\pa\pa2122\jlogo105504\api\antlr" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="" />
+          <option name="language" value="" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
+        <PerGrammarGenerationSettings>
+          <option name="fileName" value="$PROJECT_DIR$/api/src/main/java/it/unicam/cs/pa/pa2122/jlogo105504/api/grammar/Commands.g4" />
+          <option name="autoGen" value="true" />
+          <option name="outputDir" value="C:\Users\fchio\JLogo\api\src\main\java\it\unicam\cs\pa\pa2122\jlogo105504\api\antlr" />
+          <option name="libDir" value="" />
+          <option name="encoding" value="" />
+          <option name="pkg" value="" />
+          <option name="language" value="" />
+          <option name="generateVisitor" value="true" />
+        </PerGrammarGenerationSettings>
       </list>
     </option>
   </component>
