@@ -93,4 +93,14 @@ public class Line extends Shape {
         result = 31 * result + size;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "start=" + start +
+                ", end=" + end +
+                ", color=" + color +
+                ", size=" + size +
+                '}';
+    }
 }

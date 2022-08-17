@@ -45,7 +45,7 @@ public interface Cursor {
     /**
      * Update the direction of the cursor.
      *
-     * @param direction the new value for the direction of the cursor
+     * @param direction the value to be added to the current direction of the cursor
      */
     void setDirection(int direction);
 

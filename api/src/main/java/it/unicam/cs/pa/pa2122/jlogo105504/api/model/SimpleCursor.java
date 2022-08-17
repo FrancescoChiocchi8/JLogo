@@ -53,7 +53,7 @@ public class SimpleCursor implements Cursor {
     @Override
     public void setDirection(int direction) {
         checkCursorDirection(direction);
-        this.direction = direction;
+        this.direction = getDirection() + direction;
     }
 
     @Override

@@ -37,7 +37,6 @@ public class Logo {
         Integer width = new Logo().getWidthPanel(new Scanner(System.in));
         Integer height = new Logo().getHeightPanel(new Scanner(System.in));
         new Logo().run(input, output, width, height);
-        System.out.println("Ciao");
     }
 
     /**
@@ -54,6 +53,7 @@ public class Logo {
         Panel panel = new SimplePanel(width, height);
         parse(input, panel);
         System.out.println(panel.toString());
+        System.out.println(panel.getCursor().getCurrentPosition().toString());
         // faccio lo scan delle istruzioni per riconoscere i comandi ed eventuali spostamenti
         //Parser parser = new LogoParser(instructions);
         //parse(instructions);
@@ -67,8 +67,8 @@ public class Logo {
         CommandsParser parser = new CommandsParser(tokens);
         ParseTree tree = parser.sequenceInstruction();
         ParseTreeWalker walker = new ParseTreeWalker();
-        LogoBaseListener gedcomBaseListener2 = new LogoBaseListener(panel);
-        walker.walk(gedcomBaseListener2, tree);
+        LogoBaseListener logoBaseListener = new LogoBaseListener(panel);
+        walker.walk(logoBaseListener, tree);
     }
 
     /**
