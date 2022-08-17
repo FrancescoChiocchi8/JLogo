@@ -2,6 +2,7 @@
 
 package it.unicam.cs.pa.pa2122.jlogo105504.api.antlr;
 
+import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.UnknownInstructionException;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**

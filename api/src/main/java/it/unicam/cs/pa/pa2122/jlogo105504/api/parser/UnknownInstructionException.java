@@ -5,7 +5,7 @@ package it.unicam.cs.pa.pa2122.jlogo105504.api.parser;
  */
 public class UnknownInstructionException extends Throwable {
 
-    public UnknownInstructionException(String instruction) {
-        super("Unknown Instruction: " + instruction);
+    public UnknownInstructionException(String errorMessage) {
+        super("Unknown Instruction for the LOGO Application: " + errorMessage);
     }
 }

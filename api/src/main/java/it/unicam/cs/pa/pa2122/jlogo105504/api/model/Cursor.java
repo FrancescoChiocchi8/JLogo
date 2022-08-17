@@ -78,27 +78,13 @@ public interface Cursor {
     void setCurrentLineColor(Color color);
 
     /**
-     * This default method is used to check the direction of the cursor when a new direction will
-     * be updated.
-     *
-     * @param direction of the cursor to be checked
-     * @return true if the direction is greater than 0 and less than 360, false otherwise.
-     */
-    default boolean checkCursorDirection(int direction) {
-        if(direction >= 0 && direction <= 360)
-            return true;
-        else
-            throw new IllegalArgumentException("Incorrect oriented for direction!");
-    }
-
-    /**
      * This default method is used to check the size of a possible line generating by the cursor.
      *
      * @param sizeLine to be checked
-     * @return true if the size line is greater than -1, false otherwise.
+     * @return true if the size line is greater than 0, false otherwise.
      */
     default boolean checkSetSizeLine(int sizeLine){
-        if(sizeLine >= 0)
+        if(sizeLine > 0)
             return true;
         else throw new IllegalArgumentException("The size of the line is negative");
     }

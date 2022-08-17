@@ -6,11 +6,9 @@ import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
 
 import java.util.List;
 
-import static java.lang.Double.valueOf;
-
 /**
  * This class extends the class {@link CommandsBaseListener}, and has the responsibility
- * to...
+ * to recognize and implement the Logo's instructions.
  *
  * @author Francesco Chiocchi
  */
@@ -48,8 +46,6 @@ public class LogoBaseListener extends CommandsBaseListener {
             else if (i.getText().matches("(SETFILLCOLOR|SFC|setfillcolor|sfc).*")) isASetFillColorInstruction(i);
             else if (i.getText().matches("(SETSCREENCOLOR|SSC|setscreencolor|ssc).*")) isASetScreenColorInstruction(i);
             else if (i.getText().matches("(SETPENSIZE|SPS|setpensize|sps).*")) isASetPenSizeInstruction(i);
-            else if (i.getText().matches("(REPEAT|RP|repeat|rp).*")) isARepeatInstruction(i);
-            //TODO aggiungere default UnknownInstructionException
         }
     }
 
@@ -60,13 +56,11 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isAForwardInstruction(CommandsParser.InstructionContext i) {
-        double distance = valueOf(i.forward().NUMBER().getText());
+        double distance = Double.parseDouble(i.forward().NUMBER().getText());
         Position beforeMoving = panel.getCursor().getCurrentPosition();
-        //TODO controllare se supera i bordi*/
         panel.getCursor().setCurrentPosition(move(distance));
         checkAddLine(beforeMoving);
-        //TODO vedere se la linea generata crea un area chiusa --> se una sequenza di linee
-        // partono e terminano nello stesso punto.
+        //TODO vedere se la linea generata crea un area chiusa --> se una sequenza di linee partono e terminano nello stesso punto.
     }
 
     /**
@@ -76,9 +70,8 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isABackwardInstruction(CommandsParser.InstructionContext i) {
-        double distance = valueOf(i.backward().NUMBER().getText());
+        double distance = Double.parseDouble(i.backward().NUMBER().getText());
         Position beforeMoving = panel.getCursor().getCurrentPosition();
-        //TODO controllare se supera i bordi
         panel.getCursor().setCurrentPosition(move(-distance));
         checkAddLine(beforeMoving);
         //TODO vedere se la linea generata crea un area chiusa
@@ -90,14 +83,14 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param distance which the cursor is to be moved
      * @return a new position after the moving.
      */
-    private Position move(double distance){
+    private Position move(double distance) {
         double updateX = panel.getCursor().getCurrentPosition().getX() + (Math.cos(Math.toRadians(panel.getCursor().getDirection())) * distance);
         double updateY = panel.getCursor().getCurrentPosition().getY() - (Math.sin(Math.toRadians(panel.getCursor().getDirection())) * distance);
-        if(updateX > panel.getWidth())
+        if (updateX > panel.getWidth())
             updateX = panel.getWidth();
-        if(updateY > panel.getHeight())
+        if (updateY > panel.getHeight())
             updateY = panel.getHeight();
-        return new Point(Math.round(updateX*100.0)/100.0, Math.round(updateY*100.0)/100.0);
+        return new Point(Math.round(updateX * 100.0) / 100.0, Math.round(updateY * 100.0) / 100.0);
     }
 
     /**
@@ -106,9 +99,9 @@ public class LogoBaseListener extends CommandsBaseListener {
      *
      * @param beforeMoving the position before the moving
      */
-    private void checkAddLine(Position beforeMoving){
+    private void checkAddLine(Position beforeMoving) {
         Position afterMoving = panel.getCursor().getCurrentPosition();
-        if(panel.getCursor().getPlot() && !beforeMoving.equals(afterMoving)){
+        if (panel.getCursor().getPlot() && !beforeMoving.equals(afterMoving)) {
             Color color = panel.getCursor().getCurrentLineColor();
             int sizeLine = panel.getCursor().getSizeLine();
             panel.getShapes().add(new Line(beforeMoving, afterMoving, color, sizeLine));
@@ -123,7 +116,7 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isALeftInstruction(CommandsParser.InstructionContext i) {
-        double direction = valueOf(i.left().NUMBER().getText());
+        double direction = Double.parseDouble(i.left().NUMBER().getText());
         panel.getCursor().setDirection((int) direction);
     }
 
@@ -134,9 +127,8 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isARightInstruction(CommandsParser.InstructionContext i) {
-        double direction = valueOf(i.right().NUMBER().getText());
-        panel.getCursor().setDirection((int) direction);
-        System.out.println("is a right instruction");
+        double direction = Double.parseDouble(i.right().NUMBER().getText());
+        panel.getCursor().setDirection(-(int) direction);
     }
 
     /**
@@ -184,6 +176,7 @@ public class LogoBaseListener extends CommandsBaseListener {
     /**
      * This private method set the color of a closed area in the panel, so implement the
      * Logo's instruction SETFILLCOLOR.
+     *
      * @param i the instruction
      */
     private void isASetFillColorInstruction(CommandsParser.InstructionContext i) {
@@ -194,6 +187,7 @@ public class LogoBaseListener extends CommandsBaseListener {
     /**
      * This private method set the color of the screen in the panel, so implement the
      * Logo's instruction SETSCREENCOLOR.
+     *
      * @param i the instruction
      */
     private void isASetScreenColorInstruction(CommandsParser.InstructionContext i) {
@@ -207,24 +201,26 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @return the new RGBColor.
      */
     private Color getColor(CommandsParser.InstructionContext i) {
-        double red = valueOf(i.setPenColor().NUMBER(0).getText());
-        double green = valueOf(i.setPenColor().NUMBER(1).getText());
-        double blue = valueOf(i.setPenColor().NUMBER(2).getText());
-        return new RGBColor((int)red, (int)green, (int)blue);
+        double red = Double.parseDouble(i.setPenColor().NUMBER(0).getText());
+        double green = Double.parseDouble(i.setPenColor().NUMBER(1).getText());
+        double blue = Double.parseDouble(i.setPenColor().NUMBER(2).getText());
+        return new RGBColor((int) red, (int) green, (int) blue);
     }
 
     /**
      * This private method is used to set the size's pen of the cursor, so implement
      * the Logo's instruction SETPENSIZE.
+     *
      * @param i the instruction
      */
     private void isASetPenSizeInstruction(CommandsParser.InstructionContext i) {
-        double size = valueOf(i.setPenSize().NUMBER().getText());
+        double size = Double.parseDouble(i.setPenSize().NUMBER().getText());
         panel.getCursor().setSizeLine((int) size);
     }
 
     /**
      * This private is used to repeat all instruction after the Logo's instruction REPEAT.
+     *
      * @param i the instruction
      */
     private void isARepeatInstruction(CommandsParser.InstructionContext i) {

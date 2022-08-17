@@ -52,7 +52,6 @@ public class SimpleCursor implements Cursor {
 
     @Override
     public void setDirection(int direction) {
-        checkCursorDirection(direction);
         this.direction = getDirection() + direction;
     }
 
@@ -63,6 +62,7 @@ public class SimpleCursor implements Cursor {
 
     @Override
     public void setSizeLine(int sizeLine) {
+        checkSetSizeLine(sizeLine);
         this.sizeLine = sizeLine;
     }
 
