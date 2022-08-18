@@ -6,6 +6,7 @@ import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.NoGeneratedPolygonException;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.UnknownInstructionException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,12 @@ public class LogoBaseListener extends CommandsBaseListener {
 
     private final Panel panel;
     private Polygon currentPolygon;
+    private boolean plot = true;
+    private Point startingPointPolygon;
+    private Line lastLineAdded;
+    private List<Line> currentList;
+
+    boolean getPlot(){return plot;}
 
     /**
      * Associate panel for execute instruction.
@@ -26,6 +33,7 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     public LogoBaseListener(Panel panel) {
         this.panel = panel;
+        currentList = new ArrayList<>();
     }
 
     /**
@@ -35,6 +43,8 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     @Override
     public void enterSequenceInstruction(CommandsParser.SequenceInstructionContext ctx) {
+        if(panel.getCursor().getPlot())
+            startingPointPolygon = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
         List<CommandsParser.InstructionContext> instructions = ctx.instruction();
         for (CommandsParser.InstructionContext i : instructions) {
             if (i.getText().matches("(FORWARD|FD|forward|fd).*")) isAForwardInstruction(i);
@@ -64,7 +74,6 @@ public class LogoBaseListener extends CommandsBaseListener {
         Position beforeMoving = panel.getCursor().getCurrentPosition();
         panel.getCursor().setCurrentPosition(move(distance));
         checkAddLine(beforeMoving);
-        //TODO vedere se la linea generata crea un area chiusa --> se una sequenza di linee partono e terminano nello stesso punto.
     }
 
     /**
@@ -108,21 +117,22 @@ public class LogoBaseListener extends CommandsBaseListener {
     private void checkAddLine(Position beforeMoving) {
         Position afterMoving = panel.getCursor().getCurrentPosition();
         if (panel.getCursor().getPlot() && !beforeMoving.equals(afterMoving)) {
-            panel.getShapes().add(new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentLineColor(), panel.getCursor().getSizeLine()));
+            lastLineAdded = new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentLineColor(), panel.getCursor().getSizeLine());
+            panel.getShapes().add(lastLineAdded);
+            currentList.add(lastLineAdded);
             if(panel.getShapes().stream().count() > 2)
-                checkIfIsAPolygon();
+                checkIfIsAPolygon(lastLineAdded);
         }
     }
 
     /**
      * This private method check if the added shape generated a closed area, so a Polygon
      */
-    private void checkIfIsAPolygon() {
-        Line lastLineAdded = (Line) panel.getShapes().get(panel.getShapes().size() - 1);
-        List<Line> lineList = panel.getShapes();
-        for(Line line : lineList){
-            if(lastLineAdded.getStart().equals(line.getStart()))
-                System.out.println("gm");
+    private void checkIfIsAPolygon(Line lastLineAdded) {
+        if(startingPointPolygon.equals(lastLineAdded.getEnd())){
+            Polygon polygon = new Polygon(currentList);
+            this.currentPolygon = polygon;
+            panel.getShapes().add(polygon);
         }
     }
 
@@ -170,6 +180,8 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     private void isAPenUpInstruction() {
         panel.getCursor().setPlot(false);
+        this.plot = false;
+        this.currentList.clear();
     }
 
     /**
@@ -178,6 +190,8 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     private void isAPenDownInstruction() {
         panel.getCursor().setPlot(true);
+        this.plot = true;
+        startingPointPolygon = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
     }
 
     /**
@@ -197,9 +211,12 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isASetFillColorInstruction(CommandsParser.InstructionContext i) {
+        double red = Double.parseDouble(i.setFillColor().NUMBER(0).getText());
+        double green = Double.parseDouble(i.setFillColor().NUMBER(1).getText());
+        double blue = Double.parseDouble(i.setFillColor().NUMBER(2).getText());
         if(currentPolygon.equals(null))
             throw new NoGeneratedPolygonException();
-        currentPolygon.setFillColor(getColor(i));
+        currentPolygon.setFillColor(new RGBColor((int) red, (int) green, (int) blue));
     }
 
     /**

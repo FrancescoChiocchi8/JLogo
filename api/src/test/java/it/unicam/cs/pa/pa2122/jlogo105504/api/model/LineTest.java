@@ -48,7 +48,7 @@ public class LineTest {
 
     @Test
     void testException(){
-        assertThrows(UnsupportedOperationException.class, () -> line.getListOfShape());
+        assertThrows(UnsupportedOperationException.class, () -> line.getListLine());
     }
 
 

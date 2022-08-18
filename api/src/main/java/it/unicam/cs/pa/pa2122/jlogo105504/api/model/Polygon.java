@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Polygon extends Shape{
 
-    private final List<Shape> listShapes;
+    private final List<Line> listLine;
     private Color color;
 
     /**
@@ -17,11 +17,10 @@ public class Polygon extends Shape{
      * this class will introduce the possibility of generating different types of segments,
      * such as edges or curves, only one segment will be enough to compose the closed area.
      *
-     * @param listShapes the list that must contain at least one shape
+     * @param listLine the list that must contain at least one shape
      */
-    public Polygon(List<Shape> listShapes) {
-        checkIfIsAPolygon(listShapes);
-        this.listShapes = listShapes;
+    public Polygon(List<Line> listLine) {
+        this.listLine = listLine;
         this.color = new RGBColor(255,255,255);
     }
 
@@ -38,8 +37,8 @@ public class Polygon extends Shape{
     public void setFillColor(Color color){this.color = color;}
 
     @Override
-    public List<Shape> getListOfShape() {
-        return listShapes;
+    public List<Line> getListLine() {
+        return listLine;
     }
 
     @Override
@@ -57,18 +56,11 @@ public class Polygon extends Shape{
         throw new UnsupportedOperationException("It is a complex shape");
     }
 
-    /**
-     * A polygon is composed by at least three shape if we are considering the case of the lines.
-     *
-     * @param shapes a list of the line that composed a polygon
-     * @return true if it is a polygon, false otherwise
-     */
-    private void checkIfIsAPolygon(List<Shape> shapes) {
-        if(!shapes.isEmpty()){
-            Line firstLine = (Line) shapes.get(0);
-
-        }
-        else throw new IllegalArgumentException("Error! The list is empty.");
+    @Override
+    public String toString() {
+        return "Polygon{" +
+                "listLine=" + listLine +
+                ", color=" + color +
+                '}';
     }
-
 }

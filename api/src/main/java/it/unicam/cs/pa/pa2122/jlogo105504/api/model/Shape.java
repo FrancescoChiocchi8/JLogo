@@ -22,12 +22,12 @@ public abstract class Shape {
     public abstract Color getColor();
 
     /**
-     * Get the list of the shape that make the closed area.
+     * Get the list of the line that make the closed area.
      *
-     * @return the list of the shape that make the closed area
+     * @return the list of the line that make the closed area
      * @throws UnsupportedOperationException if it is not a complex shape.
      */
-    public abstract List<Shape> getListOfShape();
+    public abstract List<Line> getListLine();
 
     /**
      * Get shape's start position if it is a basic shape such as Line, Edge, Curves...

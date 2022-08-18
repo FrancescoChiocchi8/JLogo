@@ -54,7 +54,7 @@ public class Line extends Shape {
     }
 
     @Override
-    public List<Shape> getListOfShape() {
+    public List<Line> getListLine() {
         throw new UnsupportedOperationException("This method is used only for a Polygon!");
     }
 
