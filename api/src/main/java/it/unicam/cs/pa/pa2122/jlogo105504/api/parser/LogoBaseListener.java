@@ -169,9 +169,13 @@ public class LogoBaseListener extends CommandsBaseListener {
     /**
      * This private method set the current position to the home of the panel,
      * so implement the Logo's instruction HOME.
+     * When the cursor moves in the home's position, a line is not generated.
      */
     private void isAHomeInstruction() {
+        boolean wasDrawing = panel.getCursor().getPlot();
+        panel.getCursor().setPlot(false);
         panel.getCursor().setCurrentPosition(panel.getHome());
+        panel.getCursor().setPlot(wasDrawing);
     }
 
     /**
