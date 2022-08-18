@@ -66,6 +66,8 @@ public class LogoBaseListener extends CommandsBaseListener {
     /**
      * This private method defines all operation to move backward the cursor in the panel, so
      * implement the Logo's instruction BACKWARD.
+     * When it is done, it will decrement the direction to -180 degrees because the cursor's
+     * head is not directed forward but backward.
      *
      * @param i the instruction
      */
@@ -73,6 +75,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         double distance = Double.parseDouble(i.backward().NUMBER().getText());
         Position beforeMoving = panel.getCursor().getCurrentPosition();
         panel.getCursor().setCurrentPosition(move(-distance));
+        panel.getCursor().setDirection(-180);
         checkAddLine(beforeMoving);
         //TODO vedere se la linea generata crea un area chiusa
     }
@@ -85,7 +88,7 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     private Position move(double distance) {
         double updateX = panel.getCursor().getCurrentPosition().getX() + (Math.cos(Math.toRadians(panel.getCursor().getDirection())) * distance);
-        double updateY = panel.getCursor().getCurrentPosition().getY() - (Math.sin(Math.toRadians(panel.getCursor().getDirection())) * distance);
+        double updateY = panel.getCursor().getCurrentPosition().getY() + (Math.sin(Math.toRadians(panel.getCursor().getDirection())) * distance);
         if (updateX > panel.getWidth())
             updateX = panel.getWidth();
         if (updateY > panel.getHeight())
