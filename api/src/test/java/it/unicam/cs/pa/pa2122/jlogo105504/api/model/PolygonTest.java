@@ -24,15 +24,15 @@ public class PolygonTest {
     @Test
     void checkElementsList(){
         listShapes.add(line1); listShapes.add(line2); listShapes.add(line3);
-        assertDoesNotThrow(()-> new Polygon(listShapes, new RGBColor(255,255,255)));
+        assertDoesNotThrow(()-> new Polygon(listShapes));
         listShapes.clear();
-        assertThrows(IllegalArgumentException.class, () -> new Polygon(listShapes, new RGBColor(2,5,9)));
+        assertThrows(IllegalArgumentException.class, () -> new Polygon(listShapes));
     }
 
     @Test
     void testUnsupportedOperetionException(){
         listShapes.add(line1); listShapes.add(line2); listShapes.add(line3);
-        Shape triangle = new Polygon(listShapes,new RGBColor(56,85,59));
+        Shape triangle = new Polygon(listShapes);
         assertThrows(UnsupportedOperationException.class, () -> triangle.getStart());
         assertThrows(UnsupportedOperationException.class, () -> triangle.getEnd());
         assertThrows(UnsupportedOperationException.class, () -> triangle.getSize());

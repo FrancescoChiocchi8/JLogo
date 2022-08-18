@@ -6,6 +6,7 @@ package it.unicam.cs.pa.pa2122.jlogo105504.app;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsLexer;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsParser;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramReader;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.io.IFileProgramReader;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.LogoBaseListener;
@@ -34,6 +35,7 @@ public class Logo {
     private void getAll() throws IOException {
         File input = new Logo().getInputFile(new Scanner(System.in));
         File output = new Logo().getOutputFile(new Scanner(System.in));
+        //output.createNewFile();
         Integer width = new Logo().getWidthPanel(new Scanner(System.in));
         Integer height = new Logo().getHeightPanel(new Scanner(System.in));
         new Logo().run(input, output, width, height);
@@ -51,25 +53,16 @@ public class Logo {
     private void run(File input, File output, Integer width, Integer height) throws IOException {
         //costruisco un nuovo panel con le dimensioni specificate dall'utente
         Panel panel = new SimplePanel(width, height);
-        parse(input, panel);
+        IFileProgramReader fileProgramReader = new FileProgramReader();
+        fileProgramReader.readFile(input, panel);
         System.out.println(panel.toString());
         System.out.println(panel.getCursor().getCurrentPosition().toString());
         // faccio lo scan delle istruzioni per riconoscere i comandi ed eventuali spostamenti
-        //Parser parser = new LogoParser(instructions);
-        //parse(instructions);
         //chiamo metodo per scrivere sul file di output
         //output.write();
     }
 
-    private void parse(File file, Panel panel) throws IOException {
-        CommandsLexer lexer = new CommandsLexer(CharStreams.fromPath(file.toPath()));
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        CommandsParser parser = new CommandsParser(tokens);
-        ParseTree tree = parser.sequenceInstruction();
-        ParseTreeWalker walker = new ParseTreeWalker();
-        LogoBaseListener logoBaseListener = new LogoBaseListener(panel);
-        walker.walk(logoBaseListener, tree);
-    }
+
 
     /**
      * This private method is used to get the input file from the user.
@@ -103,6 +96,7 @@ public class Logo {
             System.out.println("Insert Output File:");
             String outputFile = scanner.nextLine();
             File output = new File(outputFile);
+            if (outputFile.trim().isEmpty()) continue;
             if (!output.exists())
                 file = output;
             else System.out.println("Error!! File already exists, try again.");
@@ -148,16 +142,4 @@ public class Logo {
         return height;
     }
 
-    /**
-     * This private method is used to read the file and put all instructions contained in it
-     * into a String object.
-     *
-     * @param input the file to read
-     * @return a string that represents all instructions in the file
-     * @throws IOException if an error occurred
-     */
-    private String readFile(File input) throws IOException {
-        FileProgramReader fileProgramReader = new FileProgramReader(input);
-        return fileProgramReader.read();
-    }
 }

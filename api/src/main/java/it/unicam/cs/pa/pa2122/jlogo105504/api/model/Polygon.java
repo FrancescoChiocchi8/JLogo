@@ -18,18 +18,24 @@ public class Polygon extends Shape{
      * such as edges or curves, only one segment will be enough to compose the closed area.
      *
      * @param listShapes the list that must contain at least one shape
-     * @param color the color of the fill area
      */
-    public Polygon(List<Shape> listShapes, Color color) {
+    public Polygon(List<Shape> listShapes) {
         checkIfIsAPolygon(listShapes);
         this.listShapes = listShapes;
-        this.color = color;
+        this.color = new RGBColor(255,255,255);
     }
 
     @Override
     public Color getColor() {
         return color;
     }
+
+    /**
+     * This method is used to color this polygon.
+     *
+     * @param color the new color of the polygon
+     */
+    public void setFillColor(Color color){this.color = color;}
 
     @Override
     public List<Shape> getListOfShape() {

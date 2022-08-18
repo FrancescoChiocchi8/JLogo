@@ -1,10 +1,13 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.io;
 
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * This interface allows you to read a file with the logo's information.
+ * This interface allows you to read a file with the Logo's instruction.
  *
  * @author Francesco Chiocchi
  */
@@ -12,8 +15,8 @@ public interface IFileProgramReader {
 
     /**
      * This method is used to read all instruction contained in the file.
-     *
-     * @return a string that represent all instruction to be executed
+     * @param file the file take in input
+     * @param panel the panel
      */
-    String read() throws IOException;
+    void readFile(File file, Panel panel) throws IOException;
 }

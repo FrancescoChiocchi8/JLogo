@@ -3,6 +3,8 @@ package it.unicam.cs.pa.pa2122.jlogo105504.api.parser;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsBaseListener;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsParser;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.NoGeneratedPolygonException;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.UnknownInstructionException;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
 public class LogoBaseListener extends CommandsBaseListener {
 
     private final Panel panel;
+    private Polygon currentPolygon;
 
     /**
      * Associate panel for execute instruction.
@@ -46,6 +49,7 @@ public class LogoBaseListener extends CommandsBaseListener {
             else if (i.getText().matches("(SETFILLCOLOR|SFC|setfillcolor|sfc).*")) isASetFillColorInstruction(i);
             else if (i.getText().matches("(SETSCREENCOLOR|SSC|setscreencolor|ssc).*")) isASetScreenColorInstruction(i);
             else if (i.getText().matches("(SETPENSIZE|SPS|setpensize|sps).*")) isASetPenSizeInstruction(i);
+            else throw new UnknownInstructionException(i.getText());
         }
     }
 
@@ -75,9 +79,8 @@ public class LogoBaseListener extends CommandsBaseListener {
         double distance = Double.parseDouble(i.backward().NUMBER().getText());
         Position beforeMoving = panel.getCursor().getCurrentPosition();
         panel.getCursor().setCurrentPosition(move(-distance));
-        panel.getCursor().setDirection(-180);
+        panel.getCursor().setDirection(-180); //rotation of the cursor to -180 degrees. it is optional.
         checkAddLine(beforeMoving);
-        //TODO vedere se la linea generata crea un area chiusa
     }
 
     /**
@@ -105,10 +108,21 @@ public class LogoBaseListener extends CommandsBaseListener {
     private void checkAddLine(Position beforeMoving) {
         Position afterMoving = panel.getCursor().getCurrentPosition();
         if (panel.getCursor().getPlot() && !beforeMoving.equals(afterMoving)) {
-            Color color = panel.getCursor().getCurrentLineColor();
-            int sizeLine = panel.getCursor().getSizeLine();
-            panel.getShapes().add(new Line(beforeMoving, afterMoving, color, sizeLine));
-            //TODO vedere se la linea generata crea un area chiusa
+            panel.getShapes().add(new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentLineColor(), panel.getCursor().getSizeLine()));
+            if(panel.getShapes().stream().count() > 2)
+                checkIfIsAPolygon();
+        }
+    }
+
+    /**
+     * This private method check if the added shape generated a closed area, so a Polygon
+     */
+    private void checkIfIsAPolygon() {
+        Line lastLineAdded = (Line) panel.getShapes().get(panel.getShapes().size() - 1);
+        List<Line> lineList = panel.getShapes();
+        for(Line line : lineList){
+            if(lastLineAdded.getStart().equals(line.getStart()))
+                System.out.println("gm");
         }
     }
 
@@ -183,8 +197,9 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isASetFillColorInstruction(CommandsParser.InstructionContext i) {
-        //panel.getShapes().
-        //TODO implementa metodo
+        if(currentPolygon.equals(null))
+            throw new NoGeneratedPolygonException();
+        currentPolygon.setFillColor(getColor(i));
     }
 
     /**
