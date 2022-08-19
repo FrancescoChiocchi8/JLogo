@@ -59,7 +59,7 @@ fragment PU: ('PENUP' | 'PU' | 'penup' | 'pu');
 fragment PD: ('PENDOWN' | 'PD' | 'pendown' | 'pd');
 fragment SPC: ('SETPENCOLOR' | 'SPC' | 'setpencolor' | 'spc');
 fragment SFC: ('SETFILLCOLOR' | 'SFC' | 'setfillcolor' | 'sfc');
-fragment SSC: ('SESCREENCOLOR' | 'SSC' | 'setscreencolor' | 'ssc');
+fragment SSC: ('SETSCREENCOLOR' | 'SSC' | 'setscreencolor' | 'ssc');
 fragment SPS: ('SETPENSIZE' | 'SPS' | 'setpensize' | 'sps');
 fragment RP: ('REPEAT ' | 'RP' | 'repeat' | 'rp');
 fragment INTEGER: ('0' .. '9');

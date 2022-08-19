@@ -47,6 +47,10 @@ public class LogoBaseListener extends CommandsBaseListener {
         if(panel.getCursor().getPlot())
             startingPointPolygon = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
         List<CommandsParser.InstructionContext> instructions = ctx.instruction();
+        recognizeInstruction(instructions);
+    }
+
+    private void recognizeInstruction(List<CommandsParser.InstructionContext> instructions){
         for (CommandsParser.InstructionContext i : instructions) {
             if (i.getText().matches("(FORWARD|FD|forward|fd).*")) isAForwardInstruction(i);
             else if (i.getText().matches("(BACKWARD|BD|backward|bd).*")) isABackwardInstruction(i);
@@ -60,6 +64,7 @@ public class LogoBaseListener extends CommandsBaseListener {
             else if (i.getText().matches("(SETFILLCOLOR|SFC|setfillcolor|sfc).*")) isASetFillColorInstruction(i);
             else if (i.getText().matches("(SETSCREENCOLOR|SSC|setscreencolor|ssc).*")) isASetScreenColorInstruction(i);
             else if (i.getText().matches("(SETPENSIZE|SPS|setpensize|sps).*")) isASetPenSizeInstruction(i);
+            else if (i.getText().matches("(REPEAT|RP|repeat|rp).*")) isARepeatInstruction(i);
             else throw new UnknownInstructionException(i.getText());
         }
     }
@@ -80,8 +85,6 @@ public class LogoBaseListener extends CommandsBaseListener {
     /**
      * This private method defines all operation to move backward the cursor in the panel, so
      * implement the Logo's instruction BACKWARD.
-     * When it is done, it will decrement the direction to -180 degrees because the cursor's
-     * head is not directed forward but backward.
      *
      * @param i the instruction
      */
@@ -89,7 +92,6 @@ public class LogoBaseListener extends CommandsBaseListener {
         double distance = Double.parseDouble(i.backward().NUMBER().getText());
         Position beforeMoving = panel.getCursor().getCurrentPosition();
         panel.getCursor().setCurrentPosition(move(-distance));
-        panel.getCursor().setDirection(-180); //rotation of the cursor to -180 degrees. it is optional.
         checkAddLine(beforeMoving);
     }
 
@@ -144,8 +146,8 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isALeftInstruction(CommandsParser.InstructionContext i) {
-        double direction = Double.parseDouble(i.left().NUMBER().getText());
-        panel.getCursor().setDirection((int) direction);
+        int direction = Integer.parseInt(i.left().NUMBER().getText());
+        panel.getCursor().setDirection(direction);
     }
 
     /**
@@ -155,8 +157,8 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isARightInstruction(CommandsParser.InstructionContext i) {
-        double direction = Double.parseDouble(i.right().NUMBER().getText());
-        panel.getCursor().setDirection(-(int) direction);
+        int direction = Integer.parseInt(i.right().NUMBER().getText());
+        panel.getCursor().setDirection(-direction);
     }
 
     /**
@@ -206,7 +208,10 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isASetPenColorInstruction(CommandsParser.InstructionContext i) {
-        panel.getCursor().setCurrentLineColor(getColor(i));
+        int red = Integer.parseInt(i.setPenColor().NUMBER(0).getText());
+        int green = Integer.parseInt(i.setPenColor().NUMBER(1).getText());
+        int blue = Integer.parseInt(i.setPenColor().NUMBER(2).getText());
+        panel.getCursor().setCurrentLineColor(new RGBColor(red, green, blue));
     }
 
     /**
@@ -216,12 +221,12 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isASetFillColorInstruction(CommandsParser.InstructionContext i) {
-        double red = Double.parseDouble(i.setFillColor().NUMBER(0).getText());
-        double green = Double.parseDouble(i.setFillColor().NUMBER(1).getText());
-        double blue = Double.parseDouble(i.setFillColor().NUMBER(2).getText());
+        int red = Integer.parseInt(i.setFillColor().NUMBER(0).getText());
+        int green = Integer.parseInt(i.setFillColor().NUMBER(1).getText());
+        int blue = Integer.parseInt(i.setFillColor().NUMBER(2).getText());
         if(currentPolygon.equals(null))
             throw new NoGeneratedPolygonException();
-        currentPolygon.setFillColor(new RGBColor((int) red, (int) green, (int) blue));
+        currentPolygon.setFillColor(new RGBColor(red, green, blue));
     }
 
     /**
@@ -231,20 +236,10 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isASetScreenColorInstruction(CommandsParser.InstructionContext i) {
-        panel.setScreenColor(getColor(i));
-    }
-
-    /**
-     * This private method get the color into the file and is used to reduce duplicate code.
-     *
-     * @param i the instruction
-     * @return the new RGBColor.
-     */
-    private Color getColor(CommandsParser.InstructionContext i) {
-        double red = Double.parseDouble(i.setPenColor().NUMBER(0).getText());
-        double green = Double.parseDouble(i.setPenColor().NUMBER(1).getText());
-        double blue = Double.parseDouble(i.setPenColor().NUMBER(2).getText());
-        return new RGBColor((int) red, (int) green, (int) blue);
+        int red = Integer.parseInt(i.setScreenColor().NUMBER(0).getText());
+        int green = Integer.parseInt(i.setScreenColor().NUMBER(1).getText());
+        int blue = Integer.parseInt(i.setScreenColor().NUMBER(2).getText());
+        panel.setScreenColor(new RGBColor(red, green, blue));
     }
 
     /**
@@ -254,8 +249,8 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isASetPenSizeInstruction(CommandsParser.InstructionContext i) {
-        double size = Double.parseDouble(i.setPenSize().NUMBER().getText());
-        panel.getCursor().setSizeLine((int) size);
+        int penSize = Integer.parseInt(i.setPenSize().NUMBER().getText());
+        panel.getCursor().setSizeLine(penSize);
     }
 
     /**
@@ -264,7 +259,22 @@ public class LogoBaseListener extends CommandsBaseListener {
      * @param i the instruction
      */
     private void isARepeatInstruction(CommandsParser.InstructionContext i) {
-        System.out.println("is a repeat instruction");
+        /*int nRepeat = Integer.parseInt(i.repeat().NUMBER().getText());
+        CommandsParser.SequenceInstructionContext ctx = i.repeat().sequenceInstruction();
+        List<CommandsParser.InstructionContext> instructions = ctx.instruction();
+        for (int count = 0; count <= nRepeat; count++){
+            recognizeInstruction(instructions);
+            if(count == nRepeat)
+                exitSequenceInstruction(ctx);
+        }*/
     }
 
+    @Override public void enterRepeat(CommandsParser.RepeatContext ctx) {
+        int nRepeat = Integer.parseInt(ctx.NUMBER().getText());
+        List<CommandsParser.InstructionContext> instructions = ctx.sequenceInstruction().instruction();
+        instructions.stream().forEach(s -> System.out.println(s.getText()));
+        for (int count = 0; count < nRepeat; count++){
+            recognizeInstruction(instructions);
+        }
+    }
 }

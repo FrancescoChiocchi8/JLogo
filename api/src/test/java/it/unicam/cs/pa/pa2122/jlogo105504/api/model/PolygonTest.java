@@ -21,14 +21,6 @@ public class PolygonTest {
     List<Line> listLine = new ArrayList<>();
 
     @Test
-    void checkElementsList(){
-        listLine.add(line1); listLine.add(line2); listLine.add(line3);
-        assertDoesNotThrow(()-> new Polygon(listLine));
-        listLine.clear();
-        assertThrows(IllegalArgumentException.class, () -> new Polygon(listLine));
-    }
-
-    @Test
     void isNotAPolygonTest(){
         listLine.clear();
         listLine.add(line1);

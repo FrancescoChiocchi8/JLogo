@@ -24,8 +24,8 @@ public class ClearScreenTest {
     void testClearScreenInstruction() throws IOException {
         panel.getShapes().add(line);
         assertTrue(!panel.getShapes().isEmpty());
-        ReadInstructions readFile = new ReadInstructions(panel);
-        readFile.parse(instruction);
+        ReadInstructions readInstructions = new ReadInstructions(panel);
+        readInstructions.parse(instruction);
         assertTrue(panel.getShapes().isEmpty());
     }
 }
