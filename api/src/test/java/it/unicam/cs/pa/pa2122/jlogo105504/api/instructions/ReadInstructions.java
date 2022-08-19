@@ -30,7 +30,6 @@ public class ReadInstructions {
 
     public void parse(String instruction) throws IOException {
         CommandsLexer lexer = new CommandsLexer(c(instruction));
-        System.out.println(c(instruction));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CommandsParser parser = new CommandsParser(tokens);
         ParseTree tree = parser.sequenceInstruction();

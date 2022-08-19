@@ -15,6 +15,10 @@ public class Line extends Shape {
     private final Color color;
     private final int size;
 
+    //Used only for a graphic view
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     /**
      * Create a line with the position specified and initialize the color of the line to black(0, 0, 0).
      *
@@ -96,11 +100,11 @@ public class Line extends Shape {
 
     @Override
     public String toString() {
-        return "Line{" +
+        return ANSI_GREEN + "Line{" + ANSI_RESET +
                 "start=" + start +
                 ", end=" + end +
                 ", color=" + color +
                 ", size=" + size +
-                '}';
+                ANSI_GREEN + '}' + ANSI_RESET;
     }
 }

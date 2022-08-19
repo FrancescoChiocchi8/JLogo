@@ -19,13 +19,18 @@ public class LogoBaseListener extends CommandsBaseListener {
 
     private final Panel panel;
     private Polygon currentPolygon;
-    private boolean plot = true;
-    private Point startingPointPolygon;
+    private Position startingPointPolygon;
     private Line lastLineAdded;
     /**
      * Only for represents the lines of a polygon.
      */
     private List<Line> currentList;
+    private List<Polygon> listPolygon;
+    /**
+     * The idea is to create a "black list" of the line that are already part of a polygon,
+     * so that it can no longer be part of a new polygon.
+     */
+    private List<Line> blackListLine;
 
     /**
      * Associate panel for execute instruction.
@@ -34,7 +39,10 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     public LogoBaseListener(Panel panel) {
         this.panel = panel;
+        startingPointPolygon = panel.getHome();
         currentList = new ArrayList<>();
+        listPolygon = new ArrayList<>();
+        blackListLine = new ArrayList<>();
     }
 
     /**
@@ -123,20 +131,49 @@ public class LogoBaseListener extends CommandsBaseListener {
             lastLineAdded = new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentLineColor(), panel.getCursor().getSizeLine());
             panel.getShapes().add(lastLineAdded);
             currentList.add(lastLineAdded);
-            if(panel.getShapes().stream().count() > 2)
+            if(currentList.stream().count() > 2)
                 checkIfIsAPolygon(lastLineAdded);
         }
     }
 
     /**
-     * This private method check if the added shape generated a closed area, so a Polygon
+     * This private method check if the added shape generated a closed area, so a Polygon.
+     *
+     * @param lastLineAdded the last line added
      */
     private void checkIfIsAPolygon(Line lastLineAdded) {
-        if(startingPointPolygon.equals(lastLineAdded.getEnd())){
-            Polygon polygon = new Polygon(currentList);
-            this.currentPolygon = polygon;
-            panel.getShapes().add(polygon);
-        }
+        if(startingPointPolygon.equals(lastLineAdded.getEnd()))
+            if(listPolygon.isEmpty())
+                addPolygon();
+            else
+                checkLineOfPolygons();
+    }
+
+    /**
+     * This private method check if the lines of the possible new polygon they already
+     * make up another one.
+     */
+    private void checkLineOfPolygons() {
+        for(Line l : currentList)
+            if(blackListLine.contains(l)){
+                return;
+            }
+        addPolygon();
+    }
+
+    /**
+     * Add the polygon to the lists and the black list was updated.
+     */
+    public void addPolygon(){
+        List<Line> temporaryList = new ArrayList<>();
+        temporaryList.addAll(currentList);
+        Polygon polygon = new Polygon(temporaryList);
+        listPolygon.add(polygon);
+        panel.getShapes().add(polygon);
+        this.currentPolygon = polygon;
+        startingPointPolygon = panel.getCursor().getCurrentPosition();
+        blackListLine.addAll(currentList);
+        this.currentList.clear();
     }
 
     /**
@@ -187,8 +224,8 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     private void isAPenUpInstruction() {
         panel.getCursor().setPlot(false);
-        this.plot = false;
         this.currentList.clear();
+        startingPointPolygon = null;
     }
 
     /**
@@ -197,7 +234,6 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     private void isAPenDownInstruction() {
         panel.getCursor().setPlot(true);
-        this.plot = true;
         startingPointPolygon = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
     }
 
@@ -273,8 +309,10 @@ public class LogoBaseListener extends CommandsBaseListener {
         int nRepeat = Integer.parseInt(ctx.NUMBER().getText());
         List<CommandsParser.InstructionContext> instructions = ctx.sequenceInstruction().instruction();
         instructions.stream().forEach(s -> System.out.println(s.getText()));
-        for (int count = 0; count < nRepeat; count++){
+        while(!ctx.EXIT().getText().matches("EXIT"))
+            System.out.println("Ciao");
+        /*for (int count = 0; count < nRepeat; count++){
             recognizeInstruction(instructions);
-        }
+        }*/
     }
 }

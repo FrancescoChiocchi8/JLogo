@@ -12,6 +12,10 @@ public class Polygon extends Shape{
     private final List<Line> listLine;
     private Color color;
 
+    //Used only for a graphic view
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     /**
      * Create a new Polygon that has at least one shape in the list, because if in the future,
      * this class will introduce the possibility of generating different types of segments,
@@ -58,9 +62,9 @@ public class Polygon extends Shape{
 
     @Override
     public String toString() {
-        return "Polygon{" +
+        return ANSI_RED + "Polygon{" + ANSI_RESET +
                 "listLine=" + listLine +
                 ", color=" + color +
-                '}';
+                ANSI_RED + '}' + ANSI_RESET;
     }
 }
