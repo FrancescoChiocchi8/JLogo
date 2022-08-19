@@ -13,6 +13,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface CommandsVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link CommandsParser#logo}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogo(CommandsParser.LogoContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link CommandsParser#sequenceInstruction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

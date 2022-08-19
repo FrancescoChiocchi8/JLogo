@@ -4,7 +4,9 @@ grammar Commands;
 package it.unicam.cs.pa.pa2122.jlogo105504.api.antlr;
 }
 
-sequenceInstruction: instruction+ EOF;
+logo: sequenceInstruction EOF;
+
+sequenceInstruction: instruction+ ;
 
 instruction: forward
     | backward
@@ -18,7 +20,8 @@ instruction: forward
     | setFillColor
     | setScreenColor
     | setPenSize
-    | repeat;
+    | repeat
+    ;
 
 forward: FORWARD NUMBER;
 
@@ -44,7 +47,7 @@ setScreenColor: SETSCREENCOLOR NUMBER NUMBER NUMBER;
 
 setPenSize: SETPENSIZE NUMBER;
 
-repeat: REPEAT NUMBER sequenceInstruction;
+repeat: REPEAT NUMBER sequenceInstruction ?EXIT;
 
 fragment FD: ('FORWARD ' | 'FD '| 'forward ' | 'fd ');
 fragment BK: ('BACKWARD ' | 'BD '| 'backward ' | 'bd ');
@@ -60,6 +63,7 @@ fragment SSC: ('SESCREENCOLOR' | 'SSC' | 'setscreencolor' | 'ssc');
 fragment SPS: ('SETPENSIZE' | 'SPS' | 'setpensize' | 'sps');
 fragment RP: ('REPEAT ' | 'RP' | 'repeat' | 'rp');
 fragment INTEGER: ('0' .. '9');
+fragment EX: ('EXIT' | 'EX' | 'exit' | 'ex' );
 
 
 FORWARD: FD;
@@ -76,6 +80,7 @@ SETSCREENCOLOR: SSC;
 SETPENSIZE: SPS;
 REPEAT: RP;
 NUMBER: INTEGER+ ('.' INTEGER+)?;
+EXIT: EX;
 
 NEWLINE: '\r'? '\n' -> skip;
 WS: ' '+ -> skip;

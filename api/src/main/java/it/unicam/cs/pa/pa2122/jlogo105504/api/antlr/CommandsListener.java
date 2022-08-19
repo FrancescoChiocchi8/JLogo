@@ -10,6 +10,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface CommandsListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link CommandsParser#logo}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogo(CommandsParser.LogoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandsParser#logo}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogo(CommandsParser.LogoContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CommandsParser#sequenceInstruction}.
 	 * @param ctx the parse tree
 	 */

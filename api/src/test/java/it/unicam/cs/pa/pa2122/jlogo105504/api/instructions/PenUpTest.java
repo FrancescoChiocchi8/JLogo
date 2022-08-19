@@ -1,4 +1,4 @@
-package it.unicam.cs.pa.pa2122.jlogo105504.api.instruction;
+package it.unicam.cs.pa.pa2122.jlogo105504.api.instructions;
 
 /**
  * @author Francesco Chiocchi

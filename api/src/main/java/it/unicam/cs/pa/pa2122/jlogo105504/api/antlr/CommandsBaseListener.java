@@ -18,6 +18,18 @@ public class CommandsBaseListener implements CommandsListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLogo(CommandsParser.LogoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLogo(CommandsParser.LogoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterSequenceInstruction(CommandsParser.SequenceInstructionContext ctx) { }
 	/**
 	 * {@inheritDoc}

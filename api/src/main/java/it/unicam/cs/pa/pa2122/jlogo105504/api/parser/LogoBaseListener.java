@@ -22,9 +22,10 @@ public class LogoBaseListener extends CommandsBaseListener {
     private boolean plot = true;
     private Point startingPointPolygon;
     private Line lastLineAdded;
+    /**
+     * Only for represents the lines of a polygon.
+     */
     private List<Line> currentList;
-
-    boolean getPlot(){return plot;}
 
     /**
      * Associate panel for execute instruction.

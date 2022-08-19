@@ -3,17 +3,10 @@
  */
 package it.unicam.cs.pa.pa2122.jlogo105504.app;
 
-import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsLexer;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsParser;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramReader;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.IFileProgramReader;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.LogoBaseListener;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 
 import java.io.File;
@@ -141,5 +134,4 @@ public class Logo {
         }
         return height;
     }
-
 }
