@@ -12,9 +12,10 @@ public class Point implements Position{
     private double y;
 
     /**
-     * Cre
-     * @param x
-     * @param y
+     * Create a new Point that is may be used by a shape and represents a point in the panel.
+     *
+     * @param x the x-coordinates
+     * @param y the y-coordinates
      */
     public Point(double x, double y) {
         checkCorrectPointDimension(x, y);
@@ -24,8 +25,8 @@ public class Point implements Position{
      * If the parameters x and y are greater than 0.0 then they are set up to the input value,
      * otherwise they are set up to the value 0.0.
      *
-     * @param x coordinate
-     * @param y coordinate
+     * @param x the x-coordinate
+     * @param y the y-coordinate
      */
     private void checkCorrectPointDimension(double x, double y) {
         if(x < 0)

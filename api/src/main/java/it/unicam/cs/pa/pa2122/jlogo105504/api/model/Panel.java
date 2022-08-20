@@ -5,11 +5,9 @@ import java.util.List;
 /**
  * This interface is used to represent a generic panel.
  *
- * @param <C> the
- *
  * @author Francesco Chiocchi
  */
-public interface Panel<C> {
+public interface Panel{
 
     /**
      * This method is used to get the current base of this panel.
@@ -63,13 +61,13 @@ public interface Panel<C> {
     /**
      * This default method is used to check if the dimension of panel are valid.
      *
-     * @param width to be checked
+     * @param width  to be checked
      * @param height to be checked
-     * @return true if the dimension of the panel are valid, Exception be thrown otherwise
      */
     default boolean checkCorrectPanelDimension(int width, int height) {
-        if(width > 0 && height > 0)
+        if(width > 0 && height > 0) {
             return true;
+        }
         else
             throw new IllegalArgumentException("Incorrect dimensions for this panel!");
     }

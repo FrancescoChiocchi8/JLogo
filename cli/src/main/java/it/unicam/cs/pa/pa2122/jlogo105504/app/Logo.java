@@ -4,9 +4,7 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.app;
 
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramReader;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramWriter;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.IFileProgramReader;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.io.IFileProgramWriter;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
 
@@ -17,9 +15,16 @@ import java.util.Scanner;
 
 /**
  * This class represent the LOGO Application.
+ *
+ * @author Francesco Chiocchi
  */
 public class Logo {
 
+    /**
+     * The main of the application.
+     * @param args
+     * @throws IOException if an exception was thrown
+     */
     public static void main(String[] args) throws IOException {
         new Logo().getAll();
     }
@@ -37,7 +42,8 @@ public class Logo {
 
     /**
      * This private method is the core of application; after take in input all parameters,
-     * must read the
+     * it has the responsibility to read the input file and delegate the class Saving File
+     * to save te output of the file.
      *
      * @param input the file to read
      * @param output the file to write
@@ -49,10 +55,10 @@ public class Logo {
         Panel panel = new SimplePanel(width, height);
         IFileProgramReader fileProgramReader = new FileProgramReader();
         fileProgramReader.readFile(input, panel);
-        System.out.println("... Saving file: " + output.getName());
+        System.out.println("Reading File..."+ input +"\n...Saving file: " + output.getName());
         SavingFile.saveProgramToFile(output,panel);
-        System.out.println(panel.toString());
-        System.out.println(panel.getCursor().getCurrentPosition().toString());
+        System.out.println(panel);
+        //System.out.println(panel.getCursor().getCurrentPosition().toString());
     }
 
 
@@ -61,7 +67,7 @@ public class Logo {
      * This private method is used to get the input file from the user.
      *
      * @param scanner the scanner
-     * @return the file take in input from the user
+     * @return the file take in input from the user.
      */
     private File getInputFile(Scanner scanner){
         File file = null;
@@ -102,7 +108,7 @@ public class Logo {
      * the users.
      *
      * @param scanner used to take in input the width of the panel
-     * @return the panel's width
+     * @return the panel's width.
      */
     private Integer getWidthPanel(Scanner scanner) {
         Integer width = null;
@@ -121,7 +127,7 @@ public class Logo {
      * the users.
      *
      * @param scanner used to take in input the height of the panel
-     * @return the panel's height
+     * @return the panel's height.
      */
     private Integer getHeightPanel(Scanner scanner) {
         Integer height = null;

@@ -10,23 +10,23 @@ public interface Color {
     /**
      * Get the red color.
      *
-     * @return the red color
+     * @return the red color.
      */
-    int getRed();
+    int red();
 
     /**
      * Get the green color.
      *
-     * @return the green color
+     * @return the green color.
      */
-    int getGreen();
+    int green();
 
     /**
      * Get the blue color.
      *
-     * @return the blue color
+     * @return the blue color.
      */
-    int getBlue();
+    int blue();
 
     /**
      * This default method check if the all param of the color(red, green, blue) are a byte.
@@ -34,7 +34,7 @@ public interface Color {
      * @param red to be checked
      * @param green to be checked
      * @param blue to be checked
-     * @return true if the all param of the color are a byte, Exception be thrown otherwise
+     * @return true if the all param of the color are a byte, Exception be thrown otherwise.
      */
     default boolean checkIfIsAColor(int red, int green, int blue) {
         if(red >= 0 && red <= 255 && green >= 0 && green <= 255 && blue >= 0 && blue <= 255)

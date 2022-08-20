@@ -1,9 +1,5 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Point;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.RGBColor;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,5 +49,4 @@ public class SimplePanelTest {
         assertTrue(panel2.getHome().getX() == 350.0);
         assertTrue(panel2.getHome().getY() == 125.0);
     }
-
 }

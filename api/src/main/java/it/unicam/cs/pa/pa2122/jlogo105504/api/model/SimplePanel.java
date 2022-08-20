@@ -1,7 +1,6 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public class SimplePanel implements Panel {
     private Color screenColor;
     private Position home;
     private final Cursor cursor;
-    private List<Shape> shapes;
+    private final List<Shape> shapes;
 
     /**
      * Create a SimplePanel with the specific dimensions, initialize the color of
@@ -69,7 +68,7 @@ public class SimplePanel implements Panel {
      *
      * @param width calculated for the x-coordinate of the home
      * @param height calculated for the y-coordinate of the home
-     * @return the home
+     * @return the home.
      */
     private Position setHome(int width, int height) {
         home = new Point(width, height);
@@ -92,25 +91,13 @@ public class SimplePanel implements Panel {
         return "SIZE <" +
                 width + "> <" +
                 height + "> <" +
-                screenColor.getRed() + "> <" +
-                screenColor.getGreen() + "> <" +
-                screenColor.getBlue() + ">\n" +
+                screenColor.red() + "> <" +
+                screenColor.green() + "> <" +
+                screenColor.blue() + ">\n" +
                 "<shape>\n" +
                 String.join("\n", getShapes().toString()) +
                 "\n<shape>"
                 ;
     }
-
-    /*@Override
-    public String toString() {
-        return "SimplePanel{" +
-                "width=" + width +
-                ", height=" + height +
-                ", screenColor=" + screenColor.toString() +
-                ", home=" + home.toString() +
-                ", cursor=" + cursor.toString() +
-                ", shapes=" + shapes +
-                '}';
-    }*/
 
 }

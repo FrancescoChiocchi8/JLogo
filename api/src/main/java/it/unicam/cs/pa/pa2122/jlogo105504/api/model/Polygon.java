@@ -1,6 +1,5 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,10 +11,6 @@ public class Polygon extends Shape{
 
     private final List<Line> listLine;
     private Color color;
-
-    //Used only for a graphic view
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_RESET = "\u001B[0m";
 
     /**
      * Create a new Polygon that has at least one shape in the list, because if in the future,
@@ -65,18 +60,10 @@ public class Polygon extends Shape{
     public String toString() {
         return "POLYGON <" +
                 getListLine().size() +"> <" +
-                color.getRed() + "> <" +
-                color.getGreen() + "> <" +
-                color.getBlue() + ">\n" +
+                color.red() + "> <" +
+                color.green() + "> <" +
+                color.blue() + ">\n" +
                 String.join("\n", getListLine().toString());
-        //Arrays.toString(getListLine().toArray());
     }
-    /*
-    @Override
-    public String toString() {
-        return ANSI_RED + "Polygon{" + ANSI_RESET +
-                "listLine=" + listLine +
-                ", color=" + color +
-                ANSI_RED + '}' + ANSI_RESET;
-    }*/
+
 }

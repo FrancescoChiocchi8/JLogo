@@ -15,10 +15,6 @@ public class Line extends Shape {
     private final Color color;
     private final int size;
 
-    //Used only for a graphic view
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_RESET = "\u001B[0m";
-
     /**
      * Create a line with the position specified and initialize the color of the line to black(0, 0, 0).
      *
@@ -43,11 +39,7 @@ public class Line extends Shape {
         return end;
     }
 
-    /**
-     * Get the size of the line.
-     *
-     * @return the size of the line
-     */
+    @Override
     public int getSize() {
         return size;
     }
@@ -67,15 +59,18 @@ public class Line extends Shape {
      * be updated.
      *
      * @param size of the shape to be checked
-     * @return true if the size of the shape is greater than 0, false otherwise.
      */
-    private boolean checkSizeShape(int size) {
-        if(size >= 0)
-            return true;
-        else
+    private void checkSizeShape(int size) {
+        if(size < 0)
             throw new IllegalArgumentException("Incorrect dimensions for the size of the line!");
     }
 
+    /**
+     * A line is equals to other if and only if its start and end points are the same.
+     *
+     * @param o the other object to be confronted
+     * @return true if the two lines are equals, false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,19 +100,10 @@ public class Line extends Shape {
                 start.getY() + "> <" +
                 end.getX() + "> <" +
                 end.getY() + "> <" +
-                color.getRed() + "> <" +
-                color.getGreen() + "> <" +
-                color.getBlue() + "> <" +
+                color.red() + "> <" +
+                color.green() + "> <" +
+                color.blue() + "> <" +
                 size + ">\n";
     }
 
-    /*@Override
-    public String toString() {
-        return ANSI_GREEN + "Line{" + ANSI_RESET +
-                "start=" + start +
-                ", end=" + end +
-                ", color=" + color +
-                ", size=" + size +
-                ANSI_GREEN + '}' + ANSI_RESET;
-    }*/
 }

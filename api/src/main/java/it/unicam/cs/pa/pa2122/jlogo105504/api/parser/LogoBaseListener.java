@@ -20,17 +20,16 @@ public class LogoBaseListener extends CommandsBaseListener {
     private final Panel panel;
     private Polygon currentPolygon;
     private Position startingPointPolygon;
-    private Line lastLineAdded;
     /**
      * Only for represents the lines of a polygon.
      */
-    private List<Line> currentList;
-    private List<Polygon> listPolygon;
+    private final List<Line> currentList;
+    private final List<Polygon> listPolygon;
     /**
      * The idea is to create a "black list" of the line that are already part of a polygon,
      * so that it can no longer be part of a new polygon.
      */
-    private List<Line> blackListLine;
+    private final List<Line> blackListLine;
 
     /**
      * Associate panel for execute instruction.
@@ -56,7 +55,7 @@ public class LogoBaseListener extends CommandsBaseListener {
     /**
      * This method is used to recognize instructions.
      *
-     * @param instructions the instructions to recognize.
+     * @param instructions the instructions to recognize
      */
     private void recognizeInstruction(List<CommandsParser.InstructionContext> instructions){
         for (CommandsParser.InstructionContext i : instructions) {
@@ -128,10 +127,10 @@ public class LogoBaseListener extends CommandsBaseListener {
     private void checkAddLine(Position beforeMoving) {
         Position afterMoving = panel.getCursor().getCurrentPosition();
         if (panel.getCursor().getPlot() && !beforeMoving.equals(afterMoving)) {
-            lastLineAdded = new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentLineColor(), panel.getCursor().getSizeLine());
+            Line lastLineAdded = new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentLineColor(), panel.getCursor().getSizeLine());
             panel.getShapes().add(lastLineAdded);
             currentList.add(lastLineAdded);
-            if(currentList.stream().count() > 2)
+            if((long) currentList.size() > 2)
                 checkIfIsAPolygon(lastLineAdded);
         }
     }
@@ -165,8 +164,7 @@ public class LogoBaseListener extends CommandsBaseListener {
      * Add the polygon to the lists and the black list was updated.
      */
     public void addPolygon(){
-        List<Line> temporaryList = new ArrayList<>();
-        temporaryList.addAll(currentList);
+        List<Line> temporaryList = new ArrayList<>(currentList);
         Polygon polygon = new Polygon(temporaryList);
         listPolygon.add(polygon); panel.getShapes().add(polygon);
         this.currentPolygon = polygon;
@@ -259,7 +257,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         int red = Integer.parseInt(i.setFillColor().NUMBER(0).getText());
         int green = Integer.parseInt(i.setFillColor().NUMBER(1).getText());
         int blue = Integer.parseInt(i.setFillColor().NUMBER(2).getText());
-        if(currentPolygon.equals(null))
+        if(currentPolygon == null)
             throw new NoGeneratedPolygonException();
         currentPolygon.setFillColor(new RGBColor(red, green, blue));
     }

@@ -17,14 +17,14 @@ public abstract class Shape {
     /**
      * Get the color of the shape.
      *
-     * @return the color of the shape
+     * @return the color of the shape.
      */
     public abstract Color getColor();
 
     /**
      * Get the list of the line that make the closed area.
      *
-     * @return the list of the line that make the closed area
+     * @return the list of the line that make the closed area.
      * @throws UnsupportedOperationException if it is not a complex shape.
      */
     public abstract List<Line> getListLine();
@@ -32,7 +32,7 @@ public abstract class Shape {
     /**
      * Get shape's start position if it is a basic shape such as Line, Edge, Curves...
      *
-     * @return the shape's start position
+     * @return the shape's start position.
      * @throws UnsupportedOperationException if it is a complex shape
      */
     public abstract Position getStart();
@@ -40,7 +40,7 @@ public abstract class Shape {
     /**
      * Get shape's end position if it is a basic shape such as Line, Edge, Curves...
      *
-     * @return the shape's end position
+     * @return the shape's end position.
      * @throws UnsupportedOperationException if it is a complex shape
      */
     public abstract Position getEnd();
@@ -48,7 +48,7 @@ public abstract class Shape {
     /**
      * Get shape's size if it is a basic shape such as Line, Edge, Curves...
      *
-     * @return the shape's size
+     * @return the shape's size.
      * @throws UnsupportedOperationException if it is a complex shape
      */
     public abstract int getSize();
