@@ -1,5 +1,6 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -62,9 +63,20 @@ public class Polygon extends Shape{
 
     @Override
     public String toString() {
+        return "POLYGON <" +
+                getListLine().size() +"> <" +
+                color.getRed() + "> <" +
+                color.getGreen() + "> <" +
+                color.getBlue() + ">\n" +
+                String.join("\n", getListLine().toString());
+        //Arrays.toString(getListLine().toArray());
+    }
+    /*
+    @Override
+    public String toString() {
         return ANSI_RED + "Polygon{" + ANSI_RESET +
                 "listLine=" + listLine +
                 ", color=" + color +
                 ANSI_RED + '}' + ANSI_RESET;
-    }
+    }*/
 }

@@ -4,7 +4,9 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.app;
 
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramReader;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramWriter;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.IFileProgramReader;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.io.IFileProgramWriter;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
 
@@ -28,7 +30,6 @@ public class Logo {
     private void getAll() throws IOException {
         File input = new Logo().getInputFile(new Scanner(System.in));
         File output = new Logo().getOutputFile(new Scanner(System.in));
-        //output.createNewFile();
         Integer width = new Logo().getWidthPanel(new Scanner(System.in));
         Integer height = new Logo().getHeightPanel(new Scanner(System.in));
         new Logo().run(input, output, width, height);
@@ -48,11 +49,10 @@ public class Logo {
         Panel panel = new SimplePanel(width, height);
         IFileProgramReader fileProgramReader = new FileProgramReader();
         fileProgramReader.readFile(input, panel);
+        System.out.println("... Saving file: " + output.getName());
+        SavingFile.saveProgramToFile(output,panel);
         System.out.println(panel.toString());
         System.out.println(panel.getCursor().getCurrentPosition().toString());
-        // faccio lo scan delle istruzioni per riconoscere i comandi ed eventuali spostamenti
-        //chiamo metodo per scrivere sul file di output
-        //output.write();
     }
 
 

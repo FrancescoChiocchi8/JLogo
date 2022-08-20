@@ -1,6 +1,7 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -88,6 +89,20 @@ public class SimplePanel implements Panel {
 
     @Override
     public String toString() {
+        return "SIZE <" +
+                width + "> <" +
+                height + "> <" +
+                screenColor.getRed() + "> <" +
+                screenColor.getGreen() + "> <" +
+                screenColor.getBlue() + ">\n" +
+                "<shape>\n" +
+                String.join("\n", getShapes().toString()) +
+                "\n<shape>"
+                ;
+    }
+
+    /*@Override
+    public String toString() {
         return "SimplePanel{" +
                 "width=" + width +
                 ", height=" + height +
@@ -96,6 +111,6 @@ public class SimplePanel implements Panel {
                 ", cursor=" + cursor.toString() +
                 ", shapes=" + shapes +
                 '}';
-    }
+    }*/
 
 }

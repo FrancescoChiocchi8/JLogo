@@ -100,11 +100,24 @@ public class Line extends Shape {
 
     @Override
     public String toString() {
+        return "LINE <" +
+                start.getX() + "> <" +
+                start.getY() + "> <" +
+                end.getX() + "> <" +
+                end.getY() + "> <" +
+                color.getRed() + "> <" +
+                color.getGreen() + "> <" +
+                color.getBlue() + "> <" +
+                size + ">\n";
+    }
+
+    /*@Override
+    public String toString() {
         return ANSI_GREEN + "Line{" + ANSI_RESET +
                 "start=" + start +
                 ", end=" + end +
                 ", color=" + color +
                 ", size=" + size +
                 ANSI_GREEN + '}' + ANSI_RESET;
-    }
+    }*/
 }

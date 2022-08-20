@@ -45,11 +45,6 @@ public class LogoBaseListener extends CommandsBaseListener {
         blackListLine = new ArrayList<>();
     }
 
-    /**
-     * This method is used to recognize instructions.
-     *
-     * @param ctx the parse tree
-     */
     @Override
     public void enterSequenceInstruction(CommandsParser.SequenceInstructionContext ctx) {
         if(panel.getCursor().getPlot())
@@ -58,6 +53,11 @@ public class LogoBaseListener extends CommandsBaseListener {
         recognizeInstruction(instructions);
     }
 
+    /**
+     * This method is used to recognize instructions.
+     *
+     * @param instructions the instructions to recognize.
+     */
     private void recognizeInstruction(List<CommandsParser.InstructionContext> instructions){
         for (CommandsParser.InstructionContext i : instructions) {
             if (i.getText().matches("(FORWARD|FD|forward|fd).*")) isAForwardInstruction(i);
@@ -168,8 +168,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         List<Line> temporaryList = new ArrayList<>();
         temporaryList.addAll(currentList);
         Polygon polygon = new Polygon(temporaryList);
-        listPolygon.add(polygon);
-        panel.getShapes().add(polygon);
+        listPolygon.add(polygon); panel.getShapes().add(polygon);
         this.currentPolygon = polygon;
         startingPointPolygon = panel.getCursor().getCurrentPosition();
         blackListLine.addAll(currentList);
@@ -294,25 +293,12 @@ public class LogoBaseListener extends CommandsBaseListener {
      *
      * @param i the instruction
      */
-    private void isARepeatInstruction(CommandsParser.InstructionContext i) {
-        /*int nRepeat = Integer.parseInt(i.repeat().NUMBER().getText());
-        CommandsParser.SequenceInstructionContext ctx = i.repeat().sequenceInstruction();
-        List<CommandsParser.InstructionContext> instructions = ctx.instruction();
-        for (int count = 0; count <= nRepeat; count++){
+    private void  isARepeatInstruction(CommandsParser.InstructionContext i) {
+        int nRepeat = Integer.parseInt(i.repeat().NUMBER().getText());
+        List<CommandsParser.InstructionContext> instructions = i.repeat().sequenceInstruction().instruction();
+        for(int k = 0; k < nRepeat; k++){
             recognizeInstruction(instructions);
-            if(count == nRepeat)
-                exitSequenceInstruction(ctx);
-        }*/
+        }
     }
 
-    @Override public void enterRepeat(CommandsParser.RepeatContext ctx) {
-        int nRepeat = Integer.parseInt(ctx.NUMBER().getText());
-        List<CommandsParser.InstructionContext> instructions = ctx.sequenceInstruction().instruction();
-        instructions.stream().forEach(s -> System.out.println(s.getText()));
-        while(!ctx.EXIT().getText().matches("EXIT"))
-            System.out.println("Ciao");
-        /*for (int count = 0; count < nRepeat; count++){
-            recognizeInstruction(instructions);
-        }*/
-    }
 }
