@@ -56,7 +56,14 @@ public interface Panel{
      *
      * @return all elements in the list that represent the list of shapes which are contains in the panel.
      */
-    List<Shape> getShapes();
+    List<BasicShape> getBasicShapes();
+
+    /**
+     * Get the list of all complex shapes in the panel.
+     *
+     * @return the list of all complex shapes in the panel.
+     */
+    List<ClosedArea> getClosedAreas();
 
     /**
      * This default method is used to check if the dimension of panel are valid.

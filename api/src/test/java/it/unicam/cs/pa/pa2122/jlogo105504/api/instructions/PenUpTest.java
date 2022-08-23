@@ -26,7 +26,7 @@ public class PenUpTest {
         assertTrue(panel.getCursor().getPlot());
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
         readInstructions1.parse(instruction1);
-        assertTrue(panel.getShapes().isEmpty());
+        assertTrue(panel.getBasicShapes().isEmpty());
         assertTrue(!panel.getCursor().getPlot());
     }
 }

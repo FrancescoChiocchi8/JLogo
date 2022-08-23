@@ -3,7 +3,9 @@ package it.unicam.cs.pa.pa2122.jlogo105504.api.parser;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsBaseListener;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsParser;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.NoGeneratedPolygonException;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Point;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Polygon;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.UnknownInstructionException;
 
 import java.util.ArrayList;
@@ -18,18 +20,16 @@ import java.util.List;
 public class LogoBaseListener extends CommandsBaseListener {
 
     private final Panel panel;
-    private Polygon currentPolygon;
+    private ClosedArea currentPolygon;
     private Position startingPointPolygon;
+
+    private final List<BasicShape> basicShapesList;
+    private final List<ClosedArea> closedAreasList;
     /**
-     * Only for represents the lines of a polygon.
+     * The idea is to create a "black list" of the shapes that are already part of a closed area,
+     * so that it can no longer be part of a new closed area.
      */
-    private final List<Line> currentList;
-    private final List<Polygon> listPolygon;
-    /**
-     * The idea is to create a "black list" of the line that are already part of a polygon,
-     * so that it can no longer be part of a new polygon.
-     */
-    private final List<Line> blackListLine;
+    private final List<BasicShape> blackShapesList;
 
     /**
      * Associate panel for execute instruction.
@@ -39,9 +39,9 @@ public class LogoBaseListener extends CommandsBaseListener {
     public LogoBaseListener(Panel panel) {
         this.panel = panel;
         startingPointPolygon = panel.getHome();
-        currentList = new ArrayList<>();
-        listPolygon = new ArrayList<>();
-        blackListLine = new ArrayList<>();
+        basicShapesList = new ArrayList<>();
+        closedAreasList = new ArrayList<>();
+        blackShapesList = new ArrayList<>();
     }
 
     @Override
@@ -127,10 +127,10 @@ public class LogoBaseListener extends CommandsBaseListener {
     private void checkAddLine(Position beforeMoving) {
         Position afterMoving = panel.getCursor().getCurrentPosition();
         if (panel.getCursor().getPlot() && !beforeMoving.equals(afterMoving)) {
-            Line lastLineAdded = new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentLineColor(), panel.getCursor().getSizeLine());
-            panel.getShapes().add(lastLineAdded);
-            currentList.add(lastLineAdded);
-            if((long) currentList.size() > 2)
+            BasicShape lastLineAdded = new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentLineColor(), panel.getCursor().getSizeLine());
+            panel.getBasicShapes().add(lastLineAdded);
+            basicShapesList.add(lastLineAdded);
+            if((long) basicShapesList.size() > 2)
                 checkIfIsAPolygon(lastLineAdded);
         }
     }
@@ -140,9 +140,9 @@ public class LogoBaseListener extends CommandsBaseListener {
      *
      * @param lastLineAdded the last line added
      */
-    private void checkIfIsAPolygon(Line lastLineAdded) {
+    private void checkIfIsAPolygon(BasicShape lastLineAdded) {
         if(startingPointPolygon.equals(lastLineAdded.getEnd()))
-            if(listPolygon.isEmpty())
+            if(closedAreasList.isEmpty())
                 addPolygon();
             else
                 checkLineOfPolygons();
@@ -153,8 +153,8 @@ public class LogoBaseListener extends CommandsBaseListener {
      * make up another one.
      */
     private void checkLineOfPolygons() {
-        for(Line l : currentList)
-            if(blackListLine.contains(l)){
+        for(BasicShape l : basicShapesList)
+            if(blackShapesList.contains(l)){
                 return;
             }
         addPolygon();
@@ -164,13 +164,14 @@ public class LogoBaseListener extends CommandsBaseListener {
      * Add the polygon to the lists and the black list was updated.
      */
     public void addPolygon(){
-        List<Line> temporaryList = new ArrayList<>(currentList);
-        Polygon polygon = new Polygon(temporaryList);
-        listPolygon.add(polygon); panel.getShapes().add(polygon);
+        List<BasicShape> temporaryList = new ArrayList<>(basicShapesList);
+        ClosedArea polygon = new Polygon(temporaryList);
+        closedAreasList.add(polygon);
+        panel.getClosedAreas().add(polygon);
         this.currentPolygon = polygon;
         startingPointPolygon = panel.getCursor().getCurrentPosition();
-        blackListLine.addAll(currentList);
-        this.currentList.clear();
+        blackShapesList.addAll(basicShapesList);
+        this.basicShapesList.clear();
     }
 
     /**
@@ -200,7 +201,7 @@ public class LogoBaseListener extends CommandsBaseListener {
      * Logo's instruction CLEARSCREEN.
      */
     private void isAClearScreenInstruction() {
-        panel.getShapes().clear();
+        panel.getBasicShapes().clear();
     }
 
     /**
@@ -221,7 +222,7 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     private void isAPenUpInstruction() {
         panel.getCursor().setPlot(false);
-        this.currentList.clear();
+        this.basicShapesList.clear();
         startingPointPolygon = null;
     }
 
@@ -257,9 +258,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         int red = Integer.parseInt(i.setFillColor().NUMBER(0).getText());
         int green = Integer.parseInt(i.setFillColor().NUMBER(1).getText());
         int blue = Integer.parseInt(i.setFillColor().NUMBER(2).getText());
-        if(currentPolygon == null)
-            throw new NoGeneratedPolygonException();
-        currentPolygon.setFillColor(new RGBColor(red, green, blue));
+        panel.getCursor().setCurrentFillColor(new RGBColor(red, green, blue));
     }
 
     /**

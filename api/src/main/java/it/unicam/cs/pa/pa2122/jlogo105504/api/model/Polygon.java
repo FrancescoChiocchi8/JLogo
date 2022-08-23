@@ -7,20 +7,20 @@ import java.util.List;
  *
  * @author Francesco Chiocchi
  */
-public class Polygon extends Shape{
+public class Polygon implements ClosedArea{
 
-    private final List<Line> listLine;
-    private Color color;
+    private final List<BasicShape> basicShapes;
+    private final Color color;
 
     /**
      * Create a new Polygon that has at least one shape in the list, because if in the future,
      * this class will introduce the possibility of generating different types of segments,
      * such as edges or curves, only one segment will be enough to compose the closed area.
      *
-     * @param listLine the list that must contain at least one shape
+     * @param basicShapes the list that must contain at least one shape
      */
-    public Polygon(List<Line> listLine) {
-        this.listLine = listLine;
+    public Polygon(List<BasicShape> basicShapes) {
+        this.basicShapes = basicShapes;
         this.color = new RGBColor(255,255,255);
     }
 
@@ -29,41 +29,18 @@ public class Polygon extends Shape{
         return color;
     }
 
-    /**
-     * This method is used to color this polygon.
-     *
-     * @param color the new color of the polygon
-     */
-    public void setFillColor(Color color){this.color = color;}
-
-    @Override
-    public List<Line> getListLine() {
-        return listLine;
-    }
-
-    @Override
-    public Position getStart() {
-        throw new UnsupportedOperationException("It is a complex shape");
-    }
-
-    @Override
-    public Position getEnd() {
-        throw new UnsupportedOperationException("It is a complex shape");
-    }
-
-    @Override
-    public int getSize() {
-        throw new UnsupportedOperationException("It is a complex shape");
+    public List<BasicShape> getBasicShapes() {
+        return basicShapes;
     }
 
     @Override
     public String toString() {
         return "POLYGON <" +
-                getListLine().size() +"> <" +
+                getBasicShapes().size() +"> <" +
                 color.red() + "> <" +
                 color.green() + "> <" +
                 color.blue() + ">\n" +
-                String.join("\n", getListLine().toString());
+                String.join("\n", getBasicShapes().toString());
     }
 
 }

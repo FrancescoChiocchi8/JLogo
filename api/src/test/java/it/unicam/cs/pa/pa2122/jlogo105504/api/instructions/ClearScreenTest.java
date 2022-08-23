@@ -22,10 +22,10 @@ public class ClearScreenTest {
 
     @Test
     void testClearScreenInstruction() throws IOException {
-        panel.getShapes().add(line);
-        assertTrue(!panel.getShapes().isEmpty());
+        panel.getBasicShapes().add(line);
+        assertTrue(!panel.getBasicShapes().isEmpty());
         ReadInstructions readInstructions = new ReadInstructions(panel);
         readInstructions.parse(instruction);
-        assertTrue(panel.getShapes().isEmpty());
+        assertTrue(panel.getBasicShapes().isEmpty());
     }
 }

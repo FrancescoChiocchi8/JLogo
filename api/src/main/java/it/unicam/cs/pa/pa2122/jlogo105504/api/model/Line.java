@@ -1,14 +1,13 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
- * This class is an implementation of the interface {@link Shape}.
+ * This class is an implementation of the interface {@link BasicShape}.
  *
  * @author Francesco Chiocchi
  */
-public class Line extends Shape {
+public class Line extends BasicShape {
 
     private final Position start;
     private final Position end;
@@ -47,11 +46,6 @@ public class Line extends Shape {
     @Override
     public Color getColor() {
         return color;
-    }
-
-    @Override
-    public List<Line> getListLine() {
-        throw new UnsupportedOperationException("This method is used only for a Polygon!");
     }
 
     /**

@@ -13,6 +13,7 @@ public class SimpleCursor implements Cursor {
     private boolean plot;
     private int sizeLine;
     private Color currentLineColor;
+    private Color currentFillColor;
 
     /**
      * Create a simple cursor and initialize the position, set of plot to default
@@ -23,6 +24,7 @@ public class SimpleCursor implements Cursor {
         plot = true;
         sizeLine = 1;
         currentLineColor = new RGBColor(0, 0, 0);
+        currentFillColor = new RGBColor(255, 255, 255);
     }
 
     @Override
@@ -75,6 +77,16 @@ public class SimpleCursor implements Cursor {
     @Override
     public void setCurrentLineColor(Color color) {
         this.currentLineColor = color;
+    }
+
+    @Override
+    public Color getCurrentFillColor() {
+        return currentFillColor;
+    }
+
+    @Override
+    public void setCurrentFillColor(Color color) {
+        this.currentFillColor = color;
     }
 
     @Override

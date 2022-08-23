@@ -25,14 +25,4 @@ public class PolygonTest {
         listLine.clear();
         listLine.add(line1);
     }
-
-    @Test
-    void testUnsupportedOperationException(){
-        listLine.add(line1); listLine.add(line2); listLine.add(line3);
-        Shape triangle = new Polygon(listLine);
-        assertThrows(UnsupportedOperationException.class, () -> triangle.getStart());
-        assertThrows(UnsupportedOperationException.class, () -> triangle.getEnd());
-        assertThrows(UnsupportedOperationException.class, () -> triangle.getSize());
-        assertDoesNotThrow( () -> triangle.getListLine());
-    }
 }

@@ -6,7 +6,8 @@ import java.util.List;
 /**
  * This class is an implementation of the interface {@link Panel} and represent a simple panel.
  * The responsibility of this class is to hold all information contained in the panel, such as
- * the width, height, current position of the cursor, color of the screen and list of linee/aree.
+ * the width, height, current position of the cursor, color of the screen and list of
+ * basic shapes/aree.
  *
  * @author Francesco Chiocchi
  */
@@ -15,9 +16,10 @@ public class SimplePanel implements Panel {
     private final int width;
     private final int height;
     private Color screenColor;
-    private Position home;
+    private final Position home;
     private final Cursor cursor;
-    private final List<Shape> shapes;
+    private final List<BasicShape> basicShapes;
+    private final List<ClosedArea> closedAreas;
 
     /**
      * Create a SimplePanel with the specific dimensions, initialize the color of
@@ -32,9 +34,11 @@ public class SimplePanel implements Panel {
         this.width = width;
         this.height = height;
         cursor = new SimpleCursor();
-        home = setHome(width / 2, height / 2);
+        home = new Point(width / 2.0, height / 2.0);
+        cursor.setCurrentPosition(home);
         this.screenColor = new RGBColor(255,255,255);
-        shapes = new ArrayList<>();
+        basicShapes = new ArrayList<>();
+        closedAreas = new ArrayList<>();
     }
 
     @Override
@@ -62,28 +66,19 @@ public class SimplePanel implements Panel {
         this.screenColor = screenColor;
     }
 
-    /**
-     * This private method is used to set the home for this panel and to initialize
-     * the position for the cursor.
-     *
-     * @param width calculated for the x-coordinate of the home
-     * @param height calculated for the y-coordinate of the home
-     * @return the home.
-     */
-    private Position setHome(int width, int height) {
-        home = new Point(width, height);
-        cursor.setCurrentPosition(home);
-        return home;
-    }
-
     @Override
     public Position getHome() {
         return home;
     }
 
     @Override
-    public List<Shape> getShapes() {
-        return shapes;
+    public List<BasicShape> getBasicShapes() {
+        return basicShapes;
+    }
+
+    @Override
+    public List<ClosedArea> getClosedAreas() {
+        return closedAreas;
     }
 
     @Override
@@ -95,7 +90,8 @@ public class SimplePanel implements Panel {
                 screenColor.green() + "> <" +
                 screenColor.blue() + ">\n" +
                 "<shape>\n" +
-                String.join("\n", getShapes().toString()) +
+                String.join("\n", getBasicShapes().toString()) +
+                String.join("\n", getClosedAreas().toString()) +
                 "\n<shape>"
                 ;
     }

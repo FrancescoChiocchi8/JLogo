@@ -25,8 +25,8 @@ public class LogoBaseListenerTest {
     void checkIfWasGeneratedAPolygon() throws IOException {
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
         readInstructions1.parse(instruction1);
-        assertTrue(!panel.getShapes().isEmpty());
-        for(Object p: panel.getShapes())
+        assertTrue(!panel.getBasicShapes().isEmpty());
+        for(Object p: panel.getBasicShapes())
             if(p.getClass().equals(new Polygon(null).getClass())) {
                 assertTrue(!p.equals(null));
                 //se non raggiunge la fine, quindi se il metodo non genera un'eccezione,

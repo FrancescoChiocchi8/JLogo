@@ -78,6 +78,20 @@ public interface Cursor {
     void setCurrentLineColor(Color color);
 
     /**
+     * Get of the current fill area color .
+     *
+     * @return the current color fill area color.
+     */
+    Color getCurrentFillColor();
+
+    /**
+     * Update the current color of the possible closed area generating by the cursor.
+     *
+     * @param color of the area generating by the cursor
+     */
+    void setCurrentFillColor(Color color);
+
+    /**
      * This default method is used to check the size of a possible line generating by the cursor.
      *
      * @param sizeLine to be checked
