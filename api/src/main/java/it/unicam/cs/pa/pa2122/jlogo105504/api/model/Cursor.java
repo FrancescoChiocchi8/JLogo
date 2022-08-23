@@ -68,14 +68,14 @@ public interface Cursor {
      *
      * @return the current color for generating line by the cursor.
      */
-    Color getCurrentLineColor();
+    Color getCurrentShapeColor();
 
     /**
      * Update the current color of the line generating by the cursor.
      *
      * @param color of the line generating by the cursor
      */
-    void setCurrentLineColor(Color color);
+    void setCurrentShapeColor(Color color);
 
     /**
      * Get of the current fill area color .

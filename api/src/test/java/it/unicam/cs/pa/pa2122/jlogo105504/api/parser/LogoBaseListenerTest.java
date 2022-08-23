@@ -25,10 +25,10 @@ public class LogoBaseListenerTest {
     void checkIfWasGeneratedAPolygon() throws IOException {
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
         readInstructions1.parse(instruction1);
-        assertTrue(!panel.getBasicShapes().isEmpty());
-        for(Object p: panel.getBasicShapes())
-            if(p.getClass().equals(new Polygon(null).getClass())) {
-                assertTrue(!p.equals(null));
+        assertTrue(!panel.getClosedAreas().isEmpty());
+        for(ClosedArea closedArea: panel.getClosedAreas())
+            if(closedArea.getClass().equals(new Polygon(null, panel.getCursor().getCurrentFillColor()).getClass())) {
+                assertTrue(!closedArea.equals(null));
                 //se non raggiunge la fine, quindi se il metodo non genera un'eccezione,
                 // significa che ha trovato un oggetto poligono, quindi esce dal metodo con return;
                 //System.out.println(p.getClass() + "\n" + p);

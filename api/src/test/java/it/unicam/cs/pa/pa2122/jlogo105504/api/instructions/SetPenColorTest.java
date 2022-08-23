@@ -22,9 +22,9 @@ public class SetPenColorTest {
 
     @Test
     void testSetPenColorInstruction() throws IOException {
-        assertTrue(panel.getCursor().getCurrentLineColor().equals(new RGBColor(0,0,0)));
+        assertTrue(panel.getCursor().getCurrentShapeColor().equals(new RGBColor(0,0,0)));
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
         readInstructions1.parse(instruction1);
-        assertTrue(panel.getCursor().getCurrentLineColor().equals(new RGBColor(254,60,80)));
+        assertTrue(panel.getCursor().getCurrentShapeColor().equals(new RGBColor(254,60,80)));
     }
 }

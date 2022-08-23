@@ -19,9 +19,9 @@ public class Polygon implements ClosedArea{
      *
      * @param basicShapes the list that must contain at least one shape
      */
-    public Polygon(List<BasicShape> basicShapes) {
+    public Polygon(List<BasicShape> basicShapes, Color color) {
         this.basicShapes = basicShapes;
-        this.color = new RGBColor(255,255,255);
+        this.color = color;
     }
 
     @Override

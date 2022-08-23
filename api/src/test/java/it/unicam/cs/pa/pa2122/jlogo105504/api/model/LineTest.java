@@ -45,10 +45,4 @@ public class LineTest {
         assertTrue(line.getStart().equals(new Point(0.0,5.6)));
     }
 
-    @Test
-    void testException(){
-        assertThrows(UnsupportedOperationException.class, () -> line.getListLine());
-    }
-
-
 }

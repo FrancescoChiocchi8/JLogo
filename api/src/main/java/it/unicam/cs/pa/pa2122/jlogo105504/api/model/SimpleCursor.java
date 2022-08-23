@@ -12,7 +12,7 @@ public class SimpleCursor implements Cursor {
     private int direction;
     private boolean plot;
     private int sizeLine;
-    private Color currentLineColor;
+    private Color currentShapeColor;
     private Color currentFillColor;
 
     /**
@@ -23,7 +23,7 @@ public class SimpleCursor implements Cursor {
         direction = 0;
         plot = true;
         sizeLine = 1;
-        currentLineColor = new RGBColor(0, 0, 0);
+        currentShapeColor = new RGBColor(0, 0, 0);
         currentFillColor = new RGBColor(255, 255, 255);
     }
 
@@ -70,13 +70,13 @@ public class SimpleCursor implements Cursor {
     }
 
     @Override
-    public Color getCurrentLineColor() {
-        return currentLineColor;
+    public Color getCurrentShapeColor() {
+        return currentShapeColor;
     }
 
     @Override
-    public void setCurrentLineColor(Color color) {
-        this.currentLineColor = color;
+    public void setCurrentShapeColor(Color color) {
+        this.currentShapeColor = color;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class SimpleCursor implements Cursor {
                 ", direction=" + direction +
                 ", plot=" + plot +
                 ", sizeLine=" + sizeLine +
-                ", currentLineColor=" + currentLineColor +
+                ", currentLineColor=" + currentShapeColor +
                 '}';
     }
 }

@@ -21,17 +21,33 @@ public class SetFillColorTest {
             "LEFT 90\n FORWARD 90\n LEFT 90\n FORWARD 90\n LEFT 90\n FORWARD 90\n LEFT 90\n" +
             "SETFILLCOLOR 200 150 78";
 
+    private String instruction2 = "SETFILLCOLOR 200 150 78 \n" + "FORWARD 90 \n" +
+            "LEFT 90\n FORWARD 90\n LEFT 90\n FORWARD 90\n LEFT 90\n FORWARD 90\n LEFT 90\n" ;
+
     @Test
-    void testSetFillColorInstruction() throws IOException {
+    void testSetFillColorInstruction1() throws IOException {
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
         readInstructions1.parse(instruction1);
-        assertTrue(!panel.getBasicShapes().isEmpty());
-        for(Object p: panel.getBasicShapes())
-            if(p.getClass().equals(new Polygon(null).getClass())){
+        assertTrue(!panel.getClosedAreas().isEmpty());
+        for(ClosedArea closedArea: panel.getClosedAreas())
+            if(closedArea.getClass().equals(new Polygon(null, panel.getCursor().getCurrentFillColor()).getClass())){
                 //se non raggiunge la fine, quindi se il metodo non genera un'eccezione,
                 // significa che ha trovato un oggetto poligono, quindi esce dal metodo con return;
                 //System.out.println(p.getClass() + "\n" + p);
-                assertTrue(((Polygon) p).getColor().equals(new RGBColor(200,150,78)));
+                assertTrue(closedArea.getColor().equals(new RGBColor(255,255,255)));
+                return;
+            }
+        throw new NoGeneratedPolygonException();
+    }
+
+    @Test
+    void testSetFillColorInstruction2() throws IOException {
+        ReadInstructions readInstructions2 = new ReadInstructions(panel);
+        readInstructions2.parse(instruction2);
+        assertTrue(!panel.getClosedAreas().isEmpty());
+        for(ClosedArea closedArea: panel.getClosedAreas())
+            if(closedArea.getClass().equals(new Polygon(null, panel.getCursor().getCurrentFillColor()).getClass())){
+                assertTrue(closedArea.getColor().equals(new RGBColor(200,150,78)));
                 return;
             }
         throw new NoGeneratedPolygonException();

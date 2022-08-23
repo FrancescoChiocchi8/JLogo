@@ -20,7 +20,6 @@ import java.util.List;
 public class LogoBaseListener extends CommandsBaseListener {
 
     private final Panel panel;
-    private ClosedArea currentPolygon;
     private Position startingPointPolygon;
 
     private final List<BasicShape> basicShapesList;
@@ -127,10 +126,10 @@ public class LogoBaseListener extends CommandsBaseListener {
     private void checkAddLine(Position beforeMoving) {
         Position afterMoving = panel.getCursor().getCurrentPosition();
         if (panel.getCursor().getPlot() && !beforeMoving.equals(afterMoving)) {
-            BasicShape lastLineAdded = new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentLineColor(), panel.getCursor().getSizeLine());
+            BasicShape lastLineAdded = new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentShapeColor(), panel.getCursor().getSizeLine());
             panel.getBasicShapes().add(lastLineAdded);
             basicShapesList.add(lastLineAdded);
-            if((long) basicShapesList.size() > 2)
+            if(basicShapesList.size() > 2)
                 checkIfIsAPolygon(lastLineAdded);
         }
     }
@@ -161,14 +160,13 @@ public class LogoBaseListener extends CommandsBaseListener {
     }
 
     /**
-     * Add the polygon to the lists and the black list was updated.
+     * Add the polygon to the lists and the black list of the shapes was updated.
      */
     public void addPolygon(){
         List<BasicShape> temporaryList = new ArrayList<>(basicShapesList);
-        ClosedArea polygon = new Polygon(temporaryList);
+        ClosedArea polygon = new Polygon(temporaryList, panel.getCursor().getCurrentFillColor());
         closedAreasList.add(polygon);
         panel.getClosedAreas().add(polygon);
-        this.currentPolygon = polygon;
         startingPointPolygon = panel.getCursor().getCurrentPosition();
         blackShapesList.addAll(basicShapesList);
         this.basicShapesList.clear();
@@ -245,7 +243,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         int red = Integer.parseInt(i.setPenColor().NUMBER(0).getText());
         int green = Integer.parseInt(i.setPenColor().NUMBER(1).getText());
         int blue = Integer.parseInt(i.setPenColor().NUMBER(2).getText());
-        panel.getCursor().setCurrentLineColor(new RGBColor(red, green, blue));
+        panel.getCursor().setCurrentShapeColor(new RGBColor(red, green, blue));
     }
 
     /**

@@ -8,7 +8,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * This class is used to write all information for this panel, included all characteristics of the shapes.
+ * This class is used to write all information for this panel, included all characteristics
+ * of the shapes and closed areas.
  *
  * @author Francesco Chiocchi
  */
@@ -27,7 +28,7 @@ public class SavingFile {
             writer.write(panel.toString());
             return true;
         } catch (IOException e) {
-            System.err.println("I/O error while writing the output file: " + e.getMessage());
+            System.err.println("Input/Output error while writing the output file: " + e.getMessage());
             return false;
         }
     }

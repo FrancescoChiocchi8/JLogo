@@ -1,0 +1,25 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+javafx {
+    version = "18"
+    modules = [ 'javafx.fxml', 'javafx.controls' ]
+}
+
+mainClassName = 'it.unicam.cs.pa.pa2122.jlogo105504.gui.HelloApplication'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'it.unicam.cs.pa.pa2122.jlogo105504.gui.Prova'
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    implementation(project(path: ':api'))
+}
