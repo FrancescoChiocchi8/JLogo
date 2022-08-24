@@ -1,14 +1,14 @@
-package it.unicam.cs.pa.pa2122.jlogo105504.gui;
+package it.unicam.cs.pa.pa2122.jlogo105504.gui.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class LogoController {
     @FXML
     private Label welcomeText;
 
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        welcomeText.setText("Benvenuti in JLogo!");
     }
 }

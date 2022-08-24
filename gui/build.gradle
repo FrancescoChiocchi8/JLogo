@@ -8,11 +8,11 @@ javafx {
     modules = [ 'javafx.fxml', 'javafx.controls' ]
 }
 
-mainClassName = 'it.unicam.cs.pa.pa2122.jlogo105504.gui.HelloApplication'
+mainClassName = 'it.unicam.cs.pa.pa2122.jlogo105504.gui.LogoFX'
 
 jar {
     manifest {
-        attributes 'Main-Class': 'it.unicam.cs.pa.pa2122.jlogo105504.gui.Prova'
+        attributes 'Main-Class': 'it.unicam.cs.pa.pa2122.jlogo105504.gui.Main'
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from {
