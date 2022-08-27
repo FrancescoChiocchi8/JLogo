@@ -47,7 +47,8 @@ setScreenColor: SETSCREENCOLOR NUMBER NUMBER NUMBER;
 
 setPenSize: SETPENSIZE NUMBER;
 
-repeat: REPEAT NUMBER sequenceInstruction ?EXIT;
+repeat: REPEAT NUMBER sequenceInstructionRepeat ?EXIT;
+sequenceInstructionRepeat: instruction+;
 
 fragment FD: ('FORWARD ' | 'FD '| 'forward ' | 'fd ');
 fragment BK: ('BACKWARD ' | 'BD '| 'backward ' | 'bd ');

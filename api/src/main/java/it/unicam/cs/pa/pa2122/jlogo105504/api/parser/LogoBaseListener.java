@@ -3,9 +3,6 @@ package it.unicam.cs.pa.pa2122.jlogo105504.api.parser;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsBaseListener;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.antlr.CommandsParser;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Point;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Polygon;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.UnknownInstructionException;
 
 import java.util.ArrayList;
@@ -25,7 +22,7 @@ public class LogoBaseListener extends CommandsBaseListener {
     private final List<BasicShape> basicShapesList;
     private final List<ClosedArea> closedAreasList;
     /**
-     * The idea is to create a "black list" of the shapes that are already part of a closed area,
+     * The idea is to create a "black list shapes" that are already part of a closed area,
      * so that it can no longer be part of a new closed area.
      */
     private final List<BasicShape> blackShapesList;
@@ -43,7 +40,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         blackShapesList = new ArrayList<>();
     }
 
-    @Override
+   @Override
     public void enterSequenceInstruction(CommandsParser.SequenceInstructionContext ctx) {
         if(panel.getCursor().getPlot())
             startingPointPolygon = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
@@ -288,12 +285,11 @@ public class LogoBaseListener extends CommandsBaseListener {
      *
      * @param i the instruction
      */
-    private void  isARepeatInstruction(CommandsParser.InstructionContext i) {
+    private void isARepeatInstruction(CommandsParser.InstructionContext i) {
         int nRepeat = Integer.parseInt(i.repeat().NUMBER().getText());
-        List<CommandsParser.InstructionContext> instructions = i.repeat().sequenceInstruction().instruction();
-        for(int k = 0; k < nRepeat; k++){
+        List<CommandsParser.InstructionContext> instructions = i.repeat().sequenceInstructionRepeat().instruction();
+        for(int k = 0; k < nRepeat; k++)
             recognizeInstruction(instructions);
-        }
     }
 
 }

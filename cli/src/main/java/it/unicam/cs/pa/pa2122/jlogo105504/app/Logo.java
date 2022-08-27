@@ -51,14 +51,12 @@ public class Logo {
      * @param height for the panel
      */
     private void run(File input, File output, Integer width, Integer height) throws IOException {
-        //costruisco un nuovo panel con le dimensioni specificate dall'utente
         Panel panel = new SimplePanel(width, height);
         IFileProgramReader fileProgramReader = new FileProgramReader();
         fileProgramReader.readFile(input, panel);
         System.out.println("Reading File..."+ input +"\n...Saving file: " + output.getName());
         SavingFile.saveProgramToFile(output,panel);
         System.out.println(panel);
-        //System.out.println(panel.getCursor().getCurrentPosition().toString());
     }
 
 
@@ -117,7 +115,7 @@ public class Logo {
             Integer panelWidth = scanner.nextInt();
             if(panelWidth > 0)
                 width = panelWidth;
-            else System.out.println("Error!! The panel's width must be grater than 0, try again.");
+            else System.out.println("Error!! The panel's width must be greater than 0, try again.");
         }
         return width;
     }
@@ -136,7 +134,7 @@ public class Logo {
             Integer panelHeight = scanner.nextInt();
             if(panelHeight > 0)
                 height = panelHeight;
-            else System.out.println("Error!! The panel's height must be grater than 0, try again.");
+            else System.out.println("Error!! The panel's height must be greater than 0, try again.");
         }
         return height;
     }

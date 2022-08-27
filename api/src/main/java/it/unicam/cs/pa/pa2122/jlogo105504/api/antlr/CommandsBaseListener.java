@@ -205,6 +205,18 @@ public class CommandsBaseListener implements CommandsListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRepeat(CommandsParser.RepeatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSequenceInstructionRepeat(CommandsParser.SequenceInstructionRepeatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSequenceInstructionRepeat(CommandsParser.SequenceInstructionRepeatContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

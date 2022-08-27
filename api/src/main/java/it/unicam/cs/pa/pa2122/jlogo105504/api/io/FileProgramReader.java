@@ -23,7 +23,7 @@ public class FileProgramReader implements IFileProgramReader {
     public FileProgramReader() {
     }
 
-    public void readFile(File file, Panel panel) throws IOException {
+    public void readFile(File file, Panel panel) {
         try {
             CommandsLexer lexer = new CommandsLexer(CharStreams.fromPath(file.toPath()));
             CommonTokenStream tokens = new CommonTokenStream(lexer);

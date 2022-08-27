@@ -169,4 +169,14 @@ public interface CommandsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRepeat(CommandsParser.RepeatContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CommandsParser#sequenceInstructionRepeat}.
+	 * @param ctx the parse tree
+	 */
+	void enterSequenceInstructionRepeat(CommandsParser.SequenceInstructionRepeatContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CommandsParser#sequenceInstructionRepeat}.
+	 * @param ctx the parse tree
+	 */
+	void exitSequenceInstructionRepeat(CommandsParser.SequenceInstructionRepeatContext ctx);
 }

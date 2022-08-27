@@ -108,4 +108,10 @@ public interface CommandsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRepeat(CommandsParser.RepeatContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CommandsParser#sequenceInstructionRepeat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSequenceInstructionRepeat(CommandsParser.SequenceInstructionRepeatContext ctx);
 }
