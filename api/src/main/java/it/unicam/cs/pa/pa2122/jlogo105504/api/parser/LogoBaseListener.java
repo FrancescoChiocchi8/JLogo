@@ -27,6 +27,7 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     private final List<BasicShape> blackShapesList;
 
+    private Position pointPenUp;
     /**
      * Associate panel for execute instruction.
      *
@@ -217,8 +218,7 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     private void isAPenUpInstruction() {
         panel.getCursor().setPlot(false);
-        this.basicShapesList.clear();
-        startingPointPolygon = null;
+        this.pointPenUp = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
     }
 
     /**
@@ -227,6 +227,9 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     private void isAPenDownInstruction() {
         panel.getCursor().setPlot(true);
+        if(pointPenUp.equals(new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY())))
+            return;
+        this.basicShapesList.clear();
         startingPointPolygon = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
     }
 

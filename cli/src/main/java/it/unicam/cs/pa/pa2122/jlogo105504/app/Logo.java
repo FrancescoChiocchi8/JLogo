@@ -22,7 +22,7 @@ public class Logo {
 
     /**
      * The main of the application.
-     * @param args
+     *
      * @throws IOException if an exception was thrown
      */
     public static void main(String[] args) throws IOException {
@@ -112,7 +112,7 @@ public class Logo {
         Integer width = null;
         while (width == null) {
             System.out.println("Insert Panel Width");
-            Integer panelWidth = scanner.nextInt();
+            int panelWidth = scanner.nextInt();
             if(panelWidth > 0)
                 width = panelWidth;
             else System.out.println("Error!! The panel's width must be greater than 0, try again.");
@@ -131,7 +131,7 @@ public class Logo {
         Integer height = null;
         while (height == null) {
             System.out.println("Insert Panel Height");
-            Integer panelHeight = scanner.nextInt();
+            int panelHeight = scanner.nextInt();
             if(panelHeight > 0)
                 height = panelHeight;
             else System.out.println("Error!! The panel's height must be greater than 0, try again.");
