@@ -16,15 +16,15 @@ public class LineTest {
 
     @Test
     void testGetStartAndEndPosition(){
-        assertTrue(line.getStart().equals(new Point(5.5, 45)));
-        assertFalse(line.getStart().equals(new Point(89, 45)));
-        assertFalse(line.getStart().equals(new Point(5.5, 48)));
-        assertTrue(line.getEnd().equals(new Point(7.0, 89)));
+        assertEquals(line.getStart(), new Point(5.5, 45));
+        assertNotEquals(line.getStart(), new Point(89, 45));
+        assertNotEquals(line.getStart(), new Point(5.5, 48));
+        assertEquals(line.getEnd(), new Point(7.0, 89));
     }
 
     @Test
     void testColorLine(){
-        assertTrue(line.getColor().equals(new RGBColor(50, 50, 50)));
+        assertEquals(line.getColor(), new RGBColor(50, 50, 50));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class LineTest {
         BasicShape line =  new Line(new Point(-5,5.6),
                 new Point(60,5), new RGBColor(8,9,65), 4);
         System.out.println(line.getStart().getX());
-        assertTrue(line.getStart().equals(new Point(0.0,5.6)));
+        assertEquals(line.getStart(), new Point(0.0, 5.6));
     }
 
 }

@@ -26,27 +26,27 @@ public class SimplePanelTest {
     void checkIfTwoPanelsAreDifferent(){
         Panel p1 = new SimplePanel(400,600);
         Panel p2 = new SimplePanel(400,600);
-        assertFalse(p1.equals(p2));
+        assertNotEquals(p1, p2);
     }
 
     @Test
     void checkInitializeColorScreen(){
         Panel p = new SimplePanel(400,600);
         assertThrows(IllegalArgumentException.class, () -> p.setScreenColor(new RGBColor(-5,6,89)));
-        assertTrue(p.getScreenColor().equals(new RGBColor(255,255,255)));
+        assertEquals(p.getScreenColor(), new RGBColor(255, 255, 255));
         p.setScreenColor(new RGBColor(60,48,89));
-        assertFalse(p.getScreenColor().equals(new RGBColor(255,255,255)));
+        assertNotEquals(p.getScreenColor(), new RGBColor(255, 255, 255));
     }
 
     @Test
     void checkHomePanel(){
         Panel panel = new SimplePanel(400,800);
-        assertTrue(panel.getHome().equals(new Point(200,400)));
-        assertTrue(panel.getHome().getX() == 200.0);
-        assertTrue(panel.getHome().getY() == 400.0);
+        assertEquals(panel.getHome(), new Point(200, 400));
+        assertEquals(200.0, panel.getHome().getX());
+        assertEquals(400.0, panel.getHome().getY());
         Panel panel2 = new SimplePanel(700,250);
-        assertTrue(panel2.getHome().equals(new Point(350,125)));
-        assertTrue(panel2.getHome().getX() == 350.0);
-        assertTrue(panel2.getHome().getY() == 125.0);
+        assertEquals(panel2.getHome(), new Point(350, 125));
+        assertEquals(350.0, panel2.getHome().getX());
+        assertEquals(125.0, panel2.getHome().getY());
     }
 }

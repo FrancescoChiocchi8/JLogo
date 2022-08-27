@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This class is used to test the implementation of SETFILLCOLOR's Logo instruction.
@@ -15,26 +15,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class SetFillColorTest {
 
-    private Panel panel = new SimplePanel(500, 400);
-
-    private String instruction1 = "FORWARD 90 \n" +
-            "LEFT 90\n FORWARD 90\n LEFT 90\n FORWARD 90\n LEFT 90\n FORWARD 90\n LEFT 90\n" +
-            "SETFILLCOLOR 200 150 78";
-
-    private String instruction2 = "SETFILLCOLOR 200 150 78 \n" + "FORWARD 90 \n" +
-            "LEFT 90\n FORWARD 90\n LEFT 90\n FORWARD 90\n LEFT 90\n FORWARD 90\n LEFT 90\n" ;
+    private final Panel panel = new SimplePanel(500, 400);
 
     @Test
     void testSetFillColorInstruction1() throws IOException {
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
+        String instruction1 = "FORWARD 90 \s" +
+                "LEFT 90\s FORWARD 90\s LEFT 90\s FORWARD 90\s LEFT 90\s FORWARD 90\s LEFT 90\s" +
+                "SETFILLCOLOR 200 150 78";
         readInstructions1.parse(instruction1);
-        assertTrue(!panel.getClosedAreas().isEmpty());
+        assertFalse(panel.getClosedAreas().isEmpty());
         for(ClosedArea closedArea: panel.getClosedAreas())
-            if(closedArea.getClass().equals(new Polygon(null, panel.getCursor().getCurrentFillColor()).getClass())){
+            if(closedArea.getClass().equals(Polygon.class)){
                 //se non raggiunge la fine, quindi se il metodo non genera un'eccezione,
                 // significa che ha trovato un oggetto poligono, quindi esce dal metodo con return;
-                //System.out.println(p.getClass() + "\n" + p);
-                assertTrue(closedArea.getColor().equals(new RGBColor(255,255,255)));
+                assertEquals(closedArea.getColor(), new RGBColor(255, 255, 255));
                 return;
             }
         throw new NoGeneratedPolygonException();
@@ -43,11 +38,13 @@ public class SetFillColorTest {
     @Test
     void testSetFillColorInstruction2() throws IOException {
         ReadInstructions readInstructions2 = new ReadInstructions(panel);
+        String instruction2 = "SETFILLCOLOR 200 150 78 \s" + "FORWARD 90 \s" +
+                "LEFT 90\s FORWARD 90\s LEFT 90\s FORWARD 90\s LEFT 90\s FORWARD 90\s LEFT 90";
         readInstructions2.parse(instruction2);
-        assertTrue(!panel.getClosedAreas().isEmpty());
+        assertFalse(panel.getClosedAreas().isEmpty());
         for(ClosedArea closedArea: panel.getClosedAreas())
-            if(closedArea.getClass().equals(new Polygon(null, panel.getCursor().getCurrentFillColor()).getClass())){
-                assertTrue(closedArea.getColor().equals(new RGBColor(200,150,78)));
+            if(closedArea.getClass().equals(Polygon.class)){
+                assertEquals(closedArea.getColor(), new RGBColor(200, 150, 78));
                 return;
             }
         throw new NoGeneratedPolygonException();

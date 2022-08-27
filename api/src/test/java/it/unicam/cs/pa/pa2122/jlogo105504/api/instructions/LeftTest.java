@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This class is used to test the implementation of LEFT's Logo instruction.
@@ -15,35 +15,33 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class LeftTest {
 
-    private Panel panel = new SimplePanel(500, 400);
-
-    private String instruction1 = "LEFT 90 \n" +
-            "FORWARD 50 \n" +
-            "FORWARD 100";
-
-    private String instruction2 = "LEFT 90 \n" +
-            "RIGHT 180";
-
-    private String instruction3 = "LEFT 400\n";
+    private final Panel panel = new SimplePanel(500, 400);
 
     @Test
     void testLeftInstruction() throws IOException {
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
+        String instruction1 = """
+                LEFT 90\s
+                FORWARD 50\s
+                FORWARD 100""";
         readInstructions1.parse(instruction1);
-        assertTrue(panel.getCursor().getDirection() == 90);
+        assertEquals(90, panel.getCursor().getDirection());
     }
 
     @Test
     void testParticularCase1() throws IOException {
         ReadInstructions readInstructions2 = new ReadInstructions(panel);
+        String instruction2 = "LEFT 90 \n" +
+                "RIGHT 180";
         readInstructions2.parse(instruction2);
-        assertTrue(panel.getCursor().getDirection() == -90);
+        assertEquals(-90, panel.getCursor().getDirection());
     }
 
     @Test
     void testParticularCase2() throws IOException {
         ReadInstructions readInstructions3 = new ReadInstructions(panel);
+        String instruction3 = "LEFT 400\n";
         readInstructions3.parse(instruction3);
-        assertTrue(panel.getCursor().getDirection() == 40);
+        assertEquals(40, panel.getCursor().getDirection());
     }
 }

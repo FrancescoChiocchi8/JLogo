@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This class is used to test the implementation of BACKWARD's Logo instruction.
@@ -14,33 +14,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class BackwardTest {
 
-    private Panel panel = new SimplePanel(500, 400);
-
-    private String instruction1 = "LEFT 90 \n" +
-            "BACKWARD 50 \n" +
-            "BACKWARD 100";
-
-    private String instruction2 = "BACKWARD 4000 \n" +
-            "BACKWARD 50";
-
-    private String instruction3 = "RIGHT 180\n" +
-            "BACKWARD 4000 \n" +
-            "BACKWARD 50";
+    private final Panel panel = new SimplePanel(500, 400);
 
     @Test
     void testBackwardInstruction() throws IOException {
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
+        String instruction1 = """
+                LEFT 90\s
+                BACKWARD 50\s
+                BACKWARD 100""";
         readInstructions1.parse(instruction1);
-        assertTrue(panel.getCursor().getCurrentPosition().equals(new Point(250,50)));
+        assertEquals(panel.getCursor().getCurrentPosition(), new Point(250, 50));
     }
 
     @Test
     void testIfCursorStopToBoard() throws IOException {
         ReadInstructions readInstructions2 = new ReadInstructions(panel);
+        String instruction2 = "BACKWARD 4000 \n" +
+                "BACKWARD 50";
         readInstructions2.parse(instruction2);
-        assertTrue(panel.getCursor().getCurrentPosition().equals(new Point(0,200)));
+        assertEquals(panel.getCursor().getCurrentPosition(), new Point(0, 200));
         ReadInstructions readInstructions3 = new ReadInstructions(panel);
+        String instruction3 = """
+                RIGHT 180
+                BACKWARD 4000\s
+                BACKWARD 50""";
         readInstructions3.parse(instruction3);
-        assertTrue(panel.getCursor().getCurrentPosition().equals(new Point(500,200)));
+        assertEquals(panel.getCursor().getCurrentPosition(), new Point(500, 200));
     }
 }

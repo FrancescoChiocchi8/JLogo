@@ -1,5 +1,7 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
+import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.NoGeneratedPolygonException;
+
 import java.util.List;
 
 /**
@@ -22,5 +24,10 @@ public interface ClosedArea {
      * @return the elements that compose the closed area.
      */
     List<BasicShape> getBasicShapes();
+
+    default void checkBasicShapesList(List<BasicShape> basicShapes){
+        if(basicShapes.isEmpty())
+            throw new NoGeneratedPolygonException();
+    }
 
 }

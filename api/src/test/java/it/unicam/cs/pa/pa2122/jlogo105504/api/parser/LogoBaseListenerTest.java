@@ -7,31 +7,28 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Francesco Chiocchi
  */
 public class LogoBaseListenerTest {
 
-    private Panel panel = new SimplePanel(500, 400);
-
-    private String instruction1 = "FORWARD 90 \n" +
-            "LEFT 90\n FORWARD 90\n LEFT 90\n FORWARD 90\n LEFT 90\n FORWARD 90\n LEFT 90\n";
-
+    private final Panel panel = new SimplePanel(500, 400);
 
 
     @Test
     void checkIfWasGeneratedAPolygon() throws IOException {
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
+        String instruction1 = "FORWARD 90 \s" +
+                "LEFT 90\s FORWARD 90\s LEFT 90\s FORWARD 90\s LEFT 90\s FORWARD 90\s LEFT 90";
         readInstructions1.parse(instruction1);
-        assertTrue(!panel.getClosedAreas().isEmpty());
+        assertFalse(panel.getClosedAreas().isEmpty());
         for(ClosedArea closedArea: panel.getClosedAreas())
-            if(closedArea.getClass().equals(new Polygon(null, panel.getCursor().getCurrentFillColor()).getClass())) {
-                assertTrue(!closedArea.equals(null));
+            if(closedArea.getClass().equals(Polygon.class)) {
+                assertNotEquals(null, closedArea);
                 //se non raggiunge la fine, quindi se il metodo non genera un'eccezione,
                 // significa che ha trovato un oggetto poligono, quindi esce dal metodo con return;
-                //System.out.println(p.getClass() + "\n" + p);
                 return;
             }
         throw new NoGeneratedPolygonException();

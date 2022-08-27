@@ -28,6 +28,7 @@ public class LogoBaseListener extends CommandsBaseListener {
     private final List<BasicShape> blackShapesList;
 
     private Position pointPenUp;
+
     /**
      * Associate panel for execute instruction.
      *

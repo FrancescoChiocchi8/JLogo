@@ -6,7 +6,7 @@ FORWARD 30
 LEFT 90
 EXIT
 //SETFILLCOLOR 45 67 44
-//C:\Users\fchio\JLogo\Esempio.txt
+//C:\Users\fchio\JLogo\Esempi\Esempio.txt
 FORWARD 3
 
 

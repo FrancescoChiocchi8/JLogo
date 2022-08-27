@@ -1,9 +1,5 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Point;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimpleCursor;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,7 +15,7 @@ public class CursorTest {
 
     @Test
     void checkIfCursorIsInTheHome(){
-        assertTrue(panel.getCursor().getCurrentPosition().equals(new Point(350,125)));
+        assertEquals(panel.getCursor().getCurrentPosition(), new Point(350, 125));
     }
 
     @Test

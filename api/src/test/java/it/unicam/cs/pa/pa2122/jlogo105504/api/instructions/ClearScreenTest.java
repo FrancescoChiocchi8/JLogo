@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -14,17 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class ClearScreenTest {
 
-    private Panel panel = new SimplePanel(500, 400);
-    private Line line = new Line(new Point(40,4), new Point(3,5), new RGBColor(3, 5, 6), 4);
-
-    private String instruction = "FORWARD 40 \n" +
-            "CLEARSCREEN";
+    private final Panel panel = new SimplePanel(500, 400);
+    private final Line line = new Line(new Point(40,4), new Point(3,5), new RGBColor(3, 5, 6), 4);
 
     @Test
     void testClearScreenInstruction() throws IOException {
         panel.getBasicShapes().add(line);
-        assertTrue(!panel.getBasicShapes().isEmpty());
+        assertFalse(panel.getBasicShapes().isEmpty());
         ReadInstructions readInstructions = new ReadInstructions(panel);
+        String instruction = "FORWARD 40 \n" +
+                "CLEARSCREEN";
         readInstructions.parse(instruction);
         assertTrue(panel.getBasicShapes().isEmpty());
     }

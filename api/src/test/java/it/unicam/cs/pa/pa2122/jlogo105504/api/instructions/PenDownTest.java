@@ -15,16 +15,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class PenDownTest {
 
-    private Panel panel = new SimplePanel(500, 400);
-
-    private String instruction1 = "PENUP \n" +
-            "FORWARD 50 \n" +
-            "PENDOWN";
+    private final Panel panel = new SimplePanel(500, 400);
 
     @Test
     void testPenDownInstruction() throws IOException {
         assertTrue(panel.getCursor().getPlot());
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
+        String instruction1 = """
+                PENUP\s
+                FORWARD 50\s
+                PENDOWN""";
         readInstructions1.parse(instruction1);
         assertTrue(panel.getCursor().getPlot());
     }

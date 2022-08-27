@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * @author Francesco Chiocchi
+ */
 public class LogoFX extends Application {
 
     @Override

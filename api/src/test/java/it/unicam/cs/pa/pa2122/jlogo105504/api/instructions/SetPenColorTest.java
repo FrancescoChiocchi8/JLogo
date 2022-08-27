@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * This class is used to test the implementation of SETPENCOLOR's Logo instruction.
@@ -16,15 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class SetPenColorTest {
 
-    private Panel panel = new SimplePanel(500, 400);
-
-    private String instruction1 = "SETPENCOLOR 254 60 80 \n";
+    private final Panel panel = new SimplePanel(500, 400);
 
     @Test
     void testSetPenColorInstruction() throws IOException {
-        assertTrue(panel.getCursor().getCurrentShapeColor().equals(new RGBColor(0,0,0)));
+        assertEquals(panel.getCursor().getCurrentShapeColor(), new RGBColor(0, 0, 0));
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
+        String instruction1 = "SETPENCOLOR 254 60 80 \n";
         readInstructions1.parse(instruction1);
-        assertTrue(panel.getCursor().getCurrentShapeColor().equals(new RGBColor(254,60,80)));
+        assertEquals(panel.getCursor().getCurrentShapeColor(), new RGBColor(254, 60, 80));
     }
 }

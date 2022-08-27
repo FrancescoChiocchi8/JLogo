@@ -1,7 +1,5 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Color;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.RGBColor;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

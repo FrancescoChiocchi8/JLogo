@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -15,18 +16,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class PenUpTest {
 
-    private Panel panel = new SimplePanel(500, 400);
-
-    private String instruction1 = "PENUP \n" +
-            "FORWARD 50\n" +
-            "PENUP \n";
+    private final Panel panel = new SimplePanel(500, 400);
 
     @Test
     void testPenUpInstruction() throws IOException {
         assertTrue(panel.getCursor().getPlot());
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
+        String instruction1 = """
+                PENUP\s
+                FORWARD 50
+                PENUP\s
+                """;
         readInstructions1.parse(instruction1);
         assertTrue(panel.getBasicShapes().isEmpty());
-        assertTrue(!panel.getCursor().getPlot());
+        assertFalse(panel.getCursor().getPlot());
     }
 }
