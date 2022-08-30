@@ -16,7 +16,7 @@
    <children>
       <BorderPane layoutX="0.0" prefHeight="400.0" prefWidth="600.0">
          <top>
-            <HBox fx:id="header" prefHeight="70.0" prefWidth="600.0" style="-fx-background-color: #1e90ff;" BorderPane.alignment="CENTER">
+            <HBox fx:id="header" prefHeight="70.0" prefWidth="600.0" style="-fx-background-color: #1e90ff;" stylesheets="@../css/styling.css" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="70.0" fitWidth="89.0" pickOnBounds="true">
                      <image>
@@ -35,7 +35,7 @@
             </HBox>
          </top>
          <center>
-            <MenuBar blendMode="DARKEN" cache="true" prefHeight="29.0" prefWidth="600.0" BorderPane.alignment="TOP_LEFT">
+            <MenuBar blendMode="DARKEN" cache="true" prefHeight="29.0" prefWidth="600.0" stylesheets="@../css/styling.css" BorderPane.alignment="TOP_LEFT">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>

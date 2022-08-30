@@ -17,15 +17,15 @@ import java.util.List;
 public class LogoBaseListener extends CommandsBaseListener {
 
     private final Panel panel;
-    private Position startingPointPolygon;
+    private Position startingPointClosedArea;
 
-    private final List<BasicShape> basicShapesList;
-    private final List<ClosedArea> closedAreasList;
+    private final List<BasicShape> listBasicShapes;
+    private final List<ClosedArea> listClosedAreas;
     /**
      * The idea is to create a "black list shapes" that are already part of a closed area,
      * so that it can no longer be part of a new closed area.
      */
-    private final List<BasicShape> blackShapesList;
+    private final List<BasicShape> listBlackShapes;
 
     private Position pointPenUp;
 
@@ -36,16 +36,16 @@ public class LogoBaseListener extends CommandsBaseListener {
      */
     public LogoBaseListener(Panel panel) {
         this.panel = panel;
-        startingPointPolygon = panel.getHome();
-        basicShapesList = new ArrayList<>();
-        closedAreasList = new ArrayList<>();
-        blackShapesList = new ArrayList<>();
+        startingPointClosedArea = panel.getHome();
+        listBasicShapes = new ArrayList<>();
+        listClosedAreas = new ArrayList<>();
+        listBlackShapes = new ArrayList<>();
     }
 
    @Override
     public void enterSequenceInstruction(CommandsParser.SequenceInstructionContext ctx) {
         if(panel.getCursor().getPlot())
-            startingPointPolygon = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
+            startingPointClosedArea = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
         List<CommandsParser.InstructionContext> instructions = ctx.instruction();
         recognizeInstruction(instructions);
     }
@@ -84,7 +84,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         double distance = Double.parseDouble(i.forward().NUMBER().getText());
         Position beforeMoving = panel.getCursor().getCurrentPosition();
         panel.getCursor().setCurrentPosition(move(distance));
-        checkAddLine(beforeMoving);
+        checkAddShape(beforeMoving);
     }
 
     /**
@@ -97,7 +97,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         double distance = Double.parseDouble(i.backward().NUMBER().getText());
         Position beforeMoving = panel.getCursor().getCurrentPosition();
         panel.getCursor().setCurrentPosition(move(-distance));
-        checkAddLine(beforeMoving);
+        checkAddShape(beforeMoving);
     }
 
     /**
@@ -118,57 +118,59 @@ public class LogoBaseListener extends CommandsBaseListener {
 
     /**
      * This private method check if the plot is true (so, the cursor is drawing), and id is true
-     * was generated the line to be added to the panel, otherwise do nothing.
+     * was generated the basic shape to be added to the panel, otherwise do nothing.
      *
      * @param beforeMoving the position before the moving
      */
-    private void checkAddLine(Position beforeMoving) {
+    private void checkAddShape(Position beforeMoving) {
         Position afterMoving = panel.getCursor().getCurrentPosition();
         if (panel.getCursor().getPlot() && !beforeMoving.equals(afterMoving)) {
             BasicShape lastLineAdded = new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentShapeColor(), panel.getCursor().getSizeLine());
             panel.getBasicShapes().add(lastLineAdded);
-            basicShapesList.add(lastLineAdded);
-            if(basicShapesList.size() > 2)
-                checkIfIsAPolygon(lastLineAdded);
+            listBasicShapes.add(lastLineAdded);
+            if(listBasicShapes.size() > 2)
+                checkIfIsAClosedArea(lastLineAdded);
         }
     }
 
     /**
-     * This private method check if the added shape generated a closed area, so a Polygon.
+     * This private method check if the added shape generated a closed area, so in this case
+     * a Polygon.
      *
-     * @param lastLineAdded the last line added
+     * @param lastShapeAdded the last line added
      */
-    private void checkIfIsAPolygon(BasicShape lastLineAdded) {
-        if(startingPointPolygon.equals(lastLineAdded.getEnd()))
-            if(closedAreasList.isEmpty())
-                addPolygon();
+    private void checkIfIsAClosedArea(BasicShape lastShapeAdded) {
+        if(startingPointClosedArea.equals(lastShapeAdded.getEnd()))
+            if(listClosedAreas.isEmpty())
+                addClosedArea();
             else
-                checkLineOfPolygons();
+                checkLineOfClosedArea();
     }
 
     /**
-     * This private method check if the lines of the possible new polygon they already
+     * This private method check if the basic shapes of the possible new closed area they already
      * make up another one.
      */
-    private void checkLineOfPolygons() {
-        for(BasicShape l : basicShapesList)
-            if(blackShapesList.contains(l)){
+    private void checkLineOfClosedArea() {
+        for(BasicShape l : listBasicShapes)
+            if(listBlackShapes.contains(l)){
                 return;
             }
-        addPolygon();
+        addClosedArea();
     }
 
     /**
-     * Add the polygon to the lists and the black list of the shapes was updated.
+     * Add closed area to the lists of all closed areas and the black list of the basic shapes
+     * was updated.
      */
-    public void addPolygon(){
-        List<BasicShape> temporaryList = new ArrayList<>(basicShapesList);
-        ClosedArea polygon = new Polygon(temporaryList, panel.getCursor().getCurrentFillColor());
-        closedAreasList.add(polygon);
-        panel.getClosedAreas().add(polygon);
-        startingPointPolygon = panel.getCursor().getCurrentPosition();
-        blackShapesList.addAll(basicShapesList);
-        this.basicShapesList.clear();
+    public void addClosedArea(){
+        List<BasicShape> temporaryList = new ArrayList<>(listBasicShapes);
+        ClosedArea closedArea = new Polygon(temporaryList, panel.getCursor().getCurrentFillColor());
+        listClosedAreas.add(closedArea);
+        panel.getClosedAreas().add(closedArea);
+        startingPointClosedArea = panel.getCursor().getCurrentPosition();
+        listBlackShapes.addAll(listBasicShapes);
+        this.listBasicShapes.clear();
     }
 
     /**
@@ -230,8 +232,8 @@ public class LogoBaseListener extends CommandsBaseListener {
         panel.getCursor().setPlot(true);
         if(pointPenUp.equals(new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY())))
             return;
-        this.basicShapesList.clear();
-        startingPointPolygon = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
+        this.listBasicShapes.clear();
+        startingPointClosedArea = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
     }
 
     /**

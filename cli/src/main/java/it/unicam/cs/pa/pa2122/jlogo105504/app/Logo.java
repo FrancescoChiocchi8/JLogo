@@ -113,9 +113,9 @@ public class Logo {
         while (width == null) {
             System.out.println("Insert Panel Width");
             int panelWidth = scanner.nextInt();
-            if(panelWidth > 0)
+            if(panelWidth > 0 && panelWidth < 20000)
                 width = panelWidth;
-            else System.out.println("Error!! The panel's width must be greater than 0, try again.");
+            else System.out.println("Error!! The panel's width must be greater than 0 and less then 20000, try again.");
         }
         return width;
     }
@@ -132,9 +132,9 @@ public class Logo {
         while (height == null) {
             System.out.println("Insert Panel Height");
             int panelHeight = scanner.nextInt();
-            if(panelHeight > 0)
+            if(panelHeight > 0 && panelHeight < 16000)
                 height = panelHeight;
-            else System.out.println("Error!! The panel's height must be greater than 0, try again.");
+            else System.out.println("Error!! The panel's height must be greater than 0 and less than 16000, try again.");
         }
         return height;
     }

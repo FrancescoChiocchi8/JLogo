@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 
-import java.awt.event.ActionEvent;
-
 public class LogoController {
     @FXML
     private Label welcomeText;

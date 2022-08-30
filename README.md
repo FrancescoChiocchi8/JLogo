@@ -1,9 +1,9 @@
-### JLogo
-# Progetto di Programmazione Avanzata A.A. 2021/22
+# JLogo
+### Progetto di Programmazione Avanzata A.A. 2021/22
 
-### SVILUPPO BASE (Valutazione massima 22):
+# SVILUPPO BASE (Valutazione massima 22):
 
-# Modulo: API
+### Modulo: API
 
 -Definire una gerarchia di classi per rappresentare il programma Logo e le istruzioni:
     antlr, grammar(packages)
@@ -21,9 +21,9 @@
     FileProgramWriter
 
 
-### IMPLEMENTAZIONE MEDIA (Valutazione massima 25):
+# IMPLEMENTAZIONE MEDIA (Valutazione massima 25):
 
-# Modulo: CLI(Command Line Interface)
+### Modulo: CLI(Command Line Interface)
 
 -Sviluppare un'applicazione a console che ricevi in input un programma Logo e produce a console
 l'esecuzione del programma e produce in output il file generato:
@@ -31,9 +31,9 @@ l'esecuzione del programma e produce in output il file generato:
     SavingFile per produrre il file e salvarlo nel percorso specificato dall'utente.
 
 
-### IMPLEMENTAZIONE AVANZATA (Valutazione massima 30 e Lode):
+# IMPLEMENTAZIONE AVANZATA (Valutazione massima 30 e Lode):
 
-# Modulo: GUI(Graphical User Interface)
+### Modulo: GUI(Graphical User Interface)
 
 -Sviluppare un'interfaccia grafica che consenta di visualizzare l'esecuzione del programma Logo e,
 in modo opzionale, consenta di eseguire il programma stesso sia passo-passo che in modo automatico:
