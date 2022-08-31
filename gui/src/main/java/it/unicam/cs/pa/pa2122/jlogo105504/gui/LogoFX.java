@@ -15,14 +15,17 @@ import java.util.Objects;
  */
 public class LogoFX extends Application {
 
+    private Stage stage;
+
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("fxml/home.fxml")));
+        this.stage = stage;
         Scene scene = new Scene(root);
-        primaryStage.setTitle("JLogo");
-        primaryStage.getIcons().add(new Image(getClass().getResource("icons/Logo_icon.jpg").toString()));
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        stage.setTitle("JLogo");
+        stage.getIcons().add(new Image(getClass().getResource("icons/Logo_icon.jpg").toString()));
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {
