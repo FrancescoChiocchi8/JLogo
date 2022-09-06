@@ -6,6 +6,7 @@ import java.io.File;
 
 /**
  * This class is used to open the file in the "Browse File".
+ *
  * @author Francesco Chiocchi
  */
 public class ChooseFileController {
@@ -18,7 +19,7 @@ public class ChooseFileController {
      *
      * @return the chosen file.
      */
-    public File chooseFile(){
+    public static File chooseFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose File");
         File file = fileChooser.showOpenDialog(null);

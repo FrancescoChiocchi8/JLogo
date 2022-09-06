@@ -1,9 +1,18 @@
 .root {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #ffffff;
 }
 
 .hbox {
     -fx-background-color: #1e90ff;
-    -fx-padding: 15;
-    -fx-spacing: 10;
 }
+
+.open-file-button {
+    -fx-background-color: rgb(240, 248, 255);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 38, 134, 0.5), 8, 0, 0, 0);
+
+}
+
+.open-file-button:hover {
+      -fx-background-color: rgba(193, 218, 255, 1.0);
+      -fx-effect: dropshadow(three-pass-box, rgba(0, 30, 91, 1.0), 10, 0, 0, 0);
+  }

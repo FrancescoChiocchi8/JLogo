@@ -19,6 +19,9 @@ public class LogoBaseListener extends CommandsBaseListener {
     private final Panel panel;
     private Position startingPointClosedArea;
 
+    private List<CommandsParser.InstructionContext> instructions;
+    private static int count = 0;
+
     private final List<BasicShape> listBasicShapes;
     private final List<ClosedArea> listClosedAreas;
     /**
@@ -40,6 +43,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         listBasicShapes = new ArrayList<>();
         listClosedAreas = new ArrayList<>();
         listBlackShapes = new ArrayList<>();
+        instructions = new ArrayList<>();
     }
 
    @Override
@@ -47,7 +51,28 @@ public class LogoBaseListener extends CommandsBaseListener {
         if(panel.getCursor().getPlot())
             startingPointClosedArea = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
         List<CommandsParser.InstructionContext> instructions = ctx.instruction();
+        this.instructions = instructions;
         recognizeInstruction(instructions);
+    }
+
+    public List<CommandsParser.InstructionContext> getAllInstructions(){
+        return instructions;
+    }
+
+    public String getAllInstructionsString(){
+        String s = "";
+        for(CommandsParser.InstructionContext instructionContext: instructions){
+            s = s + instructions.toString();
+        }
+        return s;
+    }
+
+    public void runAInstruction(){
+        List<CommandsParser.InstructionContext> i = new ArrayList<>();
+        i.add(count, instructions.get(count));
+        recognizeInstruction(i);
+        i.clear();
+        count = count + 1;
     }
 
     /**

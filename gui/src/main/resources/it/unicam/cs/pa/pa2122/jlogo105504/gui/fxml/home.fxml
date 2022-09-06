@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="900.0" maxWidth="1200.0" minHeight="200" minWidth="400" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/styling.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.pa.pa2122.jlogo105504.gui.controller.LogoController">
+<AnchorPane fx:id="root" maxHeight="900.0" maxWidth="1200.0" minHeight="200" minWidth="400" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/styling.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.pa.pa2122.jlogo105504.gui.controller.LogoController">
    <children>
       <BorderPane fx:id="borderPane" layoutX="0.0" prefHeight="400.0" prefWidth="600.0">
          <top>
-            <HBox fx:id="header" prefHeight="70.0" prefWidth="600.0" style="-fx-background-color: #1e90ff;" stylesheets="@../css/styling.css" BorderPane.alignment="CENTER">
+            <HBox fx:id="header" prefHeight="70.0" prefWidth="600.0" styleClass="hbox" stylesheets="@../css/styling.css" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="70.0" fitWidth="89.0" pickOnBounds="true">
                      <image>
@@ -35,38 +34,27 @@
                </children>
             </HBox>
          </top>
-         <center>
-            <MenuBar blendMode="DARKEN" cache="true" prefHeight="29.0" prefWidth="600.0" stylesheets="@../css/styling.css" BorderPane.alignment="TOP_LEFT">
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                        <MenuItem fx:id="openFile" mnemonicParsing="false" onAction="#tryToOpenFile" text="Open File" />
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                        <MenuItem fx:id="chsP" mnemonicParsing="false" onAction="#changeSizePanel" text="Change Size of Panel">
-                           <graphic>
-                              <MenuButton mnemonicParsing="false" text="Select Size">
-                                <items>
-                                    <MenuItem mnemonicParsing="false" text="Small (600x420)" />
-                                  <MenuItem mnemonicParsing="false" text="Medium (900x720)" />
-                                  <MenuItem mnemonicParsing="false" text="Large (1200x900)" />
-                                </items>
-                              </MenuButton>
-                           </graphic></MenuItem>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem fx:id="help" mnemonicParsing="false" onAction="#getHelp" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </center>
+         <left>
+            <Button mnemonicParsing="false" onAction="#tryToOpenFile" prefHeight="96.0" prefWidth="204.0" styleClass="open-file-button" stylesheets="@../css/styling.css" text="Open FIle" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="50.0" />
+               </BorderPane.margin>
+               <effect>
+                  <DropShadow offsetX="5.0">
+                     <color>
+                        <Color green="0.14933332800865173" blue="0.5600000023841858" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+         </left>
+         <right>
+            <Button mnemonicParsing="false" onAction="#setCloseJLogo" prefHeight="96.0" prefWidth="204.0" styleClass="open-file-button" stylesheets="@../css/styling.css" text="Close JLogo" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="50.0" />
+               </BorderPane.margin>
+            </Button>
+         </right>
       </BorderPane>
    </children>
 </AnchorPane>
