@@ -5,6 +5,7 @@ package it.unicam.cs.pa.pa2122.jlogo105504.app;
 
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramReader;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.IFileProgramReader;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.io.SavingFile;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
 
@@ -23,6 +24,7 @@ public class Logo {
     /**
      * The main of the application.
      *
+     * @param args the args
      * @throws IOException if an exception was thrown
      */
     public static void main(String[] args) throws IOException {
@@ -55,7 +57,8 @@ public class Logo {
         IFileProgramReader fileProgramReader = new FileProgramReader();
         fileProgramReader.readFile(input, panel);
         System.out.println("Reading File..."+ input +"\n...Saving file: " + output.getName());
-        SavingFile.saveProgramToFile(output,panel);
+        SavingFile savingFile = new SavingFile();
+        savingFile.saveProgramToFile(output, panel);
         System.out.println(panel);
     }
 

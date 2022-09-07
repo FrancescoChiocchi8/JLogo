@@ -11,6 +11,9 @@ import java.io.File;
  */
 public class ChooseFileController {
 
+    /**
+     * Default constructor.
+     */
     public ChooseFileController() {
     }
 
@@ -22,7 +25,6 @@ public class ChooseFileController {
     public static File chooseFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose File");
-        File file = fileChooser.showOpenDialog(null);
-        return file;
+        return fileChooser.showOpenDialog(null);
     }
 }
