@@ -1,4 +1,4 @@
-package it.unicam.cs.pa.pa2122.jlogo105504.gui.controller;
+package it.unicam.cs.pa.pa2122.jlogo105504.gui.utils;
 
 import javafx.stage.FileChooser;
 
@@ -9,12 +9,12 @@ import java.io.File;
  *
  * @author Francesco Chiocchi
  */
-public class ChooseFileController {
+public class ChooseFile {
 
     /**
      * Default constructor.
      */
-    public ChooseFileController() {
+    public ChooseFile() {
     }
 
     /**

@@ -1,4 +1,4 @@
-package it.unicam.cs.pa.pa2122.jlogo105504.gui.controller;
+package it.unicam.cs.pa.pa2122.jlogo105504.gui.utils;
 
 import javafx.scene.control.TextInputDialog;
 
@@ -9,7 +9,7 @@ import java.util.Optional;
  *
  * @author Francesco Chiocchi
  */
-public class ChangePanelSizeController {
+public class ChangePanelSize {
 
     private int width;
     private int height;
@@ -25,7 +25,9 @@ public class ChangePanelSizeController {
         dialog.setHeaderText("Please, insert the width of the panel");
         dialog.setContentText("Width Panel: ");
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(width -> this.width = Integer.parseInt(width));
+        result.ifPresent(
+                width -> this.width = Integer.parseInt(width)
+        );
         System.out.println("\033[1;92m" + "The new width's size is: " + this.width + "\u001B[0m");
         return width;
     }
@@ -41,7 +43,9 @@ public class ChangePanelSizeController {
         dialog.setHeaderText("Please, insert the height of the panel");
         dialog.setContentText("Height Panel: ");
         Optional<String> result = dialog.showAndWait();
-        result.ifPresent(height -> this.height = Integer.parseInt(height));
+        result.ifPresent(
+                height -> this.height = Integer.parseInt(height)
+        );
         System.out.println("\033[1;92m" + "The new height's size is: " + this.height + "\u001B[0m");
         return height;
     }

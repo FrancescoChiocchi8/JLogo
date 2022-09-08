@@ -1,4 +1,4 @@
-package it.unicam.cs.pa.pa2122.jlogo105504.gui.controller;
+package it.unicam.cs.pa.pa2122.jlogo105504.gui.utils;
 
 import javafx.scene.control.TextInputDialog;
 
@@ -8,7 +8,7 @@ import java.io.File;
  * This class is used to ask the user where it wants save the output logo file.
  * @author Francesco Chiocchi
  */
-public class AskOutputFileController {
+public class AskOutputFile {
 
     /**
      * This public method is used to ask the output file to the user.

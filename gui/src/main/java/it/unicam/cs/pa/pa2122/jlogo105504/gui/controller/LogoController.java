@@ -3,11 +3,10 @@ package it.unicam.cs.pa.pa2122.jlogo105504.gui.controller;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramReader;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.ISavingFile;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.SavingFile;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.BasicShape;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.ClosedArea;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
-
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
+import it.unicam.cs.pa.pa2122.jlogo105504.gui.utils.AskOutputFile;
+import it.unicam.cs.pa.pa2122.jlogo105504.gui.utils.ChangePanelSize;
+import it.unicam.cs.pa.pa2122.jlogo105504.gui.utils.ChooseFile;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -15,17 +14,27 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is used to execute the events when a GUI is created.
  */
 public class LogoController {
 
-    private int defaultWidth = 920;
-    private int defaultHeight = 680;
+    /**
+     * Initialize default width.
+     */
+    private int width = 920;
+
+    /**
+     * Initialize default height.
+     */
+    private int height = 680;
     private Panel panel;
     private File input;
 
@@ -36,7 +45,7 @@ public class LogoController {
     private void tryToOpenFile() {
         System.out.println("Choosing a File...");
         boolean flag = false;
-        File input = ChooseFileController.chooseFile();
+        File input = ChooseFile.chooseFile();
         if (input != null) {
             this.input = input;
             flag = true;
@@ -53,9 +62,9 @@ public class LogoController {
     private void openLogoDrawing() {
         Canvas canvas = createPanelFX();
         Group anotherWindow = new Group(canvas);
-        Scene scene = new Scene(anotherWindow, defaultWidth, defaultHeight);
+        Scene scene = new Scene(anotherWindow, width, height);
         Stage stage = new Stage();
-        stage.setTitle("JLogo");
+        stage.setTitle("JLogo Draw");
         stage.setScene(scene);
         stage.show();
     }
@@ -66,9 +75,9 @@ public class LogoController {
      * @return the canvas.
      */
     private Canvas createPanelFX() {
-        Canvas canvas = new Canvas(defaultWidth, defaultHeight);
+        Canvas canvas = new Canvas(width, height);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        panel = new SimplePanel(defaultWidth, defaultHeight);
+        panel = new SimplePanel(width, height);
         FileProgramReader fileProgramReader = new FileProgramReader();
         fileProgramReader.readFile(input, panel);
         draw(panel, gc);
@@ -79,14 +88,14 @@ public class LogoController {
      * This private method is used to draw the executions of the JLogo program.
      *
      * @param panel the panel to draw
-     * @param gc the graphics context
+     * @param gc    the graphics context
      */
     private void draw(Panel panel, GraphicsContext gc) {
         gc.setFill(Color.rgb(panel.getScreenColor().red(), panel.getScreenColor().green(),
                 panel.getScreenColor().blue()));
-        gc.fillRect(0,0, defaultWidth, defaultHeight);
+        gc.fillRect(0, 0, width, height);
         for (BasicShape basicShape : panel.getBasicShapes()) {
-            gc.setLineWidth(panel.getCursor().getSizeLine());
+            gc.setLineWidth(basicShape.getSize());
             gc.setFill(Color.rgb(basicShape.getColor().red(), basicShape.getColor().green(),
                     basicShape.getColor().blue()));
             gc.moveTo(basicShape.getEnd().getX(), basicShape.getEnd().getY());
@@ -94,8 +103,26 @@ public class LogoController {
             gc.stroke();
         }
         for (ClosedArea closedArea : panel.getClosedAreas()) {
-            gc.setFill(Color.rgb(closedArea.getColor().red(), closedArea.getColor().green(),
-                    closedArea.getColor().blue()));
+
+        }
+    }
+
+    public void drawBasicShape(){}
+
+    public void drawClosedArea(){}
+
+    /**
+     * This method is used to save a file in a specified path.
+     */
+    @FXML
+    public void saveFile() {
+        if (input == null)
+            System.err.println("No files previously opened. First, try to opening a file.");
+        else {
+            AskOutputFile askOutputFileController = new AskOutputFile();
+            File output = askOutputFileController.askOutputFile();
+            ISavingFile savingFile = new SavingFile();
+            savingFile.saveProgramToFile(output, this.panel);
         }
     }
 
@@ -114,9 +141,9 @@ public class LogoController {
     @FXML
     private void changeSizePanel() {
         System.out.println("Changing size Panel...");
-        ChangePanelSizeController changePanelSizeController = new ChangePanelSizeController();
-        defaultWidth = changePanelSizeController.askPanelWidth();
-        defaultHeight = changePanelSizeController.askPanelHeight();
+        ChangePanelSize changePanelSizeController = new ChangePanelSize();
+        width = changePanelSizeController.askPanelWidth();
+        height = changePanelSizeController.askPanelHeight();
     }
 
     /**
@@ -142,28 +169,8 @@ public class LogoController {
                 The steps to run the application are:
                 1: Select a size of the panel, otherwise the default size will be set.
                 2: Open a logo file.
-                3: A new window was opened and a panel was created with all information read into the file.""";
+                3: A new window was opened and a panel was created with all information read into the file.
+                4: To save the file you must click the menu item "Save" and digit the name of the file.""";
     }
 
-    @FXML
-    public void newFile(){
-        panel.getBasicShapes().clear();
-        panel.getClosedAreas().clear();
-    }
-
-    /**
-     * This method is used to save a file in a specified path.
-     *
-     */
-    @FXML
-    public void saveFile() {
-        if(input == null)
-            System.err.println("No files previously opened. First, try to opening a file.");
-        else {
-            AskOutputFileController askOutputFileController = new AskOutputFileController();
-            File output = askOutputFileController.askOutputFile();
-            ISavingFile savingFile = new SavingFile();
-            savingFile.saveProgramToFile(output, this.panel);
-        }
-    }
 }

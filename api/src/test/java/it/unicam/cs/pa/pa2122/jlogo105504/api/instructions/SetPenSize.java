@@ -1,5 +1,6 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.instructions;
 
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.BasicShape;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
 import org.junit.jupiter.api.Test;
@@ -28,5 +29,19 @@ public class SetPenSize {
                 FORWARD 50""";
         readInstructions1.parse(instruction1);
         assertEquals(10, panel.getCursor().getSizeLine());
+    }
+
+    @Test
+    void testSetPenSizeInstruction2() throws IOException {
+        assertEquals(1, panel.getCursor().getSizeLine());
+        ReadInstructions readInstructions2 = new ReadInstructions(panel);
+        String instruction2 = """
+                FORWARD 50
+                LEFT 90
+                FORWARD 50
+                SETPENSIZE 4
+                FORWARD 50""";
+        readInstructions2.parse(instruction2);
+        assertEquals(4, panel.getCursor().getSizeLine());
     }
 }
