@@ -19,8 +19,8 @@ public class LogoBaseListener extends CommandsBaseListener {
     private final Panel panel;
     private Position startingPointClosedArea;
 
-    private List<CommandsParser.InstructionContext> instructions;
-    private static int count = 0;
+    //private List<CommandsParser.InstructionContext> instructions;
+    //private static int count = 0;
 
     private final List<BasicShape> listBasicShapes;
     private final List<ClosedArea> listClosedAreas;
@@ -43,7 +43,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         listBasicShapes = new ArrayList<>();
         listClosedAreas = new ArrayList<>();
         listBlackShapes = new ArrayList<>();
-        instructions = new ArrayList<>();
+        //instructions = new ArrayList<>();
     }
 
    @Override
@@ -51,14 +51,15 @@ public class LogoBaseListener extends CommandsBaseListener {
         if(panel.getCursor().getPlot())
             startingPointClosedArea = new Point(panel.getCursor().getCurrentPosition().getX(), panel.getCursor().getCurrentPosition().getY());
         List<CommandsParser.InstructionContext> instructions = ctx.instruction();
-        this.instructions = instructions;
+        //this.instructions = instructions;
         recognizeInstruction(instructions);
     }
 
-    public List<CommandsParser.InstructionContext> getAllInstructions(){
+    /*public List<CommandsParser.InstructionContext> getAllInstructions(){
         return instructions;
-    }
+    }*/
 
+   /*/*
     public String getAllInstructionsString(){
         String s = "";
         for(CommandsParser.InstructionContext instructionContext: instructions){
@@ -73,7 +74,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         recognizeInstruction(i);
         i.clear();
         count = count + 1;
-    }
+    }*/
 
     /**
      * This method is used to recognize instructions.

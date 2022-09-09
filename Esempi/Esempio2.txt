@@ -19,4 +19,3 @@ LEFT 90
 BACKWARD 40
 LEFT 90
 SETFILLCOLOR 67 89 35
-//C:\Users\fchio\JLogo\Esempi\Esempio2.txt

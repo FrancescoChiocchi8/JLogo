@@ -6,12 +6,13 @@ import java.io.File;
 
 /**
  * This class is used to ask the user where it wants save the output logo file.
+ *
  * @author Francesco Chiocchi
  */
 public class AskOutputFile {
 
     /**
-     * This public method is used to ask the output file to the user.
+     * This public method is used to ask the name of the output file to the user.
      *
      * @return the output file.
      */

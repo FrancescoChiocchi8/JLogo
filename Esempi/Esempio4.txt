@@ -1,0 +1,9 @@
+FORWARD 40
+PENUP
+PENDOWN
+lf 90
+forward 40
+left 90
+fd 40
+left 90
+FD 40

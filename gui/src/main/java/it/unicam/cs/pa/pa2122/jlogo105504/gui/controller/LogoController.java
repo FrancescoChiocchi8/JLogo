@@ -3,7 +3,10 @@ package it.unicam.cs.pa.pa2122.jlogo105504.gui.controller;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.FileProgramReader;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.ISavingFile;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.io.SavingFile;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.BasicShape;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.ClosedArea;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
 import it.unicam.cs.pa.pa2122.jlogo105504.gui.utils.AskOutputFile;
 import it.unicam.cs.pa.pa2122.jlogo105504.gui.utils.ChangePanelSize;
 import it.unicam.cs.pa.pa2122.jlogo105504.gui.utils.ChooseFile;
@@ -14,12 +17,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is used to execute the events when a GUI is created.
@@ -70,7 +70,7 @@ public class LogoController {
     }
 
     /**
-     * Create the Canvas where the shape are represented.
+     * Create the Canvas where all shapes are represented.
      *
      * @return the canvas.
      */
@@ -94,22 +94,40 @@ public class LogoController {
         gc.setFill(Color.rgb(panel.getScreenColor().red(), panel.getScreenColor().green(),
                 panel.getScreenColor().blue()));
         gc.fillRect(0, 0, width, height);
+        if (!panel.getBasicShapes().isEmpty())
+            drawBasicShape(gc);
+        if (!panel.getClosedAreas().isEmpty())
+            drawClosedArea(gc);
+    }
+
+    /**
+     * This private method is used to draw a basic shape in the GUI.
+     *
+     * @param gc the graphics context
+     */
+    private void drawBasicShape(GraphicsContext gc) {
         for (BasicShape basicShape : panel.getBasicShapes()) {
             gc.setLineWidth(basicShape.getSize());
-            gc.setFill(Color.rgb(basicShape.getColor().red(), basicShape.getColor().green(),
-                    basicShape.getColor().blue()));
             gc.moveTo(basicShape.getEnd().getX(), basicShape.getEnd().getY());
             gc.lineTo(basicShape.getStart().getX(), basicShape.getStart().getY());
+            gc.setStroke(Color.rgb(basicShape.getColor().red(), basicShape.getColor().green(),
+                    basicShape.getColor().blue()));
             gc.stroke();
-        }
-        for (ClosedArea closedArea : panel.getClosedAreas()) {
-
+            gc.fill();
         }
     }
 
-    public void drawBasicShape(){}
+    /**
+     * This private method is used to draw a closed area in the GUI.
+     *
+     * @param gc the graphics context
+     */
+    private void drawClosedArea(GraphicsContext gc) {
+        for(ClosedArea closedArea : panel.getClosedAreas())
+            gc.setStroke(Color.rgb(closedArea.getColor().red(), closedArea.getColor().green(),
+                    closedArea.getColor().blue()));
 
-    public void drawClosedArea(){}
+    }
 
     /**
      * This method is used to save a file in a specified path.
