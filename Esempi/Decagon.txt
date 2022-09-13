@@ -1,0 +1,5 @@
+//This instructions represents a decagon.
+REPEAT 10
+fd 100
+rt 36
+EXIT

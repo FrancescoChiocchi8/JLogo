@@ -1,7 +1,7 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.instructions;
 
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.NoGeneratedPolygonException;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.NoGeneratedClosedAreaException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class SetFillColorTest {
                 assertEquals(closedArea.getColor(), new RGBColor(255, 255, 255));
                 return;
             }
-        throw new NoGeneratedPolygonException();
+        throw new NoGeneratedClosedAreaException();
     }
 
     @Test
@@ -47,6 +47,6 @@ public class SetFillColorTest {
                 assertEquals(closedArea.getColor(), new RGBColor(200, 150, 78));
                 return;
             }
-        throw new NoGeneratedPolygonException();
+        throw new NoGeneratedClosedAreaException();
     }
 }

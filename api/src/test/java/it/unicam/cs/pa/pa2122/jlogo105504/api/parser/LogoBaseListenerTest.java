@@ -2,7 +2,7 @@ package it.unicam.cs.pa.pa2122.jlogo105504.api.parser;
 
 import it.unicam.cs.pa.pa2122.jlogo105504.api.instructions.ReadInstructions;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.*;
-import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.NoGeneratedPolygonException;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.NoGeneratedClosedAreaException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class LogoBaseListenerTest {
                 // significa che ha trovato un oggetto poligono, quindi esce dal metodo con return;
                 return;
             }
-        throw new NoGeneratedPolygonException();
+        throw new NoGeneratedClosedAreaException();
     }
 
 }

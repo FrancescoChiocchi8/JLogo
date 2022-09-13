@@ -18,7 +18,7 @@
     FileProgramReader
 
 -Definire la classe per scrivere il risultato dell'esecuzione del programma:
-    FileProgramWriter
+    FileProgramWriter, SavingFile
 
 
 # IMPLEMENTAZIONE MEDIA (Valutazione massima 25):
@@ -28,8 +28,7 @@
 -Sviluppare un'applicazione a console che ricevi in input un programma Logo e produce a console
 l'esecuzione del programma e produce in output il file generato:
     Logo per ricevere in input il file e le dimensioni del Panel;
-    SavingFile per produrre il file e salvarlo nel percorso specificato dall'utente.
-
+    SavingFile (:api) per produrre il file e salvarlo nel percorso specificato dall'utente.
 
 # IMPLEMENTAZIONE AVANZATA (Valutazione massima 30 e Lode):
 
@@ -37,4 +36,7 @@ l'esecuzione del programma e produce in output il file generato:
 
 -Sviluppare un'interfaccia grafica che consenta di visualizzare l'esecuzione del programma Logo e,
 in modo opzionale, consenta di eseguire il programma stesso sia passo-passo che in modo automatico:
-    LogoFX
+    MainFX per eseguire l'applicazione;
+    LogoFX lancia la "finestra" principale su cui eseguire operazioni come apertura, scrittura
+    del file, cambiamento dimensioni del pannello ed aiuto all'utente;
+    LogoController per la gestione degli eventi.

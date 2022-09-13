@@ -1,0 +1,8 @@
+repeat 8
+repeat 20
+lf 170
+fd 20
+rt 170
+fd 20
+exit rt 45
+exit

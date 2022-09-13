@@ -110,7 +110,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         double distance = Double.parseDouble(i.forward().NUMBER().getText());
         Position beforeMoving = panel.getCursor().getCurrentPosition();
         panel.getCursor().setCurrentPosition(move(distance));
-        checkAddShape(beforeMoving);
+        checkAddBasicShape(beforeMoving);
     }
 
     /**
@@ -123,7 +123,7 @@ public class LogoBaseListener extends CommandsBaseListener {
         double distance = Double.parseDouble(i.backward().NUMBER().getText());
         Position beforeMoving = panel.getCursor().getCurrentPosition();
         panel.getCursor().setCurrentPosition(move(-distance));
-        checkAddShape(beforeMoving);
+        checkAddBasicShape(beforeMoving);
     }
 
     /**
@@ -148,36 +148,34 @@ public class LogoBaseListener extends CommandsBaseListener {
      *
      * @param beforeMoving the position before the moving
      */
-    private void checkAddShape(Position beforeMoving) {
+    private void checkAddBasicShape(Position beforeMoving) {
         Position afterMoving = panel.getCursor().getCurrentPosition();
         if (panel.getCursor().getPlot() && !beforeMoving.equals(afterMoving)) {
             BasicShape lastLineAdded = new Line(beforeMoving, afterMoving, panel.getCursor().getCurrentShapeColor(), panel.getCursor().getSizeLine());
             panel.getBasicShapes().add(lastLineAdded);
             listBasicShapes.add(lastLineAdded);
-            if(listBasicShapes.size() > 2)
-                checkIfIsAClosedArea(lastLineAdded);
+            checkIfIsAClosedArea(lastLineAdded);
         }
     }
 
     /**
-     * This private method check if the added shape generated a closed area, so in this case
-     * a Polygon.
+     * This private method check if the added shape generated a closed area.
      *
-     * @param lastShapeAdded the last line added
+     * @param lastShapeAdded the last basic shape added
      */
     private void checkIfIsAClosedArea(BasicShape lastShapeAdded) {
         if(startingPointClosedArea.equals(lastShapeAdded.getEnd()))
             if(listClosedAreas.isEmpty())
                 addClosedArea();
             else
-                checkLineOfClosedArea();
+                checkBasicShapeOfClosedArea();
     }
 
     /**
      * This private method check if the basic shapes of the possible new closed area they already
      * make up another one.
      */
-    private void checkLineOfClosedArea() {
+    private void checkBasicShapeOfClosedArea() {
         for(BasicShape l : listBasicShapes)
             if(listBlackShapes.contains(l)){
                 return;
@@ -189,7 +187,7 @@ public class LogoBaseListener extends CommandsBaseListener {
      * Add closed area to the lists of all closed areas and the black list of the basic shapes
      * was updated.
      */
-    public void addClosedArea(){
+    private void addClosedArea(){
         List<BasicShape> temporaryList = new ArrayList<>(listBasicShapes);
         ClosedArea closedArea = new Polygon(temporaryList, panel.getCursor().getCurrentFillColor());
         listClosedAreas.add(closedArea);

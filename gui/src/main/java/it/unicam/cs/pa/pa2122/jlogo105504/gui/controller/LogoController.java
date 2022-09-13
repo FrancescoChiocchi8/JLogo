@@ -7,15 +7,12 @@ import it.unicam.cs.pa.pa2122.jlogo105504.api.model.BasicShape;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.ClosedArea;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.SimplePanel;
-import it.unicam.cs.pa.pa2122.jlogo105504.gui.utils.AskOutputFile;
-import it.unicam.cs.pa.pa2122.jlogo105504.gui.utils.ChangePanelSize;
-import it.unicam.cs.pa.pa2122.jlogo105504.gui.utils.ChooseFile;
+import it.unicam.cs.pa.pa2122.jlogo105504.gui.utils.*;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -30,7 +27,6 @@ public class LogoController {
      * Initialize default width.
      */
     private int width = 920;
-
     /**
      * Initialize default height.
      */
@@ -43,7 +39,7 @@ public class LogoController {
      */
     @FXML
     private void tryToOpenFile() {
-        System.out.println("Choosing a File...");
+        System.out.println("\033[1;34m" + "Choosing a File..." + "\u001B[0m");
         boolean flag = false;
         File input = ChooseFile.chooseFile();
         if (input != null) {
@@ -52,7 +48,7 @@ public class LogoController {
         }
         if (flag)
             openLogoDrawing();
-        else System.out.println("You must select a file.");
+        else System.out.println("\033[1;93m" + "You must select a file." + "\u001B[0m");
     }
 
     /**
@@ -88,7 +84,7 @@ public class LogoController {
      * This private method is used to draw the executions of the JLogo program.
      *
      * @param panel the panel to draw
-     * @param gc    the graphics context
+     * @param gc the graphics context
      */
     private void draw(Panel panel, GraphicsContext gc) {
         gc.setFill(Color.rgb(panel.getScreenColor().red(), panel.getScreenColor().green(),
@@ -107,13 +103,13 @@ public class LogoController {
      */
     private void drawBasicShape(GraphicsContext gc) {
         for (BasicShape basicShape : panel.getBasicShapes()) {
-            gc.setLineWidth(basicShape.getSize());
-            gc.moveTo(basicShape.getEnd().getX(), basicShape.getEnd().getY());
-            gc.lineTo(basicShape.getStart().getX(), basicShape.getStart().getY());
             gc.setStroke(Color.rgb(basicShape.getColor().red(), basicShape.getColor().green(),
                     basicShape.getColor().blue()));
+            gc.setLineWidth(basicShape.getSize());
+            gc.beginPath();
+            gc.moveTo(basicShape.getEnd().getX(), basicShape.getEnd().getY());
+            gc.lineTo(basicShape.getStart().getX(), basicShape.getStart().getY());
             gc.stroke();
-            gc.fill();
         }
     }
 
@@ -123,10 +119,11 @@ public class LogoController {
      * @param gc the graphics context
      */
     private void drawClosedArea(GraphicsContext gc) {
-        for(ClosedArea closedArea : panel.getClosedAreas())
+        for(ClosedArea closedArea : panel.getClosedAreas()){
             gc.setStroke(Color.rgb(closedArea.getColor().red(), closedArea.getColor().green(),
                     closedArea.getColor().blue()));
-
+            gc.stroke();
+        }
     }
 
     /**
@@ -137,8 +134,7 @@ public class LogoController {
         if (input == null)
             System.err.println("No files previously opened. First, try to opening a file.");
         else {
-            AskOutputFile askOutputFileController = new AskOutputFile();
-            File output = askOutputFileController.askOutputFile();
+            File output = AskOutputFile.askOutputFile();
             ISavingFile savingFile = new SavingFile();
             savingFile.saveProgramToFile(output, this.panel);
         }
@@ -158,7 +154,7 @@ public class LogoController {
      */
     @FXML
     private void changeSizePanel() {
-        System.out.println("Changing size Panel...");
+        System.out.println("\033[1;93m" + "Changing size Panel..." + "\u001B[0m");
         ChangePanelSize changePanelSizeController = new ChangePanelSize();
         width = changePanelSizeController.askPanelWidth();
         height = changePanelSizeController.askPanelHeight();
@@ -169,26 +165,6 @@ public class LogoController {
      */
     @FXML
     private void getHelp() {
-        System.out.println("Get help: " + getHelperString());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("JLogo Help");
-        alert.setHeaderText("How to use JLogo application?");
-        alert.setContentText(getHelperString());
-        alert.showAndWait();
+        HelpUser.getHelp();
     }
-
-    /**
-     * The default string to helper the user.
-     *
-     * @return the helper string.
-     */
-    private String getHelperString() {
-        return """
-                The steps to run the application are:
-                1: Select a size of the panel, otherwise the default size will be set.
-                2: Open a logo file.
-                3: A new window was opened and a panel was created with all information read into the file.
-                4: To save the file you must click the menu item "Save" and digit the name of the file.""";
-    }
-
 }

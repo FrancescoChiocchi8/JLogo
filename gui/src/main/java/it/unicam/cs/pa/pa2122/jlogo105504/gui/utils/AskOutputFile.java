@@ -16,14 +16,15 @@ public class AskOutputFile {
      *
      * @return the output file.
      */
-    public File askOutputFile() {
+    public static File askOutputFile() {
         TextInputDialog dialog = new TextInputDialog("insert output file");
         dialog.setTitle("Output File: ");
         dialog.setHeaderText("Please, insert the output file");
         dialog.setContentText("Output File: ");
-        String result = String.valueOf(dialog.showAndWait());
+        dialog.showAndWait();
+        String result = String.valueOf(dialog.getResult());
         File output = new File(result);
-        System.out.println("\033[1;92m" + "The new file " + output + "was generated." + "\u001B[0m");
+        System.out.println("\033[1;92m" + "The new file " + output + " was generated." + "\u001B[0m");
         return output;
     }
 }

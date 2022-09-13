@@ -1,6 +1,6 @@
 package it.unicam.cs.pa.pa2122.jlogo105504.api.model;
 
-import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.NoGeneratedPolygonException;
+import it.unicam.cs.pa.pa2122.jlogo105504.api.parser.exception.NoGeneratedClosedAreaException;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public interface ClosedArea {
      */
     default void checkBasicShapesList(List<BasicShape> basicShapes){
         if(basicShapes.isEmpty())
-            throw new NoGeneratedPolygonException();
+            throw new NoGeneratedClosedAreaException();
     }
 
 }
