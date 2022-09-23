@@ -167,4 +167,11 @@ public class LogoController {
     private void getHelp() {
         HelpUser.getHelp();
     }
+
+    /**
+     * This method is to be implemented.
+     */
+    @FXML
+    public void runAnInstruction() {
+    }
 }

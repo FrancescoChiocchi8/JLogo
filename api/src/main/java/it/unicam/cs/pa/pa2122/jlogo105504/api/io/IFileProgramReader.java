@@ -3,7 +3,6 @@ package it.unicam.cs.pa.pa2122.jlogo105504.api.io;
 import it.unicam.cs.pa.pa2122.jlogo105504.api.model.Panel;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**

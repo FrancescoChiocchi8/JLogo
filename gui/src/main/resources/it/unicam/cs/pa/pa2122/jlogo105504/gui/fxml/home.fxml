@@ -71,6 +71,7 @@
           <Menu mnemonicParsing="false" text="Edit">
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#changeSizePanel" text="Change Size" />
+                  <MenuItem mnemonicParsing="false" onAction="#runAnInstruction" text="Run an Instruction" />
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>

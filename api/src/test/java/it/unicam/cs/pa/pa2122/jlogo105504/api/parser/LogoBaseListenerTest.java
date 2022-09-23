@@ -16,7 +16,6 @@ public class LogoBaseListenerTest {
 
     private final Panel panel = new SimplePanel(500, 400);
 
-
     @Test
     void checkIfWasGeneratedAPolygon() throws IOException {
         ReadInstructions readInstructions1 = new ReadInstructions(panel);
@@ -32,6 +31,16 @@ public class LogoBaseListenerTest {
                 return;
             }
         throw new NoGeneratedClosedAreaException();
+    }
+
+    @Test
+    void checkIfWasNotGeneratedAPolygon() throws IOException {
+        ReadInstructions readInstructions1 = new ReadInstructions(panel);
+        String instruction1 = "FORWARD 90 \s" +
+                "LEFT 90\s FORWARD 90\s LEFT 90\s FORWARD 90\s LEFT 90\s FORWARD 90\s" +
+                "FORWARD 90\s LEFT 90\s FORWARD 90\s LEFT 90\s FORWARD 90\s ";
+        readInstructions1.parse(instruction1);
+        assertEquals(1, panel.getClosedAreas().size());
     }
 
 }
